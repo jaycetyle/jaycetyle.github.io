@@ -27,6 +27,7 @@ menu:
     type: 'categories'
   - title: 'Github'
     url: 'https://github.com/jaycetyle/'
+    type: 'link'
 
 # Owner/author information
 owner:
