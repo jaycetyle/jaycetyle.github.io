@@ -94,4 +94,4 @@ exclude: ["demo/*", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile
 gems: [jekyll-paginate]
 # remote_theme: aron-bordin/neo-hpstr-jekyll-themeg
 
-comments: true
+disqus_shortname: jaycetyle
