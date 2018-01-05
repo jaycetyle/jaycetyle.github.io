@@ -2,7 +2,7 @@ title:            Jayce's Shared Memory
 description:      
 
 # put your disqus here
-disqus_shortname:
+disqus_shortname: jaycetyle
 reading_time:     false # if true, shows the estimated reading time for a post
 words_per_minute: 200
 logo:             images/logo.png # logo visible in the topbar
@@ -93,5 +93,3 @@ include: [".htaccess"]
 exclude: ["demo/*", "lib", "config.rb", "Capfile", "config", "Gemfile", "Gemfile.lock", "README.md", "LICENSE", "log", "Rakefile", "Rakefile.rb", "tmp", "less", "*.sublime-project", "*.sublime-workspace", "test", "spec", "Gruntfile.js", "package.json", "node_modules"]
 gems: [jekyll-paginate]
 # remote_theme: aron-bordin/neo-hpstr-jekyll-themeg
-
-disqus_shortname: jaycetyle
