@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 新年 新文章 新氣象
-description: "就是第一篇文章的意思"
+description: "新部落格第一 Post"
 modified: 2018-01-05
 tags: [閒聊]
 categories: [2018/01]
