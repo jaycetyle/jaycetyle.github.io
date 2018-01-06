@@ -24,7 +24,7 @@ menu:
   - title: 'Tags'
     url: '/tags'
   - title: 'Github'
-    url: 'https://github.com/jaycetyle/'
+    url: 'https://github.com/jaycetyle'
     type: 'link'
 
 # Owner/author information
