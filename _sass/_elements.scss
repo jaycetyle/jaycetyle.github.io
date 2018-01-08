@@ -11,7 +11,7 @@ hr {
 // Figures and images
 // --------------------------------------------------
 figure {
-  margin: 0;
+  margin: 0em 2em 0em 2em;
   padding-top: 0px;
   padding-bottom: 0px;
   @include clearfix();
@@ -33,7 +33,7 @@ figure {
   &.large { // 3/4
     @media #{$large} {
       img {
-        width: 500px;
+        width: 540px;
         float: left;
         margin-right: 10px;
       }

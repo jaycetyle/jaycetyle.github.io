@@ -33,7 +33,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 	<img src="/images/2018/01/winstore-ubuntu.png" alt="">
 </figure>
 
-　　到這裡我們已經快完成了，執行剛剛安裝好的 Ubuntu ，並依照指示輸入使用者名稱和密碼就大功告成！
+　　我們已經快完成了，執行剛剛安裝好的 Ubuntu ，依照指示輸入使用者名稱和密碼就大功告成！
 <figure class="large center">
 	<img src="/images/2018/01/init-ubuntu.png" alt="">
 </figure>
