@@ -4,7 +4,7 @@ title: 在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)
 description: "gcc 及 Makefile 教學筆記 (2)"
 modified: 2015-01-23
 tags: [初心者, c/c++]
-categories: [2015/01]
+categories: [軟體開發]
 image:
     feature: 
     credit: 
