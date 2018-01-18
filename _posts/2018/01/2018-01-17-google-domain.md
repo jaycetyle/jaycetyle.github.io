@@ -34,22 +34,18 @@ image:
 　　其實步驟非常簡單，這裡只簡單介紹基本流程。
 
 　　首先進到 [Google Domains](https://domains.google/) 網站後，在中間的搜尋處輸入你想註冊的域名：
-<figure class="large　center"><img src="/images/2018/01/gdomain-find.png" alt=""></figure>
-
-　　
+<figure class="large center"><img src="/images/2018/01/gdomain-find.png" alt=""></figure>
 
 　　進來以後會顯示可被註冊的域名以及對應的價格，像 hellojayce.com 已經被註冊走了，可以選擇其他的域名，加入購物車並購買：
-<figure class="large　center"><img src="/images/2018/01/gdomain-price.png" alt=""></figure>
+<figure class="center"><img src="/images/2018/01/gdomain-price.png" alt=""></figure>
 
-　　
-
-　　點選 Proceed to checkout 以後，會進入到填寫個人資料，這有一個小小陷阱，我試過**用英文**填寫我家地址，如果國家選擇 Taiwan 的話，填完的結果是可能會出現 Invalid State 或 Invalid City 而無法通過。實際上直接使用**中文**填寫就可以了，State 部分填寫縣市、City 填寫鄉鎮市區。
+　　點選 Proceed to checkout 以後，會進入到填寫個人資料，這有一個小小陷阱，我試過用英文填寫我家地址，如果國家選擇 Taiwan 的話，填完的結果是可能會出現 Invalid State 或 Invalid City 而無法通過。實際上**直接使用中文填寫**就可以了，State 部分填寫縣市、City 填寫鄉鎮市區。
 
 　　這個聯絡資訊主要是網域有爭議的時候使用，假資料的話可能會出問題或吃虧，但資料之後也是可以更改。另外記得勾選 Make my info private，保護你的個人資料。
-<figure class="large　center"><img src="/images/2018/01/gdomain-contact.png" alt=""></figure>
+<figure class="large center"><img src="/images/2018/01/gdomain-contact.png" alt=""></figure>
 
-　　
+　　再下一步是填寫信用卡資料並刷卡，這部分我沒有截到圖，不過照填就可以了不會很困難。
 
-　　再下一步是填寫信用卡資料並刷卡，這部分我沒有截到圖，不過照填就可以了不會很困難。付款完畢後基本上就完成囉，接著就可以到主控台去進行設定名稱伺服器的轉址，以及帳單查詢等等，由於每個部落格平台的轉址設定方式可能都有一點不一樣，這部分就要看各平台的說明了。
-<figure class="large　center"><img src="/images/2018/01/gdomain-console.png" alt=""></figure>
+　　付款完畢後基本上就完成囉，接著就可以到主控台去進行設定名稱伺服器的轉址，以及帳單查詢等等，由於每個部落格平台的轉址設定方式可能都有一點不一樣，這部分就要看各平台的說明了。
+<figure class="center"><img src="/images/2018/01/gdomain-console.png" alt=""></figure>
 　　
