@@ -88,4 +88,4 @@ jaycelin@UBUNTU:~$ git push origin master
 　　大功告成！如果網頁建立有問題的話，你應該會收到 github 寄來的信告知建立狀況，如果沒問題，就可以到 USERNAME.github.io 看看你的網頁運行的成果！
 
 ### 參考文獻
-Jekyll on Windows 官方教學: https://jekyllrb.com/docs/windows/
+[Jekyll on Windows 官方教學 https://jekyllrb.com/docs/windows/](https://jekyllrb.com/docs/windows/)
