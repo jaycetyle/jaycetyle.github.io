@@ -20,13 +20,13 @@ image:
 ### 備份 SD 卡
 
 1. 點選開啟檔案圖示
-    <figure class="large center"> <img src="/images/old/win32-disk-img-01.png" alt=""> </figure>
+    <figure class="large center"> <img src="/images/2014/win32-disk-img-01.png" alt=""> </figure>
 
 2. 雖然視窗標題上面寫的是 Select a disk image ，但我們的工作是要備份 SD 卡，當然沒有 image 囉，不過沒關係，找到要的存檔路徑後，直接輸入想要儲存的檔案名稱，之後按開啟舊檔。
-    <figure class="large center"> <img src="/images/old/win32-disk-img-02.png" alt=""> </figure>
+    <figure class="large center"> <img src="/images/2014/win32-disk-img-02.png" alt=""> </figure>
 
 3. 插入 SD 卡並確認 SD 卡的磁碟代號，在 Device 下拉選單中選擇對應的磁碟代號。都確認無誤後就可以按下 Read 鍵，從 Device 中讀取資料並寫入 img 檔。
-    <figure class="large center"> <img src="/images/old/win32-disk-img-03.png" alt=""> </figure>
+    <figure class="large center"> <img src="/images/2014/win32-disk-img-03.png" alt=""> </figure>
 
 4. 讀取完畢後會顯示 Read Successfully 視窗到資料夾確認檔案是否已經順利儲存，如果有缺少副檔名情況，可以手動補上 .img 副檔名，這樣子 SD 卡就備份完成囉。
 
