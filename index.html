@@ -13,11 +13,15 @@ comments: false
       <div class="entry-image-index">
         <a href="{{ site.url }}{{ post.url }}" title="{{ post.title }}"><img src="{{ site.url }}/images/{{ post.image.feature }}" alt="{{ post.title }}"></a>
         {% if post.image.credit %}<div class="image-credit">Image source: <a target="_blank" href="{{ post.image.creditlink }}">{{ post.image.credit }}</a></div><!-- /.image-credit -->{% endif %}
-
       </div><!-- /.entry-image -->
     {% endif %}
     <div class="entry-meta">
-      <span class="entry-date date published updated"><time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%B %d, %Y" }}</a></time></span><span class="author vcard"><span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span></span>
+      <span class="entry-date date published updated">
+        <time datetime="{{ post.date | date_to_xmlschema }}"><a href="{{ site.url }}{{ post.url }}">{{ post.date | date: "%B %d, %Y" }}</a></time>
+      </span>
+      <span class="author vcard">
+        <span class="fn"><a href="{{ site.url }}/about/" title="About {{ site.owner.name }}">{{ site.owner.name }}</a></span>
+      </span>
       {% if site.reading_time %}
       <span class="entry-reading-time">
         <i class="fa fa-clock-o"></i>
@@ -34,12 +38,12 @@ comments: false
   </header>
   <div class="entry-content">
       {{ post.excerpt }}
-      {% if post.content contains "<!-- more -->" %}
-          <div align="center">
-              <div markdown="0"><a href="{{ site.url }}{{ post.url }}" class="btn btn-info">Continue Reading ...</a></div>
-          </div>
-      {% endif %}
   </div><!-- /.entry-content -->
+  {% if post.content contains site.excerpt_separator %}
+    <div align="left">
+        <div markdown="0"><a href="{{ site.url }}{{ post.url }}" style="color:rgb(64, 64, 180);">（繼續閱讀）</a></div>
+    </div>
+  {% endif %}
 </article><!-- /.hentry -->
 {% endfor %}
 

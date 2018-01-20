@@ -15,6 +15,8 @@ image:
 
 　　什麼是**靜態網頁**呢？簡單來說就是不包含資料庫等能和使用者互動的單純網頁，這對於單一網頁不常變動的部落格來說是一個不錯的選擇，唯一的缺點是一般部落格都會需要的留言系統會需要資料庫，但這部分已經有相當多平台提供服務，像本站是使用 [Disqus](https://disqus.com/)，其他像是 [Facebook 留言外掛程式](https://developers.facebook.com/docs/plugins/comments?locale=zh_TW) 也是不錯的選擇。
 
+<!--more-->
+
 ### 要怎麼安裝呢？
 　　Jekyll 主要是使用 Ruby 開發的，Ruby 本身有 Windows 版本，但相對麻煩，我個人最推薦的方式還是使用 **Windows Subsystem for Linux** 來安裝 Ruby，WSL 安裝方式可以參考[這篇](https://blog.jaycetyle.com/2018/01/win-subsys-linux/)，這裡安裝的是 Ubuntu 版本，所以在接下來的範例你會看到 *apt-get*。如果你想要使用其他的方式安裝，可以參考 [Jekyll 官方教學](https://jekyllrb.com/docs/windows/)，這篇文章主要也是翻譯自官方教學。如果你懶得看說明，就把從這個段落的的所有指令一行一行複製輸入就好囉。
 

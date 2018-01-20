@@ -13,6 +13,8 @@ image:
 
 　　Windows 的視窗介面很好用，不過對於開發者而言，有些工作使用命令列工具 (Command Line) 還是方便些。Windows 內建的命令列工具有命令提示字元 (cmd) 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW，如果有安裝過 git 的話還有 git bash。以上這些工具我都有試過，現在 **Windows 10** 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。
 
+<!--more-->
+
 　　安裝 WSL 的方法非常簡單，首先使用**系統管理員權限**開啟 **Power Shell** :
 <figure class="half center">
 	<img src="/images/2018/01/open-powershell.png" alt="">

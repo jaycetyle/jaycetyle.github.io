@@ -13,6 +13,8 @@ image:
 
 　　剛從 Windows 跳到 Linux 的 Programmer 應該都會跟我遇到類似的問題吧，就是 Linux 到處都是看不懂的 Makefile，畢竟 Windows 沒有這種東西，在 Windows 裡，Makefile 的工作都由 IDE 代勞了，這裡不得不說 Visual Studio 真的是很強大的整合開發環境，會寵壞小孩。但現在要進到 Linux 的領域，就勢必要搞懂這個 Makefile 在做什麼，大概怎麼寫，不然會遇到蠻多障礙，而這篇就是筆記 Makefile 的使用方式。
 
+<!--more-->
+
 　　首先，準備以下三個檔案以方便我們之後的測試 :
 
 **main.c**
