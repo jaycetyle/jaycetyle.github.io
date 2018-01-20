@@ -3,7 +3,7 @@ layout: post
 title: 在 Win10 安裝 Jekyll 部落格網站產生器及簡單起步教學
 description: "在 Windows 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學"
 modified: 2018-01-18
-tags: [小法師,網站架設]
+tags: [巫師,網站架設]
 categories: [網站架設]
 image:
     feature: 
