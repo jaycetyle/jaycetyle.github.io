@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Windows Subsystem for Linux
+title: Windows Subsystem for Linux 安裝 (Ubuntu bash)
 description: "Windows Subsystem for Linux 安裝"
 modified: 2018-01-07
 tags: [初心者]

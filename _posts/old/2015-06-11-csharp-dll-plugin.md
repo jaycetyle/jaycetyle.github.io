@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "[C#] 用 dll 做 Plugin 吧！"
+title: "[C#] 用 dll Reflection 做 Plugin 吧！"
 description: "用 C# 的 dll 反射做 Plugin"
 modified: 2015-01-20
 tags: [巫師, C#]
