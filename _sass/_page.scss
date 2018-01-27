@@ -480,15 +480,15 @@ ul.social-buttons li a:active {
 	width: 100%;
 	overflow: hidden;
 	position: relative;
-	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	height: 50px;
 	@media #{$medium} {
 		background-image: url("/images/banner.jpg");
+		background-repeat:no-repeat;
 		background-size:cover;
-		//background-color: $header-color;
-		min-height: 280px;
+		background-position: center;
+		background-color: $header-color;
+		min-height: 425px;
 	}
 }
 .header-toggle{
@@ -512,23 +512,25 @@ ul.social-buttons li a:active {
 		text-align: center;
 	}
 	h2 {
-		color: $white;
+		color: rgb(255, 250, 255);
+		margin-bottom: 85px;
 	}
 	h1 {
 		font-weight: 700;
-		margin-bottom: 20px;
+		margin-bottom: 30px;
 		@include font-rem(32);
-		color: $white;
+		color: rgb(255, 250, 255);
 		text-shadow: 1px 1px 4px rgba($base-color, 0.6);
+		font-weight: bold;
 		display: block;
 		a {
 			color: $white;
 		}
 		@media #{$medium} {
-			@include font-rem(26);
+			@include font-rem(32);
 		}
 		@media #{$large} {
-			@include font-rem(36);
+			@include font-rem(40);
 		}
 	}
 	h1.post-title{
