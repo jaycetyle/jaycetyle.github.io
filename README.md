@@ -1,2 +1,2 @@
 # Jayce's Blog
-http://blog.jaycetyle.com
+https://blog.jaycetyle.com

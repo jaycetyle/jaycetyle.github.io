@@ -114,3 +114,9 @@ target ... : prerequisites ...
 　　**prerequisites** 是要生成 target 時所相依的檔案，這個範例的話就是兩個 .c 檔，在比較複雜的編譯步驟中，這裡也可以是其他的步驟的 target。在這個範例中這段是可以忽略不寫的，可以試試看。
 
 　　**command** 的部分就是生成 target 所需要執行的命令，而生成的方法就是 gcc 指令了，注意 command 的前面的 tab 是規定的，有縮排可讀性也比較高。
+
+　
+
+### 繼續閱讀
+* [在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)]({% post_url old/2015-01-23-linux-gcc-makefile-2 %})
+* [寫一個簡單、通用的 Makefile]({% post_url 2018/01/2018-01-21-simple-general-makefile %})
