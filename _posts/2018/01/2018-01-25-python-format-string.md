@@ -115,7 +115,7 @@ import locale
 
 time = datetime(2018, 1, 23, 14, 12, 34, 123456)
 print ("{:%Y-%m-%d %H:%M:%S %A}".format(time))
-# 2018-01-23 14:12:34 2018-01-23 14:12:34 Tuesday
+# 2018-01-23 14:12:34 Tuesday
 
 # 注意: locale 和環境相關，如果環境沒有該地區設定，會出現類似以下的錯誤
 # locale.Error: unsupported locale setting
