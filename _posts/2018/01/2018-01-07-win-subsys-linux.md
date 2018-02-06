@@ -45,7 +45,7 @@ Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-L
 "terminal.integrated.shell.windows": "C:\\Windows\\sysnative\\bash.exe"
 {% endhighlight %}
 
-　　這樣終端機就會被換成剛剛安裝好的 Ubutu Subsystem 囉！
+　　按快捷鍵 Ctrl + `(tab 上面那個按鈕) 把終端機叫出來，此時終端機已經換成剛剛安裝好的 Ubuntu Subsystem 囉！
 
 
 
