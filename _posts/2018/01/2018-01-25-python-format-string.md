@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Python Format String 字串格式化整理
-description: "Python Format String 字串格式化整理"
+description: "Python Format String 字串格式化整理筆記"
 modified: 2018-01-25
 tags: [小法師, Python]
 categories: [軟體開發]

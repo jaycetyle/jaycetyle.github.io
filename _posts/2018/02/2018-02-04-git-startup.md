@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Git 版本控制筆記 - 環境設定
-description: "Git 版本控制教學筆記 - 環境設定"
+description: "Git 版本控制教學筆記 - Git 安裝教學及基本環境設定"
 modified: 2018-02-04
 tags: [小法師,版本控制]
 categories: [軟體開發]

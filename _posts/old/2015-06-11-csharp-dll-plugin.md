@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "[C#] 用 dll Reflection 做 Plugin 吧！"
-description: "用 C# 的 dll 反射做 Plugin"
+description: "在 C# 使用 dll 及反射 (Reflection) 做執行期動態插件 (Plugin)"
 modified: 2015-01-20
 tags: [巫師, C#]
 categories: [軟體開發]

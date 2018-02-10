@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 使用 Google Domains 註冊個人網域
-description: "使用 Google Domains 購買、註冊個人網域"
+description: "使用 Google Domains 購買、註冊專屬的個人網域"
 modified: 2018-01-17
 tags: [初心者,網站架設]
 categories: [網站架設]

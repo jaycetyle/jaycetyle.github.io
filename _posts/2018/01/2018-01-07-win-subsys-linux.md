@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Windows Subsystem for Linux 安裝 (Ubuntu bash)
-description: "Windows Subsystem for Linux 安裝"
+description: "Windows Subsystem for Linux 安裝教學，以 Ubuntu Bash 為範例"
 modified: 2018-01-07
 tags: [初心者]
 categories: [軟體開發]

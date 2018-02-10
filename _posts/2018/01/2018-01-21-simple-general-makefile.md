@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 寫一個簡單、通用的 Makefile
-description: "簡單通用的 Makefile 筆記"
+description: "簡單通用的 Makefile 筆記，自動掃描目錄 .c 檔進行編譯"
 modified: 2018-01-21
 tags: [小法師, C/C++]
 categories: [軟體開發]

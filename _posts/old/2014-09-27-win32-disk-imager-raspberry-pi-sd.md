@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 用 Win32 Disk Imager 備份和燒錄 Raspberry Pi 的 SD 卡
-description: "用 Win32 Disk Imager 備份和燒錄 Raspberry Pi 的 SD 卡"
+description: "用 Win32 Disk Imager 備份和燒錄 Raspberry Pi 的 SD 卡簡易教學"
 modified: 2014-09-27
 tags: [初心者, 工具軟體]
 categories: [工具軟體]
