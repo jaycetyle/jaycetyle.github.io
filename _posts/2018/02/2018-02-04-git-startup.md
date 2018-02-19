@@ -1,8 +1,8 @@
 ---
 layout: post
-title: Git 版本控制筆記 - 環境設定
-description: "Git 版本控制教學筆記 - Git 安裝教學及基本環境設定"
-modified: 2018-02-04
+title: Git 版本控制筆記 - Git 安裝及環境設定
+description: "這邊文章會說明如何安裝 Git 以及安裝 Git 後的一些基本設定，例如使用者資料，以及 commit message 的預設編輯器等等"
+modified: 2018-02-18
 tags: [小法師,版本控制]
 categories: [軟體開發]
 image:
@@ -61,11 +61,11 @@ $ git config --global user.email "mailto@your.mail"
 $ git config --global core.editor vim
 {% endhighlight %}
 
-　　以上的動作在安裝完 git 以後只要執行一次就好。到這裡我們算是把事前工作都準備完成了，已經可以來正式使用囉！
+　　以上的動作在安裝完 git 以後只要執行一次就好。到這裡我們算是把事前工作都準備完成了，其實已經可以正式開始使用了。以下會介紹一些其他方便的 git 設定，這安裝後只要設定一次即可，建議一併設定。
 
 　
 
-## Git 指令縮寫 (別名)
+## Git 指令縮寫 (git alias 別名)
 　　git 也有縮寫指令，例如我們可以把 checkout 縮寫成 co，以後想輸入 git checkout 時就只要輸入 git co，可以少打幾個字。以下幾個算是蠻常見的，很多人都會使用相同的設定，也會是之後最常用的幾個指令，可以先設起來
 {% highlight Shell %}
 $ git config --global alias.co checkout
