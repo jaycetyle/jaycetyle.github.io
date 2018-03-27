@@ -1,8 +1,8 @@
 ---
 layout: post
 title: Python Format String 字串格式化整理
-description: "Python Format String 字串格式化整理筆記"
-modified: 2018-01-25
+description: "Python 從 2.6 開始新增了 .format() 的字串格式化輸出函數，本篇筆記了數值格式化、對齊及時間表示輸出等等範例"
+modified: 2018-03-27
 tags: [小法師, Python]
 categories: [軟體開發]
 image:

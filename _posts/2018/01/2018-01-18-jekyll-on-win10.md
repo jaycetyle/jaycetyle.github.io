@@ -1,8 +1,8 @@
 ---
 layout: post
 title: 在 Win10 安裝 Jekyll 部落格網站產生器及簡單起步教學
-description: "在 Windows 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學"
-modified: 2018-01-18
+description: "Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多。這篇會介紹在 Win 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學。"
+modified: 2018-03-27
 tags: [巫師,網站架設]
 categories: [網站架設]
 image:
