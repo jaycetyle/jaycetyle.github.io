@@ -12,6 +12,11 @@ comments: true
 
 　　數年的軟體開發與職涯探索了不少領域，體認到了工程師保持靈活、持續學習的重要性，只要基礎札實，各種任務都一樣能夠手到擒來。如果您有任何想討論的問題或疑問，或是想認識不帥的宅宅作者 (宅也是一種專業表現！)，都歡迎透過[郵件 jaycetyle@gmail.com](mailto:jaycetyle@gmail.com) 與我聯絡。
 
+　
+
+## 其他網站連結
+　　[**大豬小豬趴趴走**](https://travelpig.jaycetyle.com/)  ：  小豬豬與 Jayce 的遊記部落格
+
 　　
 
 <figure class="half center">
