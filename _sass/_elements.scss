@@ -42,6 +42,18 @@ figure {
       }
     }
   }
+  &.mid {
+    @media #{$large} {
+      img {
+        width: 420px;
+        float: left;
+        margin-right: 10px;
+      }
+      figcaption {
+        clear: left;
+      }
+    }
+  }
   &.half {
     @media #{$large} {
       img {
