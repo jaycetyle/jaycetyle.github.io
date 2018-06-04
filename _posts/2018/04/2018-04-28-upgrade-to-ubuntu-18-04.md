@@ -13,7 +13,7 @@ image:
 
 　　Stable Ubuntu 18.04 LTS 在 4/26 正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)。我沒有經歷過 14.04 升 16.04 的階段，系統升級的部分據說[會在第一個 patch，也就是大約一個月後釋後釋出](https://askubuntu.com/questions/1028624/not-able-to-upgrade-from-16-04-lts-to-18-04-lts)。
 
-　　不過我今天沒什麼特別的事，就手動把[USB Ubuntu 環境]({% post_url /2018/03/2018-03-24-ubuntu-on-usb %})升級了一下，反正檔案都放在電腦硬碟或[NAS](https://www.synology.com/zh-tw)上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。
+　　不過我今天沒什麼特別的事，就手動把 Ubuntu 升級了一下，反正檔案都放在電腦硬碟或[NAS](https://www.synology.com/zh-tw)上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。
 
 <!--more--> 
 
