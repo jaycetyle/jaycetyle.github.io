@@ -3,8 +3,8 @@ layout: post
 title: 業餘自學 Machine Learning 經驗分享
 description: "這幾年人工智慧 (AI)、機器學習 (Machine Learning) 是非常紅的話題，這些對我來說一直就像是個黑盒子，在學校沒學過，今年年初的時候下定決心要來研究一下，以下分享一些學習經驗給有興趣的業餘人士參考"
 modified: 2018-05-19
-tags: [小法師,機器學習]
-categories: [軟體開發]
+tags: [小法師]
+categories: [閒聊]
 image:
     feature: 
     credit: 

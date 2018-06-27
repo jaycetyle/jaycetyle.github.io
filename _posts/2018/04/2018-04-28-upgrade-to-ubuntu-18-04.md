@@ -3,8 +3,8 @@ layout: post
 title: 升級囉！Ubuntu 18.04
 description: "Stable Ubuntu 18.04 LTS 在 4/26 正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)，系統升級的部分據說會在第一個 patch，也就是大約一個月後釋出。以下筆記如何手動搶先從 16.04 升級上去。"
 modified: 2018-04-28
-tags: [初心者,作業系統]
-categories: [軟體開發]
+tags: [初心者]
+categories: [作業系統]
 image:
     feature: 
     credit: 

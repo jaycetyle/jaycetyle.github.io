@@ -21,8 +21,6 @@ enforce_ssl: blog.jaycetyle.com
 menu:
   - title: 'Home'
     url: '/'
-  - title: 'Tags'
-    url: '/tags'
   - title: 'Categories'
     url: '/categories'
     type: 'categories'

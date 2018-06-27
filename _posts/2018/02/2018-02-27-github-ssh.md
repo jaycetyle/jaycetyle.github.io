@@ -3,8 +3,8 @@ layout: post
 title: Git 版本控制筆記 - 使用 github 及 ssh 金鑰設定
 description: "git 可以只作為個人版本控制用途，但更多的使用情況是另有一個主要的伺服器保管程式碼，這篇文章會介紹如何使用 github 這個時下最夯的 git 託管服務，將修改好的變更推送 (push) 到遠端以及拖拉 (pull) 本地端，另外也會介紹一下如何設定 ssh 金鑰，讓 github 授權上傳程式碼。"
 modified: 2018-03-15
-tags: [小法師,版本控制]
-categories: [軟體開發]
+tags: [小法師]
+categories: [版本控制]
 image:
     feature: 
     credit: 

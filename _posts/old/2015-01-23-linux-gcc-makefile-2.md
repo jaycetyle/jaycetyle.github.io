@@ -3,8 +3,8 @@ layout: post
 title: 在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)
 description: "Linux gcc 及 Makefile 教學筆記(2): 複雜一點的 Makefile 範例"
 modified: 2015-01-23
-tags: [初心者, C/C++]
-categories: [軟體開發]
+tags: [初心者]
+categories: [C/C++]
 image:
     feature: 
     credit: 

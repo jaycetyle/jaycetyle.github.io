@@ -3,8 +3,8 @@ layout: post
 title: 帶著走的開發環境 - 把 Ubuntu 裝到 USB
 description: "這篇簡單筆記如何安裝完整的 Ubuntu 到 USB 內。因為當初安裝的時候沒有記得很詳細，所以僅列出安裝過程中的主要重點"
 modified: 2018-6-2
-tags: [小法師,作業系統]
-categories: [軟體開發]
+tags: [小法師]
+categories: [作業系統]
 image:
     feature: 
     credit: 

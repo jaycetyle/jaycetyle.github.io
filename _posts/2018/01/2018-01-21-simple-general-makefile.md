@@ -3,8 +3,8 @@ layout: post
 title: 寫一個簡單、通用的 Makefile
 description: "這篇筆記了一個簡單的通用 Makefile，會自動掃描目錄 .c 檔進行編譯，只需要修改少數幾個地方就可以應付規模不大的程式"
 modified: 2018-03-27
-tags: [小法師, C/C++]
-categories: [軟體開發]
+tags: [小法師]
+categories: [C/C++]
 image:
     feature: 
     credit: 

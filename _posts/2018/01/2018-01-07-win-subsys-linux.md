@@ -4,7 +4,7 @@ title: Windows Subsystem for Linux 安裝 (Ubuntu bash)
 description: "Windows 內建的命令列工具有 cmd 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW 等等。現在 Win 10 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。"
 modified: 2018-03-27
 tags: [初心者]
-categories: [軟體開發]
+categories: [作業系統]
 image:
     feature: 
     credit: 

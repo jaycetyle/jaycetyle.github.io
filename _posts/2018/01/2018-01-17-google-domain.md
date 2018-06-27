@@ -3,7 +3,7 @@ layout: post
 title: 使用 Google Domains 註冊個人網域
 description: "如果有心要長期經營部落格的話，「私人域名」會顯得特別重要，就算整個大改版甚至是搬移到別的平台，只要文章的網址沒有改變，其他人還是可以找得到你。這篇教學會介紹如何使用 Google Domains 購買、註冊專屬的個人網域，以及台灣申請時填寫個人資料的小技巧，迴避 Invalid State 或 Invalid City 問題"
 modified: 2018-03-27
-tags: [初心者,網站架設]
+tags: [初心者]
 categories: [網站架設]
 image:
     feature: 

@@ -3,8 +3,8 @@ layout: post
 title: Git 版本控制筆記 - Git 安裝及環境設定
 description: "這邊文章會說明如何安裝 Git 以及安裝 Git 後的一些基本設定，例如使用者資料，以及 commit message 的預設編輯器等等"
 modified: 2018-02-18
-tags: [小法師,版本控制]
-categories: [軟體開發]
+tags: [小法師]
+categories: [版本控制]
 image:
     feature: 
     credit: 

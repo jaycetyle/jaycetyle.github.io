@@ -3,8 +3,8 @@ layout: post
 title: Git 版本控制筆記 - 在 Git 提交(commit)檔案
 description: "這篇文章會說明如何使用 git 初始化一個 Repository (Git 的儲存庫)，並透過 git add、git commit 提交檔案到版本庫裡面"
 modified: 2018-02-19
-tags: [小法師,版本控制]
-categories: [軟體開發]
+tags: [小法師]
+categories: [版本控制]
 image:
     feature: 
     credit: 

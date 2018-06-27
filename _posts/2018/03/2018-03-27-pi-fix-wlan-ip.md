@@ -4,7 +4,7 @@ title: 為 Raspberry pi 的 wlan 設定固定的區域網路 IP
 description: "我的 Raspberry pi 是透過 USB 無線網卡上網(wlan0)，但家裡 Hinet 的小烏龜如果重開，或是重新開機，IP 有可能會變，連接時就要重新設定 IP，很麻煩！所以我小小研究了一下讓 pi 的 wlan0 IP 可以固定的方法，蠻簡單的，以下說明設定流程"
 modified: 2018-03-27
 tags: [初心者]
-categories: [軟體開發, 樹莓派]
+categories: [樹莓派]
 image:
     feature: 
     credit: 
