@@ -4,7 +4,7 @@ title: 避免 Firefox 套用 Ubuntu 的暗色主題
 description: "因為 Chrome 記憶體吃太兇的關係，最近我改用 Firefox 瀏覽器了，用起來很順的但一直有一個問題：Firefox 似乎會吃 Ubuntu gtk theme 的顏色。這導致某些網站的文字框或下拉式選單會變成暗色，看起來很奇怪，甚至會造成瀏覽障礙，這篇筆記如何複寫 Firefox 套用到的主題顏色"
 modified: 2018-07-11
 tags: [初心者]
-categories: [作業系統]
+categories: [Ubuntu 作業系統]
 image:
     feature: 
     credit: 

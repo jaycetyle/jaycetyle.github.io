@@ -4,7 +4,7 @@ title: 將 Ubuntu 家目錄資料夾的語言改為英文
 description: "如果 Ubuntu 安裝成中文版的話，家目錄 (home) 內的資料夾名稱也會安裝成中文的，例如「桌面」、「下載」之類的，但對於經常使用 terminal 的使用者來說，要在中英文之間切換很麻煩，以下教學如何將這些目錄的名稱無痛轉換為英文"
 modified: 2018-06-04
 tags: [初心者]
-categories: [作業系統]
+categories: [Ubuntu 作業系統]
 image:
     feature: 
     credit: 

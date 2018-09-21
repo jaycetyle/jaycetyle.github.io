@@ -4,7 +4,7 @@ title: Linux NFS filehandle 筆記
 description: 最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。
 modified: 2018-09-08
 tags: [大魔導士]
-categories: [作業系統, Linux Kernel]
+categories: [Linux Kernel]
 image:
     feature: 
     credit: 
