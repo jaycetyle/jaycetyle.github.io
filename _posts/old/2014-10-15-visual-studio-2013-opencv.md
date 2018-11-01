@@ -4,7 +4,7 @@ title: Visual Studio 2013 配置 OpenCV 2.4.9 專案環境
 description: "以下筆記如何在 Visual Studio 2013 建置 OpenCV 2.4.9 專案環境，我想這個安裝流程在 2.4.X 的版本應該都是適用，之後的版本應該也是大同小異，沒有很複雜。"
 modified: 2014-10-15
 tags: [初心者]
-categories: [C/C++, Visual Studio]
+categories: [C/C++]
 image:
     feature: 
     credit: 
