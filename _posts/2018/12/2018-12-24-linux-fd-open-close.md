@@ -11,7 +11,7 @@ image:
     creditlink: 
 ---
 
-　　開始接觸 Linux Kernel 也有差不多一年的時間，最近開始有明顯地感覺到有某種瓶頸存在，仔細思考了一下覺得是底子不夠，所以決定從基礎來好好學習一下，再搭配核心程式碼來確認是否是看到的那樣。這篇主要筆記 file descriptor、open() 及 close() 系統呼叫相關的部分。
+　　開始接觸 Linux Kernel 也有差不多一年的時間，最近開始有明顯地感覺到有某種瓶頸存在，仔細思考了一下覺得是底子不夠，所以決定從基礎來好好學習一下，再搭配核心程式碼來確認是否是看到的那樣。這篇主要筆記 file descriptor、open() 及 close() 系統呼叫相關的部分，主要參考 [Robert Love 的 Linux System Programming](https://www.tenlong.com.tw/products/9789862769812)。
 
 <!--more-->　
 
@@ -179,3 +179,9 @@ int creat(const char *name, mode_t mode)
 　　可以看到內嵌在 files_struct 的 fd 陣列大小是固定的 NR_OPEN_DEFAULT，這個值被定義為 __WORDSIZE，根據 32 位元及 64 位元平台的不同，可能是 32 或 64。當開啟的 fd 超過目前的陣列大小時，核心會使用 kvmalloc 重新配置一個更大陣列。
 
 　　另外 fdtable 還有一個 open_fds 陣列，他是以 bitmap 形式記錄哪一個 fd 已經被開啟，當 open() 需要取得未使用的 fd 時，核心便會去掃描 open_fds 陣列內的每一個 bit ，以找到未使用的 fd。
+
+　
+
+## 參考資料
+
+[Robert Love. Linux System Programming](https://www.tenlong.com.tw/products/9789862769812)
