@@ -29,7 +29,7 @@ DEP     = $(SRC:%.c=%.d) #$(patsubst %.o, %.d, $(OBJ))
 .PHONY: clean
 
 $(TARGET) : $(OBJ)
-    $(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@
 
 # Include all .d files
 -include $(DEP)
@@ -37,11 +37,11 @@ $(TARGET) : $(OBJ)
 # Build target for every single object file.
 # The potential dependency on header files is covered by calling `-include $(DEP)`.
 %.o : %.c
-    $(CC) $(CFLAGS) -MMD -c $< -o $@
+	$(CC) $(CFLAGS) -MMD -c $< -o $@
 
 ## clean
 clean:
-    rm -f $(TARGET) $(OBJ) $(DEP)
+	rm -f $(TARGET) $(OBJ) $(DEP)
 {% endhighlight %}
 
 ### 簡要說明
