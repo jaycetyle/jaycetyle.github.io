@@ -55,7 +55,7 @@ image:
 
 {% highlight json %}
 {
-    "gnuGlobal.libraryPath": "/Tags/"
+    "gnuGlobal.objDirPrefix": "/Tags/"
 }
 {% endhighlight %}
 
@@ -63,4 +63,4 @@ image:
 
 　　例如你的專案路徑位於 /Projects/DocParser，你的 GTAGS 檔案就會產生在 /Tags/Projects/DocParser/ 中，之後搜尋符號的時候也是會到該目錄搜尋，這樣 GTAGS 就不會汙染你的專案目錄囉！
 
-　　這個功能的實作是使用 GTAGSOBJDIRPREFIX 這個環境變數，想要用 Script 來自動對大量 Project 建立 GTAGS 的朋友們，可以直接設定這個環境變數，詳細說明可以參考 [GNU Global 的說明文件](https://www.gnu.org/software/global/globaldoc_toc.html)。
+　　這個功能的實作是使用 GTAGSOBJDIRPREFIX 這個環境變數，想要用 Script 來自動對大量 Project 建立 GTAGS 的朋友們，可以直接設定這個環境變數，然後再下 gtags 指令，詳細說明可以參考 [GNU Global 的說明文件](https://www.gnu.org/software/global/globaldoc_toc.html)。
