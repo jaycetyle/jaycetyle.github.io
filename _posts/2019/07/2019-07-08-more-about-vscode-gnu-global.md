@@ -2,7 +2,7 @@
 layout: post
 title: VS Code GNU Global 相依專案路徑設定
 description: "GNU Global 具備將 Tag file 分散在不同 Project 的功能，並透過相依專案設定，搜尋位於其他專案的 symbol。這在某些大型專案非常有用，因為他可以有效加速 Tag 搜尋和更新的速度。這篇會介紹 gnuGlobal.libraryPath 及 gnuGlobal.objDirPrefix 這兩個好用的設定要怎麼用"
-modified: 2019-7-8
+modified: 2019-7-13
 tags: [小法師]
 categories: [開發環境, C/C++]
 image:
