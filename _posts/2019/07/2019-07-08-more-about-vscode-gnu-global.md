@@ -1,7 +1,7 @@
 ---
 layout: post
-title: VS Code GNU Global 的一些進階設定
-description: "GNU Global 具備將 Tag file 分散在不同 Project 的功能，這在某些大型專案非常有用，因為他可以有效加速 Tag 搜尋和更新的速度。這篇會介紹 gnuGlobal.libraryPath 及 gnuGlobal.objDirPrefix 這兩個好用的設定要怎麼用"
+title: VS Code GNU Global 相依專案路徑設定
+description: "GNU Global 具備將 Tag file 分散在不同 Project 的功能，並透過相依專案設定，搜尋位於其他專案的 symbol。這在某些大型專案非常有用，因為他可以有效加速 Tag 搜尋和更新的速度。這篇會介紹 gnuGlobal.libraryPath 及 gnuGlobal.objDirPrefix 這兩個好用的設定要怎麼用"
 modified: 2019-7-8
 tags: [小法師]
 categories: [C/C++]
@@ -11,7 +11,7 @@ image:
     creditlink: 
 ---
 
-　　在 [VS Code + GNU Global - 打造 Trace Linux Kernel 環境]({% post_url 2018/10/2018-10-29-vscode-gnu-global %}) 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能。
+　　在 [VS Code + GNU Global - 打造 Trace Linux Kernel 環境]({% post_url 2018/10/2018-10-29-vscode-gnu-global %}) 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。
 
 　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。
 
