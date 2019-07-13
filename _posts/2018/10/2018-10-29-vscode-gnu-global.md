@@ -4,7 +4,7 @@ title: VS Code + GNU Global - 打造 Trace Linux Kernel 環境
 description: "Linux Kernel 是一個偉大的開源專案，同時也是相當龐大的專案，要 Trace 這麼大的專案總是要準備一點輔助工具才會有效率。這篇主要介紹使用 VS Code 編輯器，加上我改的 C/C++ GNU Global 套件來 Trace Linux Kernel，對一些大型的 C/C++ 專案也適用"
 modified: 2018-11-01
 tags: [小法師]
-categories: [C/C++, Linux Kernel]
+categories: [開發環境, C/C++, Linux Kernel]
 image:
     feature: 
     credit: 

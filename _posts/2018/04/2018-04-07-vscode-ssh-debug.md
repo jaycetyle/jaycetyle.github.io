@@ -4,7 +4,7 @@ title: VS Code + ssh 樹莓派遠端除錯
 description: "這篇主要筆記如何運用 VS Code 的 Native Debug 插件，直接遠端到樹莓派(Raspberry Pi)上面的 gdb 進行 C 語言的程式除錯，可以監控變數，設定中斷點，也可以按 F10 單步執行，對於其他 Linux 系統的 embedded system 只要能夠安裝 gdb、ssh 和掛載遠端目錄應該也都適用"
 modified: 2018-04-07
 tags: [巫師]
-categories: [C/C++, 樹莓派]
+categories: [開發環境, C/C++, 樹莓派]
 image:
     feature: 
     credit: 
