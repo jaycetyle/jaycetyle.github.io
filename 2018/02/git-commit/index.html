@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="Git 版本控制筆記 - 在 Git 提交(commit)檔案" />
+<meta property="og:description" content="這篇文章會說明如何使用 git 初始化一個 Repository (Git 的儲存庫)，並透過 git add、git commit 提交檔案到版本庫裡面" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/02/git-commit/" />
+<meta property="article:published_time" content="2018-02-11T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-02-11T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Git 版本控制筆記 - 在 Git 提交(commit)檔案"/>
+<meta name="twitter:description" content="這篇文章會說明如何使用 git 初始化一個 Repository (Git 的儲存庫)，並透過 git add、git commit 提交檔案到版本庫裡面"/>
+
+
+        <title>
+  Git 版本控制筆記 - 在 Git 提交(commit)檔案 | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.a036dced8a32ddbf85c382f3ac8ed9ed2981c544a5b8826dfd09aafc8d107fc4.css" integrity="sha256-oDbc7Yoy3b&#43;Fw4LzrI7Z7SmBxUSluIJt/Qmq/I0Qf8Q="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="這篇文章會說明如何使用 git 初始化一個 Repository (Git 的儲存庫)，並透過 git add、git commit 提交檔案到版本庫裡面">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <img class="logo" src="https://blog.jaycetyle.com/images/logo.png">
+<a class="navbar-brand pr-4" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">Git 版本控制筆記 - 在 Git 提交(commit)檔案</h1>
+  </div>
+</header>
+
+
+        <div class="container main">
+            
+  <div class="post">
+    <h3 class="post-title">Git 版本控制筆記 - 在 Git 提交(commit)檔案</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Feb 11, 2018&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>版本控制</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　在<a href="https://blog.jaycetyle.com/2018/02/git-startup/">上一篇文章</a>中我們已經架設好 git 的基本環境，現在可以來開始使用 Git 囉，這篇文章會說明如何初始化一個 Repository (Git 的儲存庫)，並提交檔案到裡面。</p>
+
+<h2 id="初始化-repository-git-init">初始化 Repository (git init)</h2>
+
+<p>　　要初始化一個具有 git 託管的專案非常簡單，和 SVN 等集中式的版本管理系統不同，git 的版本控管是直接建立在專案目錄中，並不需要實際存在一個伺服器。只要在專案目錄下輸入 <strong>git init</strong> 指令，這個目錄就可以有 git 版本控管了，就算這個目錄不是空的也沒問題。以下我們還是從一個空的專案目錄開始
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cd ~              <span style="color:#0f0"># cd 是切換當前工作目錄的指令，這條指令是切換到家目錄 (~)</span>
+$ mkdir gittest     <span style="color:#0f0"># mkdir: 建立一個名為 gittest 的資料夾</span>
+$ cd gittest        <span style="color:#0f0"># 切換到 gittest</span>
+$ git init          <span style="color:#0f0"># 初始化 git，讓這個資料夾可由 git 託管</span>
+<span style="color:#0f0"># Initialized empty Git repository in /home/xxx/gittest/.git/</span>
+
+$ ll                <span style="color:#0f0"># 列舉資料夾</span></code></pre></div></p>
+
+<p>　　最後一個指令 ll 是列舉資料夾內的檔案，列舉的結果應該會有以下 3 個東西
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">.    : 是指當前目錄，cd . 的話，工作目錄不會改變 (切換到自己)
+..   : 是指上層目錄，cd .. 的話，會切換到上層目錄
+.git : 這個就是 git 版本控管的資料庫資料夾</code></pre></div></p>
+
+<p>　　建立資料夾的動作要在 Windows 中操作也沒問題，只要 cd 到想要做練習的資料夾中輸入 git init 便可初始化 git。如果想要解除 git 託管，只要把 <strong>.git</strong> 這個資料夾刪除，*但同時也會失去所以版本控管的歷史紀錄*，要小心操作。</p>
+
+<h2 id="提交檔案到-git-儲存庫">提交檔案到 git 儲存庫</h2>
+
+<p>　　我們先建立一個檔案作為之後提交的練習，這個檔案可以直接用 Windows 建立，或者是輸入以下指令建立一個 README.txt 檔案
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#87ceeb">&#34;git practice&#34;</span> &gt; README.txt</code></pre></div></p>
+
+<p>　　在真正操作 git 之前，我想先介紹 git 的暫存區域。這個是 git 和許多版本控管系統不同的地方，git 在提交之前，必須要先把檔案的「變更」加入(add)到暫存區域(staging area)，這個變更才能被提交(commit)到版本儲存庫。</p>
+
+<p>　　注意一個關鍵，雖然在之後操作指令時是輸入檔案名稱，但實際加入的是檔案的「變更」，因此<strong>檔案加入到暫存區域後有變更的話還要再加入一次</strong>，否則之後的變更不會被提交，參考下圖
+<figure class="large center">
+    <img src="/images/2018/02/git-staging-area.png" alt="">
+</figure></p>
+
+<p>　　現在我們知道變更要先加入到暫存區域。在加入之前，我們先用 git status 看一下目前的 git 狀態
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git status
+<span style="color:#0f0"># On branch master</span>
+<span style="color:#0f0"># No commits yet</span>
+<span style="color:#0f0"># Untracked files:</span>
+<span style="color:#0f0">#   (use &#34;git add &lt;file&gt;...&#34; to include in what will be committed)</span>
+<span style="color:#0f0">#         README.txt</span></code></pre></div></p>
+
+<p>　　可以看到 Untracked files 裡面有 README.txt，這代表目前這個檔案還沒有被 git 追蹤，他也提示了使用 git add 加入想要提交的檔案到暫存區域，我們現在就加入看看
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git add README.txt
+$ git status
+<span style="color:#0f0"># On branch master</span>
+<span style="color:#0f0"># No commits yet</span>
+<span style="color:#0f0"># Changes to be committed:</span>
+<span style="color:#0f0">#   (use &#34;git rm --cached &lt;file&gt;...&#34; to unstage)</span>
+<span style="color:#0f0">#         new file:   README.txt</span></code></pre></div></p>
+
+<p>　　現在 README.txt 已經變成 <strong>Changes to be committed</strong>，而且是 <strong>new file</strong>，使用 git commit 將變更提交到儲存庫
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git commit</code></pre></div></p>
+
+<p>　　如果有照上一篇文章的設定做的話，此時會進入到 vim，按 a 或 i 進入 insert 模式編輯提交的紀錄，其中單行 # 開頭的是註解，不會進入提交訊息之中。輸入完成後按 ESC 退出 insert 模式並輸入 :x 存檔離開，這樣便完成了一次提交
+<figure class="center">
+    <img src="/images/2018/02/git-commit-message.png" alt="">
+</figure></p>
+
+<p>　　使用 git log 確認提交紀錄
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log
+<span style="color:#0f0"># commit d9f0b6880081ba202e27feeaa1f96558354eb4f0 (HEAD -&gt; master)</span>
+<span style="color:#0f0"># Author: Lin Chieh &lt;jaycetyle@gmail.com&gt;</span>
+<span style="color:#0f0"># Date:   Mon Feb 19 19:23:38 2018 +0800</span>
+
+<span style="color:#0f0">#     Add README</span></code></pre></div></p>
+
+<h2 id="一次-git-add-多個檔案">一次 git add 多個檔案</h2>
+
+<p>　　在改程式的時候經常會有多個檔案變更會需要一次提交，一個一個 git add 就太麻煩了，git add 也有提供以下兩種方式讓你一次加入多個檔案</p>
+
+<dl>
+<dt><strong>　1. git add *.c</strong></dt>
+<dd>git add 支援萬用字元 (*)，這個範例是一次 git add 所有 .c 檔</dd>
+<dt><strong>　2. git add -A</strong></dt>
+<dd>一次加入所有變更。這個會是 git add 最常用的用法</dd>
+</dl>
+
+<p>　　如果要刪除檔案，可以直接將檔案刪除後，用 git add 將刪除檔案這項<strong>變更</strong>加入到暫存區，之後再提交。如果要重新命名檔案也是相同的方式，但要刪除和重新命名的檔案都需要 git add 過才可以。</p>
+
+<h2 id="git-commit-的一些常用變化">git commit 的一些常用變化</h2>
+
+<p>　　git commit 也有許多可選參數，以下列出幾個常用的</p>
+
+<dl>
+<dt><strong>　1. git commit -a</strong></dt>
+<dd>非常好用的指令。如果變更都只是修改檔案的話 (刪除、新增檔案不算)，可以使用這個方式省略 git add 的步驟，直接提交變更</dd>
+<dt><strong>　2. git commit --amend</strong></dt>
+<dd>將變更合併到上次提交中，也是非常好用的選項。有時候一些臨時又做了一些小修改不想要再提交一個新的，可以使用這個方式合併到上一個提交之中，這個指令也可以用來修改上一次的 commit message</dd>
+<dt><strong>　3. git commit -s</strong></dt>
+<dd>再提交訊息最後面加上一個 signoff by，簽個名的意思，某些開源的社群複審時會加上 signoff，例如 Linux Kernel</dd>
+<dt><strong>　4. git commit --allow-empty</strong></dt>
+<dd>這個比較少用但也不是完全無用，只是想要在 git log 上留一些訊息時可以使用此方式，常見的使用情境是執行某些動作，例如版本合併，團隊有某個固定的流程，但到特定步驟時恰好沒有任何變更，可以留個 message 提醒只是剛好沒有變更，不是步驟漏掉。</dd>
+</dl>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f02%2fgit-commit%2f&text=Git%20%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e7%ad%86%e8%a8%98%20-%20%e5%9c%a8%20Git%20%e6%8f%90%e4%ba%a4%28commit%29%e6%aa%94%e6%a1%88&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f02%2fgit-commit%2f&t=Git%20%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e7%ad%86%e8%a8%98%20-%20%e5%9c%a8%20Git%20%e6%8f%90%e4%ba%a4%28commit%29%e6%aa%94%e6%a1%88" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f02%2fgit-commit%2f&title=Git%20%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e7%ad%86%e8%a8%98%20-%20%e5%9c%a8%20Git%20%e6%8f%90%e4%ba%a4%28commit%29%e6%aa%94%e6%a1%88&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/">Synology Data Scrubbing 介紹與分析</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">10</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">2</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

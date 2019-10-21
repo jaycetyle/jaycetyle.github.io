@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>C# on Jayce 的共享記憶體</title>
+    <link>https://blog.jaycetyle.com/tags/c#/</link>
+    <description>Recent content in C# on Jayce 的共享記憶體</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Thu, 11 Jun 2015 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.jaycetyle.com/tags/c#/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>[C#] 用 dll Reflection 做 Plugin 吧！</title>
+      <link>https://blog.jaycetyle.com/2015/06/csharp-dll-plugin/</link>
+      <pubDate>Thu, 11 Jun 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2015/06/csharp-dll-plugin/</guid>
+      <description>&lt;p&gt;　　這次的內容主要介紹 C# 應用程式如何透過 dll 及反射 (Reflection) 來做 plugin，方法沒有很困難，不過一個 plugin 就是一個 dll 檔，也就等於是一個專案，所以在範例中會開蠻多專案的，手續會稍微繁複一點。現在就開始撰寫我們的範例程式吧！&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

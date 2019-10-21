@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法" />
+<meta property="og:description" content="剛換到 Ubuntu 時最不習慣的就是 Ubuntu 的注音輸入法了，經過了一段時間的研究，找到了 hime 輸入系統的詞音輸入法，用起來最接近 Windows 的微軟注音，以下介紹如何安裝及設定" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/06/hime/" />
+<meta property="article:published_time" content="2018-06-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-06-04T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法"/>
+<meta name="twitter:description" content="剛換到 Ubuntu 時最不習慣的就是 Ubuntu 的注音輸入法了，經過了一段時間的研究，找到了 hime 輸入系統的詞音輸入法，用起來最接近 Windows 的微軟注音，以下介紹如何安裝及設定"/>
+
+
+        <title>
+  Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法 | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.a036dced8a32ddbf85c382f3ac8ed9ed2981c544a5b8826dfd09aafc8d107fc4.css" integrity="sha256-oDbc7Yoy3b&#43;Fw4LzrI7Z7SmBxUSluIJt/Qmq/I0Qf8Q="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="剛換到 Ubuntu 時最不習慣的就是 Ubuntu 的注音輸入法了，經過了一段時間的研究，找到了 hime 輸入系統的詞音輸入法，用起來最接近 Windows 的微軟注音，以下介紹如何安裝及設定">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <img class="logo" src="https://blog.jaycetyle.com/images/logo.png">
+<a class="navbar-brand pr-4" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法</h1>
+  </div>
+</header>
+
+
+        <div class="container main">
+            
+  <div class="post">
+    <h3 class="post-title">Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jun 4, 2018&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　剛換到 Ubuntu 時最不習慣的就是 Ubuntu 的注音輸入法了，經過了一段時間的研究，找到了 Hime 輸入系統的詞音輸入法，用起來最接近 Windows 的微軟注音，以下介紹在 Ubuntu 18.04 中如何安裝及設定 Hime 輸入法，Ubuntu 16.04 的設定方式也是類似的。</p>
+
+<h2 id="安裝設定">安裝設定</h2>
+
+<p>　　首先打開 terminal 安裝 hime</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get install hime</code></pre></div>
+
+<p>　　接下來進到 Ubuntu 的設定介面 (桌面右上角的小三角形點開，按齒輪設定): 點選「地區及語言」 → 「管理安裝的語言」
+<figure class="center">
+<img src="/images/2018/06/hime-01.png" alt="">
+</figure></p>
+
+<p>　　將「鍵盤輸入法系統」修改成 hime
+<figure class="half center">
+<img src="/images/2018/06/hime-02.png" alt="">
+</figure></p>
+
+<p>　　接著打開程式集 (桌面左下角)，打開 hime 輸入法設定
+<figure class="center">
+<img src="/images/2018/06/hime-03.png" alt="">
+</figure></p>
+
+<p>　　打開設定工具以後，依下圖內容設定，只勾選詞音的原因是我覺得詞音感覺最接近
+<figure class="center">
+<img src="/images/2018/06/hime-04.png" alt="">
+</figure></p>
+
+<figure class="center">
+<img src="/images/2018/06/hime-05.png" alt="">
+</figure>
+
+<figure class="center">
+<img src="/images/2018/06/hime-06.png" alt="">
+</figure>
+
+<p>　　都設定完成以後<strong>登出桌面再重新登入</strong>，就可以開始使用囉 ～ 如果有什麼不順手的地方再從 hime 設定中進行微調即可</p>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f06%2fhime%2f&text=Ubuntu%20%e9%a1%9e%e4%bc%bc%e5%be%ae%e8%bb%9f%e6%b3%a8%e9%9f%b3%e7%9a%84%e8%bc%b8%e5%85%a5%e6%b3%95%20-%20hime%20%e8%a9%9e%e9%9f%b3%e8%bc%b8%e5%85%a5%e6%b3%95&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f06%2fhime%2f&t=Ubuntu%20%e9%a1%9e%e4%bc%bc%e5%be%ae%e8%bb%9f%e6%b3%a8%e9%9f%b3%e7%9a%84%e8%bc%b8%e5%85%a5%e6%b3%95%20-%20hime%20%e8%a9%9e%e9%9f%b3%e8%bc%b8%e5%85%a5%e6%b3%95" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f06%2fhime%2f&title=Ubuntu%20%e9%a1%9e%e4%bc%bc%e5%be%ae%e8%bb%9f%e6%b3%a8%e9%9f%b3%e7%9a%84%e8%bc%b8%e5%85%a5%e6%b3%95%20-%20hime%20%e8%a9%9e%e9%9f%b3%e8%bc%b8%e5%85%a5%e6%b3%95&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/">Synology Data Scrubbing 介紹與分析</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">10</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">2</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

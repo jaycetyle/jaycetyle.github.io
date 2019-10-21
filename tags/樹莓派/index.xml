@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>樹莓派 on Jayce 的共享記憶體</title>
+    <link>https://blog.jaycetyle.com/tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/</link>
+    <description>Recent content in 樹莓派 on Jayce 的共享記憶體</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Sat, 07 Apr 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.jaycetyle.com/tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>VS Code &#43; ssh 樹莓派遠端除錯</title>
+      <link>https://blog.jaycetyle.com/2018/04/vscode-ssh-debug/</link>
+      <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/04/vscode-ssh-debug/</guid>
+      <description>&lt;p&gt;　　在一個新的環境寫程式之前，我自己的習慣是一定要先摸一下除錯器 (debugger) 的使用，有好的除錯器輔助可以讓軟體開發省下非常多的時間。這篇主要筆記如何運用 VS Code 的 Native Debug 插件，直接遠端到樹莓派上面的 gdb 進行 C 語言的程式除錯，可以監控變數，設定中斷點，也可以按 F10 單步執行，對於其他 Linux 系統的 embedded system 只要能夠安裝 gdb 、 ssh 和掛載遠端目錄應該也都適用。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>為 Raspberry pi 的 wlan 設定固定的區域網路 IP</title>
+      <link>https://blog.jaycetyle.com/2018/03/pi-fix-wlan-ip/</link>
+      <pubDate>Tue, 27 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/03/pi-fix-wlan-ip/</guid>
+      <description>&lt;p&gt;　　我的 Raspberry pi 是透過 USB 無線網卡上網(wlan0)，但家裡 Hinet 的小烏龜如果重開，或是重新開機，IP 有可能會變，這樣子連接時就要重新設定 IP ，很麻煩！所以我小小研究了一下讓 Raspberry pi 的 wlan0 IP 可以固定的方法，蠻簡單的，以下說明設定流程。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>用 Win32 Disk Imager 備份和燒錄 Raspberry Pi 的 SD 卡</title>
+      <link>https://blog.jaycetyle.com/2014/09/win32-disk-imager-raspberry-pi-sd/</link>
+      <pubDate>Sat, 27 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2014/09/win32-disk-imager-raspberry-pi-sd/</guid>
+      <description>&lt;p&gt;　　不少網站已經介紹過如何使用 Win32 Disk Imager 燒錄 Raspberry Pi 的 SD 卡。但實際上，這套軟體還有讀取 SD 卡的內容並轉成 img 檔的備份功能，玩 Pi 玩一玩怕把穩定的系統玩壞的時候，便可以利用此功能把現在的 SD 卡備份下來，真的出問題的話再重新燒進去就可以還原了，而且此軟體是 Windows 工具，對 Windows 使用者而言也相當方便親民。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>

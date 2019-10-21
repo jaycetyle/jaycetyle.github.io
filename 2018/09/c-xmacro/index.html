@@ -1,0 +1,471 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)" />
+<meta property="og:description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/09/c-xmacro/" />
+<meta property="article:published_time" content="2018-09-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-09-20T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)"/>
+<meta name="twitter:description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。"/>
+
+
+        <title>
+  [C/C&#43;&#43;] enum to string 的方法實作 (X Macro) | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.a036dced8a32ddbf85c382f3ac8ed9ed2981c544a5b8826dfd09aafc8d107fc4.css" integrity="sha256-oDbc7Yoy3b&#43;Fw4LzrI7Z7SmBxUSluIJt/Qmq/I0Qf8Q="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <img class="logo" src="https://blog.jaycetyle.com/images/logo.png">
+<a class="navbar-brand pr-4" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)</h1>
+  </div>
+</header>
+
+
+        <div class="container main">
+            
+  <div class="post">
+    <h3 class="post-title">[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Sep 20, 2018&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#、Java 等都有方法直接支援，但是 C/C++ 就沒這麼方便了。以下介紹幾種在 C++ 實作 enum 轉 string 的方法。</p>
+
+<h3 id="方法-1-使用-switch-case">方法 1. 使用 switch case</h3>
+
+<p>　　這個方法應該是最容易想到的方法了，以下是程式的範例：</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
+
+<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+{
+	<span style="color:#f00">switch</span> (value) {
+	<span style="color:#f00">case</span> KZero:
+		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Zero&#34;</span>;
+	<span style="color:#f00">case</span> KOne:
+		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;One&#34;</span>;
+	<span style="color:#f00">case</span> KTwo:
+		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Two&#34;</span>;
+	}
+	<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Not Defined&#34;</span>;
+}</code></pre></div>
+
+<p>　　使用的時候把想要轉換的 enum 當作引數呼叫 ToString 函數就可以了。實作簡單、直覺，但有個小缺點，當 enum 列舉的數量一大的時候，這個 switch case 會讓人覺得很討厭，有沒有辦法改善呢？</p>
+
+<p>　</p>
+
+<h3 id="方法-2-使用陣列索引進行查表">方法 2. 使用陣列索引進行查表</h3>
+
+<p>　　這個方法是利用 enum 會從 0 開始列舉的特性，直接將 enum 值當作陣列索引值來查表，如以下範例：</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
+
+<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+{
+	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { <span style="color:#87ceeb">&#34;Zero&#34;</span>, <span style="color:#87ceeb">&#34;One&#34;</span>, <span style="color:#87ceeb">&#34;Two&#34;</span> };
+	<span style="color:#f00">return</span> table[value];
+}</code></pre></div>
+
+<p>　　使用方法一樣是呼叫 ToString 就可以了，但實作變得簡潔多了，是吧？不過這個方法一樣有個缺點，當 enum 列舉數量變多的時候，看程式碼時要比對就有點痛苦了，比如第 17 個列舉值對應的字串是什麼？是不是要慢慢數了呢？簡單的辦法是透過排版和註解來協助程式碼的閱讀，或者是使用 C99 語法，不過以下再介紹另一個辦法來改善這個問題。</p>
+
+<p>　</p>
+
+<h3 id="方法-3-使用-x-macro-來實作陣列查表">方法 3. 使用 X Macro 來實作陣列查表</h3>
+
+<p>　　 X macro 是一種 C/C++ 的技術，簡單的說明和範例可以在<a href="https://en.wikipedia.org/wiki/X_Macro">維基百科</a>查到，這裡便是要運用這個技術來改善方法 2 的小問題，參考以下程式碼：</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
+</span><span style="color:#e5e5e5">	X(KZero, &#34;Zero&#34;) \
+</span><span style="color:#e5e5e5">	X(KOne, &#34;One&#34;) \
+</span><span style="color:#e5e5e5">	X(KTwo, &#34;Two&#34;)
+</span><span style="color:#e5e5e5"></span>
+<span style="color:#e5e5e5">#define X(a, b) a,
+</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
+<span style="color:#e5e5e5">#undef X
+</span><span style="color:#e5e5e5"></span>
+<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+{
+<span style="color:#e5e5e5">#define X(a, b) b,
+</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { VALUE_TABLE };
+<span style="color:#e5e5e5">#undef X
+</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">return</span> table[value];
+}</code></pre></div>
+
+<p>　　這個方法的關鍵在於 X macro 的定義，雖然看起來有點可怕，仔細推敲一下，會發現這裡定義的 EValue 和 table[] 與方法 2 所定義的完全一模一樣，只是中間的程式碼透過前處理器以 VALUE_TABLE 取代了，但確實改善了 &ldquo;索引&rdquo; 和 &ldquo;值&rdquo; 之間比對的問題，在 VALUE_TABLE 中可以很明確地看出每一個 enum 列舉值所對應的 string。</p>
+
+<p>　　到這裡我們已經改善很多問題，但還有一個明顯的瑕疵，就是 enum 不一定要從 0 開始，也不一定要是連續整數，這時候該怎麼辦呢？</p>
+
+<p>　</p>
+
+<h3 id="方法-4-使用-x-macro-及-std-map-實作查表方法">方法 4. 使用 X Macro 及 std::map 實作查表方法</h3>
+
+<p>　　如果要實作非連續整數的查表，最簡單的方法就是運用 std::map 了，他是一個紅黑樹的實作，使用索引查詢一個值的時間複雜度是 O(logN)。參考以下範例：</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
+</span><span style="color:#e5e5e5">	X(KZero, = 0, &#34;Zero&#34;) \
+</span><span style="color:#e5e5e5">	X(KOne,  = 1, &#34;One&#34;) \
+</span><span style="color:#e5e5e5">	X(KTwo,  = 8, &#34;Two&#34;)
+</span><span style="color:#e5e5e5"></span>
+<span style="color:#e5e5e5">#define X(a, b, c) a b,
+</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
+<span style="color:#e5e5e5">#undef X
+</span><span style="color:#e5e5e5"></span>
+<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+{
+	<span style="color:#f00">static</span> std::map&lt;EValue, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>*&gt; table;
+	<span style="color:#f00">static</span> <span style="color:#ee82ee">bool</span> isInit = false;
+	<span style="color:#f00">if</span> (isInit)
+		<span style="color:#f00">return</span> table[value];
+
+<span style="color:#e5e5e5">#define X(a, b, c) table[a] = c;
+</span><span style="color:#e5e5e5"></span>	VALUE_TABLE
+<span style="color:#e5e5e5">#undef X
+</span><span style="color:#e5e5e5"></span>
+	isInit = true;
+	<span style="color:#f00">return</span> table[value];
+}</code></pre></div>
+
+<p>　　我故意把 KTwo 的列舉值改成 8 ，以驗證這個函數是可以允許非連續的列舉值。這邊有運用了一個 isInit 的變數來避免表被重複初始化，X Macro 的部分，在 enum 是被展開成：</p>
+
+<div style="line-height:150%;font-style:italic">
+　　KZero = 0,<br>
+　　KOne = 1,<br>
+　　KTwo = 8,<br>
+</div>
+
+<p>　　在 table 的部分則是被展開成：</p>
+
+<div style="line-height:150%;font-style:italic">
+　　table[KZero] = "Zero";<br>
+　　table[KOne] = "One";<br>
+　　table[KTwo] = "Two";<br>
+</div>
+
+<p>　　相信大家仔細想一下應該看得懂。<a href="http://www.drdobbs.com/the-new-c-x-macros/184401387">這裡</a>是我學到這個方法參考網站，其中裡面有 C99 的實作方法，另外上面的 std::map 也是可以用 switch case 來做。</p>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&text=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&t=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&title=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/">Synology Data Scrubbing 介紹與分析</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">10</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">2</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

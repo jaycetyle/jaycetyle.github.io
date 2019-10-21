@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)" />
+<meta property="og:description" content="Linux gcc 及 Makefile 教學筆記(2): 複雜一點的 Makefile 範例" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2015/01/linux-gcc-makefile-2/" />
+<meta property="article:published_time" content="2015-01-23T00:00:00+00:00" />
+<meta property="article:modified_time" content="2015-01-23T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)"/>
+<meta name="twitter:description" content="Linux gcc 及 Makefile 教學筆記(2): 複雜一點的 Makefile 範例"/>
+
+
+        <title>
+  在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2) | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.a036dced8a32ddbf85c382f3ac8ed9ed2981c544a5b8826dfd09aafc8d107fc4.css" integrity="sha256-oDbc7Yoy3b&#43;Fw4LzrI7Z7SmBxUSluIJt/Qmq/I0Qf8Q="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="Linux gcc 及 Makefile 教學筆記(2): 複雜一點的 Makefile 範例">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <img class="logo" src="https://blog.jaycetyle.com/images/logo.png">
+<a class="navbar-brand pr-4" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)</h1>
+  </div>
+</header>
+
+
+        <div class="container main">
+            
+  <div class="post">
+    <h3 class="post-title">在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (2)</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jan 23, 2015&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　根據之前提到的規則，我們可以讓 Makefile 再複雜一點，如下:</p>
+
+<h3 id="實驗三-複雜一點的-makefile">實驗三 : 複雜一點的 Makefile</h3>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">test</span>: main.o op.o
+	cc main.o op.o -o test
+<span style="color:#ff0">main.o</span>: main.c
+	cc -c main.c
+<span style="color:#ff0">op.o</span>: op.c
+</code></pre></div>
+
+<!--more-->
+
+<p>　　這個範例就比較有趣一點，先看到 test 的命令部分，原本的 gcc 變成了 cc，這是一個替代用法， cc 是 Unix 的編譯器，在 Linux 環境下預設會連結到 gcc，這主要是為了程式碼的移植性，讓 Unix 的程式碼可以在不用更改的情況下由 gcc 編譯，但目前這種需求應該是比較少了。接著，這個範例把產生執行檔的方式拆成了兩個步驟，先從 .c 檔生成 .o，再從 .o 連結成執行檔。make 在執行的時候會先尋找第一個 target 作為他的最終目標，這份 Makefile 的第一個 target 就是 test，根據相依性，他需要 main.o 及 op.o，於是開始往下尋找如何生成這兩個檔案，而生成方式我們已經寫在後面了。</p>
+
+<p>　　另外，這個範例有個不協調的地方，就是 main.o 的部分有命令，而 op.o 的部分沒有？這不是忘記寫，而是使用了自動推導的功能。由於生成目的檔的方式很單純，只要找到同名的 .c 檔並使用 gcc -c 的命令就可以產生了，所以如果沒有特殊的需求， make 可以自行推導生成方式，從這個思維向上延伸，實際上連 op.o: op.c 都可以不用寫，因為看到 op.o 自然也猜得到他的相依檔案會是 op.c ，所以這個 Makefile 還可以再濃縮成 :</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">test</span>: main.o op.o
+	cc main.o op.o -o test
+</code></pre></div>
+
+<p>　　和實驗二相比，這種 make 的方式一定會產生目的檔(.o)。一般而言會比較喜歡有產生目的檔的方式，因為如果我們有多個步驟會需要去連結各個目的檔的時候，目的檔的存在可以減少重複編譯的次數。</p>
+
+<p>　</p>
+
+<h3 id="實驗四-在-makefile-裡加入一點變數">實驗四 : 在 Makefile 裡加入一點變數</h3>
+
+<p>　　雖然我們的範例程式很簡單，但我們還是可以來測試一些更複雜的 Makefile 方式。現在我們在資料夾內再創立一個名為 include 的資料夾，並把 op.h 放進該資料夾內，來模擬標頭檔在其他路徑的情況，接著把 Makefile 改成以下內容 :
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#eedd82">CC</span> = gcc
+<span style="color:#eedd82">INC</span> = -I ./include
+
+<span style="color:#ff0">test</span>: main.o op.o
+	<span style="color:#f00">$(</span>CC<span style="color:#f00">)</span> -o <span style="color:#eedd82">$@</span> main.o op.o
+<span style="color:#ff0">%.o</span>: %.c
+	<span style="color:#87ceeb">${</span><span style="color:#eedd82">CC</span><span style="color:#87ceeb">}</span> $&lt; <span style="color:#87ceeb">${</span><span style="color:#eedd82">INC</span><span style="color:#87ceeb">}</span> -c
+</code></pre></div></p>
+
+<p>　　這個範例看起來恐怖多了，但仔細分析後會發現也沒有這麼難。首先，我們在一開始使用 = 符號宣告了兩個變數，第一個是 CC ，代表我們所要採用的編譯器形式，實際上，這個變數同時也是一個內建變數，如果我們沒有特別指定，他所代表的就是 cc。第二個變數 INC 則用來表示標頭檔引入路徑，看到前面的 -I 是 gcc 指定引入路徑的參數，而後面就是引入的路徑。</p>
+
+<p>　　$(var) 就是使用變數的方式了，雖然說是變數，但他的行為其實和 C 語言內的 #define macro 很像，可以把他想成是純粹文字的替代。另外，這裡還看到兩個比較特別的變數 $@ 及 $&lt;。 $@ 指的就是該 command 所屬的 target，所以範例中的 $@ 代表的就是 test ，而 $&lt; 指的是則第一個相依檔案。</p>
+
+<p>　　現在會有疑問了， %.o 和 %.c 又是什麼？其實這是一個樣板規則，很像 C++ 的 template，可以替代成符合規則的文字，例如，當 make 在嘗試建立 test 時，會需要 main.o，如果找不到 main.o，make 會開始向下尋找產生 main.o 的方法，此時的 % 就變成了 main，%.o 就成了 main.o，而 %.c 就是 main.c。</p>
+
+<p>　　到這裡可能還有點搞不懂，我們可以直接執行 make 看看到底做了些什麼，再比對一下先前的 Makefile ，馬上就一目了然 :
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">gcc main.c -I ./include -c
+gcc op.c -I ./include -c
+gcc -o test main.o op.o</code></pre></div></p>
+
+<p>　</p>
+
+<h3 id="實驗五-清理編譯產生的檔案">實驗五 : 清理編譯產生的檔案</h3>
+
+<p>　　編譯後一定會產生檔案，有執行檔、目的檔等等。有時我們會希望資料夾可以回到只有 source code 的乾淨狀態，這時就需要把這些編譯產生物給清除掉，這個動作我們也可以請 Makefile 來協助處理，參考以下的 Makefile :
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#eedd82">CC</span> = gcc
+<span style="color:#eedd82">INC</span> = -I ./include
+<span style="color:#eedd82">OBJ</span> = main.o op.o
+
+<span style="color:#ff0">test</span>: ${OBJ}
+	<span style="color:#f00">$(</span>CC<span style="color:#f00">)</span> -o <span style="color:#eedd82">$@</span> <span style="color:#87ceeb">${</span><span style="color:#eedd82">OBJ</span><span style="color:#87ceeb">}</span>
+<span style="color:#ff0">%.o</span>: %.c
+	<span style="color:#87ceeb">${</span><span style="color:#eedd82">CC</span><span style="color:#87ceeb">}</span> $&lt; <span style="color:#87ceeb">${</span><span style="color:#eedd82">INC</span><span style="color:#87ceeb">}</span> -c
+
+<span style="color:#ff0">.PHONY</span>: clean
+<span style="color:#ff0">clean</span>:
+	rm -f test <span style="color:#87ceeb">${</span><span style="color:#eedd82">OBJ</span><span style="color:#87ceeb">}</span>
+</code></pre></div></p>
+
+<p>　　完成以上的 Makefile 後，在命令列輸入 make clean 便可以執行清理的工作，不必手工再刪除檔案了，可喜可賀，我們立刻來解析這個 Makefile，看看是怎麼做的：</p>
+
+<p>　　首先，在實驗四的時候我們發現  &ldquo;main.o op.o&rdquo; 重複寫了兩次，為了避免重複程式碼，我們把它精煉成變數，同時也方便未來擴充。接著我們加上 clean 這個 target，負責清除的工作，你也可以取別的名稱，但 clean 是一個習慣的用法。clean 方法就是用 rm 這個指令，由於移除的目標有可能不存在，為了避免 rm 在刪除不存在的檔案時報錯，我們加上 -f 參數。</p>
+
+<p>　　我們還有一個沒看過的東西 : .PHONY。這個符號的目的是告訴 make，&rdquo;clean&rdquo; 不是一個真正的檔案目標，只是一個標記，不要把他當成檔案來處理，避免有檔案真的叫 clean 時，make 會在判斷依賴時判斷錯誤，那就糗了。</p>
+
+<hr />
+
+<p>　　到這裡，我們的 Makefile 可自動幫我們執行一連串的編譯指令、檢查檔案相依性關係來決定是否要編譯，以減少編譯時間，同時我們也寫了 clean 這個 target 來替我們做清除的工作，已經是一個相當完整的 Makefile。</p>
+
+<p>　　我第一次看 Makefile 時也覺得好多符號好複雜，稍微研究了一下就比較看得懂了，會發現其實也沒那麼困難，所以把學習的過程整理成這篇，希望可以幫助剛進入 Linux 世界寫程式的朋友們。</p>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2015%2f01%2flinux-gcc-makefile-2%2f&text=%e5%9c%a8%20Linux%20%e5%af%ab%e7%a8%8b%e5%bc%8f%20-%20gcc%20%e5%8f%8a%20Makefile%20%e6%95%99%e5%ad%b8%e7%ad%86%e8%a8%98%20%282%29&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2015%2f01%2flinux-gcc-makefile-2%2f&t=%e5%9c%a8%20Linux%20%e5%af%ab%e7%a8%8b%e5%bc%8f%20-%20gcc%20%e5%8f%8a%20Makefile%20%e6%95%99%e5%ad%b8%e7%ad%86%e8%a8%98%20%282%29" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2015%2f01%2flinux-gcc-makefile-2%2f&title=%e5%9c%a8%20Linux%20%e5%af%ab%e7%a8%8b%e5%bc%8f%20-%20gcc%20%e5%8f%8a%20Makefile%20%e6%95%99%e5%ad%b8%e7%ad%86%e8%a8%98%20%282%29&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/">Synology Data Scrubbing 介紹與分析</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">10</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">2</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

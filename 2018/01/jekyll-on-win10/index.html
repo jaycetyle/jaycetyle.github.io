@@ -1,0 +1,420 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="Win10 安裝 Jekyll 部落格網站產生器教學" />
+<meta property="og:description" content="Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多。這篇會介紹在 Win 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/01/jekyll-on-win10/" />
+<meta property="article:published_time" content="2018-01-18T00:00:00+00:00" />
+<meta property="article:modified_time" content="2018-03-27T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Win10 安裝 Jekyll 部落格網站產生器教學"/>
+<meta name="twitter:description" content="Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多。這篇會介紹在 Win 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學。"/>
+
+
+        <title>
+  Win10 安裝 Jekyll 部落格網站產生器教學 | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.a036dced8a32ddbf85c382f3ac8ed9ed2981c544a5b8826dfd09aafc8d107fc4.css" integrity="sha256-oDbc7Yoy3b&#43;Fw4LzrI7Z7SmBxUSluIJt/Qmq/I0Qf8Q="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多。這篇會介紹在 Win 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學。">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <img class="logo" src="https://blog.jaycetyle.com/images/logo.png">
+<a class="navbar-brand pr-4" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">Win10 安裝 Jekyll 部落格網站產生器教學</h1>
+  </div>
+</header>
+
+
+        <div class="container main">
+            
+  <div class="post">
+    <h3 class="post-title">Win10 安裝 Jekyll 部落格網站產生器教學</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jan 18, 2018&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>網站架設</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多，可以自行修改成具有個人特色的網站。</p>
+
+<p>　　什麼是<strong>靜態網頁</strong>呢？簡單來說就是不包含資料庫等能和使用者互動的單純網頁，這對於單一網頁不常變動的部落格來說是一個不錯的選擇，唯一的缺點是一般部落格都會需要的留言系統會需要資料庫，但這部分已經有相當多平台提供服務，像本站是使用 <a href="https://disqus.com/">Disqus</a>，其他像是 <a href="https://developers.facebook.com/docs/plugins/comments?locale=zh_TW">Facebook 留言外掛程式</a> 也是不錯的選擇。</p>
+
+<h3 id="要怎麼安裝呢">要怎麼安裝呢？</h3>
+
+<p>　　Jekyll 主要是使用 Ruby 開發的，Ruby 本身有 Windows 版本，但相對麻煩，我個人最推薦的方式還是使用 <strong>Windows Subsystem for Linux</strong> 來安裝 Ruby，WSL 安裝方式可以參考<a href="https://blog.jaycetyle.com/2018/01/win-subsys-linux/">這篇</a>，這裡安裝的是 Ubuntu 版本，所以在接下來的範例你會看到 *apt-get*。如果你想要使用其他的方式安裝，可以參考 <a href="https://jekyllrb.com/docs/windows/">Jekyll 官方教學</a>，這篇文章主要也是翻譯自官方教學。如果你懶得看說明，就把從這個段落的的所有指令一行一行複製輸入就好囉。</p>
+
+<p>　　打開剛安裝好的 Ubuntu Terminal，先輸入以下指令更新套件列表
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get update -y &amp;&amp; sudo apt-get upgrade -y</code></pre></div></p>
+
+<p>　　接著安裝要 Ruby，我們先加入 BrightBox 的 ppa，然後就可以直接安裝
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-add-repository ppa:brightbox/ruby-ng
+$ sudo apt-get update
+$ sudo apt-get install ruby2.3 ruby2.3-dev build-essential</code></pre></div></p>
+
+<p>　　更新一下 Ruby gems
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo gem update</code></pre></div></p>
+
+<p>　　安裝 Jekyll 和 bundler
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo gem install jekyll bundler</code></pre></div></p>
+
+<p>　　呼叫以下指令看看能不能看到 Jekyll 版本，確認我們有安裝成功
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jekyll -v</code></pre></div></p>
+
+<p>　　大功告成！(好快?)</p>
+
+<h3 id="要怎麼開始呢">要怎麼開始呢？</h3>
+
+<p>　　從這裡需要會使用 <strong>Git</strong>，如果你還不會用的話，建議先去學一下最基礎的四個指令: git clone, git add, git commit 以及 git push。</p>
+
+<p>　　Jekyll 起步我認為最簡單的方式還是找個樣板來改，他的樣板很多，Google <em>Jekyll Theme</em> 就可以找到一大堆，選好 theme 以後通常你也會找到他的 github，最簡單的方式就是把他 clone 下來。</p>
+
+<p>　　我這裡以 jekyll bootstrap 這個常見的樣板做為範例，其他的樣板大多可以依樣畫葫蘆，如果不行的話多注意他的 README 說明，首先先 clone 他
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/llorephie/jekyll-bootstrap.git
+$ cd jekyll-bootstrap</code></pre></div></p>
+
+<p>　　安裝個 bundle，過程中有可能需要輸入你的 Ubuntu 密碼
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ bundle install</code></pre></div></p>
+
+<p>　　在 Local 端執行以下指令運行看看
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ bundle exec jekyll serve</code></pre></div></p>
+
+<p>　　接著就可以到瀏覽器輸入 localhost:4000 看看運行結果囉！有沒有非常簡單？</p>
+
+<h3 id="再更進階一點-我想要把部落格放到-github-上">再更進階一點，我想要把部落格放到 Github 上？</h3>
+
+<p>　　Github 有提供一個 Github Pages 的服務，可以把靜態網站放在 Github 上運行，對於本來就有在使用 Github 來說我想這一定不是難事。</p>
+
+<p>　　首先到你的 Github 上建立一個新的 repository，名稱為 <strong>USERNAME.github.com</strong>。注意不要真的用 <em>USERNAME</em> 建立內，這裡指的是*你的 github 帳號*。</p>
+
+<p>　　接著把 clone 下來的樣板 remote 換成剛剛建的 repository
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git remote set-url origin git@github.com:USERNAME/USERNAME.github.com.git</code></pre></div></p>
+
+<p>　　PUSH 上去
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git push origin master</code></pre></div></p>
+
+<p>　　大功告成！如果網頁建立有問題的話，你應該會收到 github 寄來的信告知建立狀況，如果沒問題，就可以到 USERNAME.github.io 看看你的網頁運行的成果！</p>
+
+<h3 id="參考文獻">參考文獻</h3>
+
+<p><a href="https://jekyllrb.com/docs/windows/">Jekyll on Windows 官方教學 https://jekyllrb.com/docs/windows/</a></p>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f01%2fjekyll-on-win10%2f&text=Win10%20%e5%ae%89%e8%a3%9d%20Jekyll%20%e9%83%a8%e8%90%bd%e6%a0%bc%e7%b6%b2%e7%ab%99%e7%94%a2%e7%94%9f%e5%99%a8%e6%95%99%e5%ad%b8&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f01%2fjekyll-on-win10%2f&t=Win10%20%e5%ae%89%e8%a3%9d%20Jekyll%20%e9%83%a8%e8%90%bd%e6%a0%bc%e7%b6%b2%e7%ab%99%e7%94%a2%e7%94%9f%e5%99%a8%e6%95%99%e5%ad%b8" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f01%2fjekyll-on-win10%2f&title=Win10%20%e5%ae%89%e8%a3%9d%20Jekyll%20%e9%83%a8%e8%90%bd%e6%a0%bc%e7%b6%b2%e7%ab%99%e7%94%a2%e7%94%9f%e5%99%a8%e6%95%99%e5%ad%b8&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/">Synology Data Scrubbing 介紹與分析</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">10</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">2</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

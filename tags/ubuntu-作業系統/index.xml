@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ubuntu 作業系統 on Jayce 的共享記憶體</title>
+    <link>https://blog.jaycetyle.com/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/</link>
+    <description>Recent content in Ubuntu 作業系統 on Jayce 的共享記憶體</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-tw</language>
+    <lastBuildDate>Mon, 24 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://blog.jaycetyle.com/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>更新 WSL 內的 Ubuntu 到 18.04</title>
+      <link>https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/</link>
+      <pubDate>Mon, 24 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/</guid>
+      <description>&lt;p&gt;　　Stable Ubuntu 18.04 LTS 正式 release 以後，大家應該陸陸續續開始從 16.04 升上去了，不過 WSL (Windows Subsystem for Linux) 內的 Ubuntu 並不會自動升級，應該也有人發現 Microsoft Store 內多出了 Ubuntu 16.04 LTS 和 Ubuntu 18.04 LTS 兩個 Image，那到底該如何更新呢？&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>避免 Firefox 套用 Ubuntu 的暗色主題</title>
+      <link>https://blog.jaycetyle.com/2018/07/firefox-ubuntu-dark-gtk/</link>
+      <pubDate>Wed, 11 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/07/firefox-ubuntu-dark-gtk/</guid>
+      <description>&lt;p&gt;　　因為 Chrome 記憶體吃太兇的關係，最近我改用 Firefox 瀏覽器了，用起來很順的但一直有一個問題：Firefox 似乎會吃 Ubuntu gtk theme 的顏色。這導致某些網站的文字框或下拉式選單會變成暗色，看起來很奇怪，甚至會造成瀏覽障礙，這篇筆記如何複寫 Firefox 套用到的主題顏色。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Ubuntu 類似微軟注音的輸入法 - hime 詞音輸入法</title>
+      <link>https://blog.jaycetyle.com/2018/06/hime/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/06/hime/</guid>
+      <description>&lt;p&gt;　　剛換到 Ubuntu 時最不習慣的就是 Ubuntu 的注音輸入法了，經過了一段時間的研究，找到了 Hime 輸入系統的詞音輸入法，用起來最接近 Windows 的微軟注音，以下介紹在 Ubuntu 18.04 中如何安裝及設定 Hime 輸入法，Ubuntu 16.04 的設定方式也是類似的。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>將 Ubuntu 家目錄資料夾的語言改為英文</title>
+      <link>https://blog.jaycetyle.com/2018/06/ubuntu-home-folder-lang/</link>
+      <pubDate>Mon, 04 Jun 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/06/ubuntu-home-folder-lang/</guid>
+      <description>&lt;p&gt;　　如果 Ubuntu 安裝成中文版的話，家目錄 (home) 內的資料夾名稱也會安裝成中文的，例如「桌面」、「下載」之類的，但對於經常使用 terminal 的使用者來說，要在中英文之間切換很麻煩，以下教學如何將這些目錄的名稱無痛轉換為英文。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>升級囉！Ubuntu 18.04</title>
+      <link>https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/</link>
+      <pubDate>Sat, 28 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/</guid>
+      <description>&lt;p&gt;　　Stable Ubuntu 18.04 LTS 在 4 月 26 日正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)。我沒有經歷過 14.04 升 16.04 的階段，系統升級的部分據說&lt;a href=&#34;https://askubuntu.com/questions/1028624/not-able-to-upgrade-from-16-04-lts-to-18-04-lts&#34;&gt;會在第一個 patch，也就是大約一個月後釋後釋出&lt;/a&gt;。&lt;/p&gt;
+
+&lt;p&gt;　　不過我今天沒什麼特別的事，就手動把 Ubuntu 升級了一下，反正檔案都放在電腦硬碟或&lt;a href=&#34;https://www.synology.com/zh-tw&#34;&gt;NAS&lt;/a&gt;上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>帶著走的開發環境 - 把 Ubuntu 裝到 USB</title>
+      <link>https://blog.jaycetyle.com/2018/03/ubuntu-on-usb/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/03/ubuntu-on-usb/</guid>
+      <description>&lt;p&gt;　　軟體開發常常會需要 Linux 作業環境，但電腦又想裝 Windows 時候，一個常見的解決方式是在裝 Virtual Box，不過前一陣子覺得這不完全滿足我的需求，因為我有桌電和筆電兩台電腦，出門用筆電，在家用桌電，要兩台電腦共享 VM 就有一點麻煩了，後來決定直接把 Ubuntu 裝在隨身碟裡面，這樣就可以隨時切換我的開發環境，反正程式碼會丟到 github 或其他雲端，隨身碟掛了也沒損失。&lt;/p&gt;
+
+&lt;p&gt;　　這篇簡單筆記當初怎麼安裝 Ubuntu 到 USB 內，因為當初安裝的時候沒有記得很詳細，所以僅列出主要重點。&lt;/p&gt;</description>
+    </item>
+    
+    <item>
+      <title>Windows Subsystem for Linux 安裝 (Ubuntu bash)</title>
+      <link>https://blog.jaycetyle.com/2018/01/win-subsys-linux/</link>
+      <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2018/01/win-subsys-linux/</guid>
+      <description>&lt;p&gt;　　Windows 的視窗介面很好用，不過對於開發者而言，有些工作使用命令列工具 (Command Line) 還是方便些。Windows 內建的命令列工具有命令提示字元 (cmd) 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW，如果有安裝過 git 的話還有 git bash。以上這些工具我都有試過，現在 &lt;strong&gt;Windows 10&lt;/strong&gt; 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。&lt;/p&gt;</description>
+    </item>
+    
+  </channel>
+</rss>
