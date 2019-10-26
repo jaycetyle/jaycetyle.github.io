@@ -6,10 +6,19 @@
     <description>Recent content in Posts on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jaycetyle.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>從 Jekyll 遷移到 Hugo 步驟心得分享</title>
+      <link>https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/</guid>
+      <description>&lt;p&gt;　　部落格從去年一月至今也快滿兩年了，中間一直有想修改部落格的樣板，經過一陣選擇與研究以後，決定連產生器也換掉試試看，於是就轉到了 Hugo。Hugo 是一個以 golang 為基礎開發的靜態網站產生器，他的建置速度很快，目前感覺他的操作指令以及目錄規劃也蠻乾淨好上手。這篇就筆記一下我從 jekyll 轉換到 hugo 的過程及一些重點。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Visual Studio Code Remote - WSL 安裝教學</title>
@@ -28,7 +37,7 @@
       <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/</guid>
-      <description>&lt;p&gt;　　在 &lt;a href=&#34;{% post_url 2018/10/2018-10-29-vscode-gnu-global %}&#34;&gt;VS Code + GNU Global - 打造 Trace Linux Kernel 環境&lt;/a&gt; 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。&lt;/p&gt;
+      <description>&lt;p&gt;　　在 &lt;a href=&#34;https://blog.jaycetyle.com/2018/10/vscode-gnu-global/&#34;&gt;VS Code + GNU Global - 打造 Trace Linux Kernel 環境&lt;/a&gt; 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。&lt;/p&gt;
 
 &lt;p&gt;　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。&lt;/p&gt;</description>
     </item>
@@ -39,7 +48,7 @@
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.jaycetyle.com/2019/01/linux-read-write/</guid>
-      <description>&lt;p&gt;　　這篇延續 &lt;a href=&#34;{% post_url 2018/12/2018-12-24-linux-fd-open-close %}&#34;&gt;Linux 系統程式設計 - fd 及 open()、close() 系統呼叫&lt;/a&gt;，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt; 一書。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　這篇延續 &lt;a href=&#34;https://blog.jaycetyle.com/2018/12/linux-fd-open-close/&#34;&gt;Linux 系統程式設計 - fd 及 open()、close() 系統呼叫&lt;/a&gt;，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt; 一書。&lt;/p&gt;</description>
     </item>
     
     <item>

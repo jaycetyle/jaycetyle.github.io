@@ -6,10 +6,19 @@
     <description>Recent content in 網站架設 on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Thu, 18 Jan 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>從 Jekyll 遷移到 Hugo 步驟心得分享</title>
+      <link>https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/</guid>
+      <description>&lt;p&gt;　　部落格從去年一月至今也快滿兩年了，中間一直有想修改部落格的樣板，經過一陣選擇與研究以後，決定連產生器也換掉試試看，於是就轉到了 Hugo。Hugo 是一個以 golang 為基礎開發的靜態網站產生器，他的建置速度很快，目前感覺他的操作指令以及目錄規劃也蠻乾淨好上手。這篇就筆記一下我從 jekyll 轉換到 hugo 的過程及一些重點。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Win10 安裝 Jekyll 部落格網站產生器教學</title>

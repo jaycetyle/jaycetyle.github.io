@@ -6,10 +6,19 @@
     <description>Recent content in Tags on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jaycetyle.com/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>網站架設</title>
+      <link>https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/</link>
+      <pubDate>Wed, 23 Oct 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>C/C&#43;&#43;</title>
@@ -89,15 +98,6 @@
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.jaycetyle.com/tags/python/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>網站架設</title>
-      <link>https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/</link>
-      <pubDate>Thu, 18 Jan 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/</guid>
       <description></description>
     </item>
     

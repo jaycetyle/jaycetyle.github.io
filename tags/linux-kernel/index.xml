@@ -17,7 +17,7 @@
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.jaycetyle.com/2019/01/linux-read-write/</guid>
-      <description>&lt;p&gt;　　這篇延續 &lt;a href=&#34;{% post_url 2018/12/2018-12-24-linux-fd-open-close %}&#34;&gt;Linux 系統程式設計 - fd 及 open()、close() 系統呼叫&lt;/a&gt;，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt; 一書。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　這篇延續 &lt;a href=&#34;https://blog.jaycetyle.com/2018/12/linux-fd-open-close/&#34;&gt;Linux 系統程式設計 - fd 及 open()、close() 系統呼叫&lt;/a&gt;，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt; 一書。&lt;/p&gt;</description>
     </item>
     
     <item>
