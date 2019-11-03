@@ -6,10 +6,23 @@
     <description>Recent content on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 23 Oct 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Nov 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://blog.jaycetyle.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</title>
+      <link>https://blog.jaycetyle.com/2019/11/passing-smart-pointer/</link>
+      <pubDate>Sun, 03 Nov 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2019/11/passing-smart-pointer/</guid>
+      <description>&lt;p&gt;　　相較於其他程式語言，C++ 的函數參數傳遞方式有很多種方法，如傳值(value)、傳址(address/pointer)，及傳參考(reference)等，再加上 const 修飾詞後又有不同的變化。&lt;/p&gt;
+
+&lt;p&gt;　　C++11 引入的 unique_ptr 及 shared_ptr 等智慧指標，也同樣有傳值或傳參考等方式。雖然很多手段都可以達到相同目的，但如果透過傳遞方式的不同，就可以表現出函數設計者想傳達的「語意」，那一定會是比較好的設計，同時好的設計也能借助編譯器的輔助來降低程式出錯的機會。&lt;/p&gt;
+
+&lt;p&gt;　　針對各種不同需求及使用情境，這篇整理我蒐集到的建議實作方式，主要源自於 &lt;a href=&#34;https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines&#34;&gt;C++ Core Guideline&lt;/a&gt;，提供給各位參考。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>從 Jekyll 遷移到 Hugo 步驟心得分享</title>

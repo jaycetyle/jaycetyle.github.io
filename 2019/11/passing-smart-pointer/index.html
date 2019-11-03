@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理" />
+<meta property="og:description" content="C&#43;&#43; 中想要在函數傳遞 unique_ptr 及 shared_ptr 等智慧指標有傳值(value)、傳參考(reference)等不同方式。雖然很多手段都可以達到相同目的，但一個好的設計是在傳遞方式就可以表現出函數設計者想傳達的「語意」，同時也能借助編譯器的輔助降低程式出錯的機會。針對各種不同需求及使用情境，這篇簡單整理我蒐集到的建議實作方式，提供給各位參考。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/" />
+<meta property="article:published_time" content="2019-11-03T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-11-03T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理"/>
+<meta name="twitter:description" content="C&#43;&#43; 中想要在函數傳遞 unique_ptr 及 shared_ptr 等智慧指標有傳值(value)、傳參考(reference)等不同方式。雖然很多手段都可以達到相同目的，但一個好的設計是在傳遞方式就可以表現出函數設計者想傳達的「語意」，同時也能借助編譯器的輔助降低程式出錯的機會。針對各種不同需求及使用情境，這篇簡單整理我蒐集到的建議實作方式，提供給各位參考。"/>
+
+
+        <title>
+  [C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理 | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.209902f7baab1f0d49e091e9edb579596c4617816810a3425c0b90e26dbabad4.css" integrity="sha256-IJkC97qrHw1J4JHp7bV5WWxGF4FoEKNCXAuQ4m26utQ="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="C&#43;&#43; 中想要在函數傳遞 unique_ptr 及 shared_ptr 等智慧指標有傳值(value)、傳參考(reference)等不同方式。雖然很多手段都可以達到相同目的，但一個好的設計是在傳遞方式就可以表現出函數設計者想傳達的「語意」，同時也能借助編譯器的輔助降低程式出錯的機會。針對各種不同需求及使用情境，這篇簡單整理我蒐集到的建議實作方式，提供給各位參考。">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <a href="https://blog.jaycetyle.com"><img class="logo" src="https://blog.jaycetyle.com/images/logo.png"></a>
+<a class="navbar-brand pr-4 d-none d-sm-block" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars" style="color:black"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/archive/">Archive</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</h1>
+  </div>
+</header>
+
+
+        <div class="container main my-4">
+            
+  <div class="post p-3 p-sm-5">
+    <h3 class="post-title">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Nov 3, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　相較於其他程式語言，C++ 的函數參數傳遞方式有很多種方法，如傳值(value)、傳址(address/pointer)，及傳參考(reference)等，再加上 const 修飾詞後又有不同的變化。</p>
+
+<p>　　C++11 引入的 unique_ptr 及 shared_ptr 等智慧指標，也同樣有傳值或傳參考等方式。雖然很多手段都可以達到相同目的，但如果透過傳遞方式的不同，就可以表現出函數設計者想傳達的「語意」，那一定會是比較好的設計，同時好的設計也能借助編譯器的輔助來降低程式出錯的機會。</p>
+
+<p>　　針對各種不同需求及使用情境，這篇整理我蒐集到的建議實作方式，主要源自於 <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core Guideline</a>，提供給各位參考。</p>
+
+<p><br/></p>
+
+<h3 id="原則-函數只在想控制物件生命時-才將-smart-pointer-作為參數">原則: 函數只在想控制物件生命時，才將 Smart Pointer 作為參數</h3>
+
+<p>　　這個原則是剛接觸智慧指標時容易沒注意到的地方，在我寫了一段時間的 C# 後，回來寫使用 C++11 的專案時也曾混淆過。</p>
+
+<p>　　雖然智慧指標所表現的行為和許多具有垃圾回收(GC)機制的語言中的物件參考非常類似，但在語意上卻有所不同，智慧指標所表達的是<strong>該物件生命週期控制者</strong>的概念，但其他程式語言在這部分的概念就沒有那麼強烈。</p>
+
+<p>　　根據這項原則，如果函數想操作某個智慧指標所指的物件，應直接傳遞該物件的參考，而非智慧指標:</p>
+
+<h5 id="好的設計">好的設計</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object &amp;obj)
+{
+	<span style="color:#0f0">// 或者是: void Callee(const Object &amp;obj)
+</span><span style="color:#0f0"></span>	obj.DoSomething();
+}
+
+<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+{
+	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+	Callee(*uniqueObj);
+	<span style="color:#0f0">// Object obj;
+</span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // OK !
+</span><span style="color:#0f0"></span>}
+</code></pre></div>
+
+<h5 id="不建議的設計">不建議的設計</h5>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj)
+{
+	obj-&gt;DoSomething();
+}
+
+<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+{
+	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+	Callee(uniqueObj);
+	<span style="color:#0f0">// Object obj;
+</span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // Error !!
+</span><span style="color:#0f0"></span>}
+</code></pre></div>
+
+<p>　　直接傳遞物件的 reference 或是 const reference 主要有幾個理由:</p>
+
+<ol>
+<li><p>相容性比較好:</p>
+
+<p>如果函數的參數是 unique_ptr 的參考，但 Caller 卻不是透過 unique_ptr 管理時，就會無法使用該函數了。把物件直接在宣告在 stack 上，或是 Caller 使用 share_ptr 來管理物件都會有問題。</p></li>
+
+<li><p>意圖比較清晰 :</p>
+
+<p>由於接收的是物件的 reference，因此 Caller 可以相信該函數不會去控制該物件的生命 (雖然該函數也是可以直接把物件給強制 delete 掉，但這通常是頗糟的設計&hellip;)</p></li>
+</ol>
+
+<p>　　根據這個原則，我們可以知道使用 const unique_ptr&amp; 作為參數的函數可能是壞味道，因為被宣告成 const 的智慧指標並不能調整物件的生命週期。</p>
+
+<p>　　const shared_ptr&amp; 應該也不太常見，比較合理的解釋是該函數想使用 use_count() 取得 shared_ptr 的 reference count，但這種需求我覺得應該是蠻少的。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#0f0">// 通常是 bad design ...
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> unique_ptr&lt;Object&gt;&amp; obj);
+<span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);
+</code></pre></div>
+
+<p>　</p>
+
+<h3 id="smart-pointer-常見的參數傳遞方式">Smart Pointer 常見的參數傳遞方式</h3>
+
+<p>　　知道主要原則以後，何時需要及如何傳遞 Smart Pointer 就變得比較容易瞭解了，大致上會有以下幾種:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (1)
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (2)
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (3)
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (4)
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);	<span style="color:#0f0">// (5) 少見
+</span><span style="color:#0f0"></span>
+<span style="color:#0f0">// (6) 包含 const Object&amp; obj, Object*, const Object* 等
+</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object&amp; obj);
+</code></pre></div>
+
+<p>　</p>
+
+<h5 id="1-2-以傳值-value-方式傳遞-smart-pointer">(1) (2) 以傳值 (value) 方式傳遞 Smart Pointer</h5>
+
+<p>　　當 Smart Pointer 以傳值方式出現在函數參數時，通常代表該函數<strong>想取得該物件生命週期控制權</strong>。這很容易理解，因為 unique_ptr 不能被複製，因此 caller 必須使用 move 語意來呼叫此函數，同時也代表著物件控制權的轉移；而 shared_ptr 的 reference count 會增加，因此物件的控制者增加也是能理解的事。</p>
+
+<h5 id="3-4-透過參考-reference-來傳遞-smart-pointer">(3) (4) 透過參考 (reference) 來傳遞 Smart Pointer</h5>
+
+<p>　　當 Smart Pointer 以傳參考方式出現在函數參數時，代表著該函數可能想重置該 Smart Pointer 的所指物件。重置可能是刪除物件，或是讓該 Smart Pointer 指向其他的物件，因為傳 reference 就是達成此目的最好的選擇，當然傳遞 Smart Pointer 的指標 (shared_ptr*) 也不是不可以，但傳參考通常會是比較好的方式。</p>
+
+<h5 id="5-傳遞-const-shared-ptr">(5) 傳遞 const shared_ptr&amp;</h5>
+
+<p>　　我個人是覺得這個使用情境應該是很少，除了想拿 shared_ptr 的 refcount 以外 &hellip; 如果有什麼看法也歡迎提供給我。</p>
+
+<h5 id="6-直接傳遞所指物件型別的參考或指標">(6) 直接傳遞所指物件型別的參考或指標</h5>
+
+<p>　　這個會特別提及主要是想提醒不要忘了還有這個選擇，當沒有要控制物件生命週期時就不需要傳遞 Smart Pointer，可以直接傳遞該物件的參考或指標就好。</p>
+
+<p>　</p>
+
+<h3 id="其他">其他</h3>
+
+<p>　　當然 C++ 還有其他的傳遞方式，例如傳遞右值參考(rvalue reference)等，但這通常也不是什麼好主意，例如以下的程式的 Caller 部分</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp;&amp; obj)
+{
+	obj-&gt;DoSomething();
+}
+
+<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+{
+	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+	<span style="color:#0f0">// 因為函數接收的是 rvalue reference，因此你只能使用 move 來呼叫該函數
+</span><span style="color:#0f0"></span>	<span style="color:#0f0">// 乍看之下已經把 uniqueObj 的控制權轉移給 Callee 了，但實際上沒有！！
+</span><span style="color:#0f0"></span>	Callee(move(uniqueObj));
+}
+</code></pre></div>
+
+<p>　　乍看之下 uniqueObj 的控制權似乎已經轉移給 Callee 了，但實際上並沒有，非常容易誤導人。</p>
+
+<p>　　關於這份文件的說明，如果有其他看法或覺得不恰當的地方，也歡迎留言給我。以下是本文的幾個主要參考資料來源:</p>
+
+<ul>
+<li><a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core Guideline</a></li>
+<li><a href="https://www.internalpointers.com/post/move-smart-pointers-and-out-functions-modern-c">Move smart pointers in and out functions in modern C++</a></li>
+</ul>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f11%2fpassing-smart-pointer%2f&text=%5bC%2b%2b%5d%20%e5%b9%be%e7%a8%ae%e5%9c%a8%e5%87%bd%e6%95%b8%e5%82%b3%e9%81%9e%20Smart%20Pointer%20%e7%9a%84%e6%96%b9%e5%bc%8f%e6%95%b4%e7%90%86&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f11%2fpassing-smart-pointer%2f&t=%5bC%2b%2b%5d%20%e5%b9%be%e7%a8%ae%e5%9c%a8%e5%87%bd%e6%95%b8%e5%82%b3%e9%81%9e%20Smart%20Pointer%20%e7%9a%84%e6%96%b9%e5%bc%8f%e6%95%b4%e7%90%86" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f11%2fpassing-smart-pointer%2f&title=%5bC%2b%2b%5d%20%e5%b9%be%e7%a8%ae%e5%9c%a8%e5%87%bd%e6%95%b8%e5%82%b3%e9%81%9e%20Smart%20Pointer%20%e7%9a%84%e6%96%b9%e5%bc%8f%e6%95%b4%e7%90%86&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">11</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.comtags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>

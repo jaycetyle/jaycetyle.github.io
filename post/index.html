@@ -9,7 +9,7 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.jaycetyle.com/post/" />
 
-<meta property="og:updated_time" content="2019-10-23T00:00:00+00:00" />
+<meta property="og:updated_time" content="2019-11-03T00:00:00+00:00" />
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -125,6 +125,27 @@
     
     
       <article class="post p-0 pb-5">
+        <a class="title" href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/"><h3 class="post-title">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Nov 3, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
+    </small>
+</div>
+        <div>
+            <p>　　相較於其他程式語言，C++ 的函數參數傳遞方式有很多種方法，如傳值(value)、傳址(address/pointer)，及傳參考(reference)等，再加上 const 修飾詞後又有不同的變化。</p>
+
+<p>　　C++11 引入的 unique_ptr 及 shared_ptr 等智慧指標，也同樣有傳值或傳參考等方式。雖然很多手段都可以達到相同目的，但如果透過傳遞方式的不同，就可以表現出函數設計者想傳達的「語意」，那一定會是比較好的設計，同時好的設計也能借助編譯器的輔助來降低程式出錯的機會。</p>
+
+<p>　　針對各種不同需求及使用情境，這篇整理我蒐集到的建議實作方式，主要源自於 <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core Guideline</a>，提供給各位參考。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-0 pb-5">
         <a class="title" href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/"><h3 class="post-title">從 Jekyll 遷移到 Hugo 步驟心得分享</h3></a>
         <div class="mt-2 mb-3">
     <small>
@@ -210,23 +231,6 @@
         </div>
         <div>
             <a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
-      <article class="post p-0 pb-5">
-        <a class="title" href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/"><h3 class="post-title">Synology Data Scrubbing 介紹與分析</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Nov 4, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>nas 與資料備份</a>
-    </small>
-</div>
-        <div>
-            <p>　　最近有人在詢問 Synology 的 Data Scrubbing 相關的問題，剛好小弟算是小有研究，因此來介紹一下何謂 Data Scrubbing（資料洗滌），以及 Synology 的 Data Scrubbing 可以為我們做些什麼？</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2018/11/synology-data-scrubbing/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
         </div>
       </article>
     
@@ -326,6 +330,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
@@ -334,8 +340,6 @@
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/01/linux-read-write/">Linux 系統程式設計 - read()、write() 與 page cache</a></li>
     
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a></li>
-    
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
   <ul class="mt-2 pl-4">
@@ -343,7 +347,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.comtags/c/c&#43;&#43;/'>
       C/C&#43;&#43;
-      <span class="badge badge-pill badge-secondary">10</span>
+      <span class="badge badge-pill badge-secondary">11</span>
       </a>
     </li>
     
