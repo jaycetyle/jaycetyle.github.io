@@ -191,7 +191,7 @@
 
 <p>　　不同的 filesystem 適用於不同的 UUID 取得方式，例如 FAT 透過 statfs 得到的 fsid 是 device number，但 device number 是可能會改變的，因此並不恰當。相反的例子是 btrfs 的 subvolume，每個 subvolume 有不同的 fsid，但共用同一個 blkid，btrfs 使用 fsid 會有他的意義。</p>
 
-<p>　　相關的程式碼位於 <a href="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/mountd/cache.c">nfs-utils/utils/mountd/cache.c</a> 內的 uuid_by_patch 函式。</p>
+<p>　　相關的程式碼位於 <a href="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/mountd/cache.c">nfs-utils/utils/mountd/cache.c</a> 內的 uuid_by_path 函式。</p>
 
 <h3 id="fileid">fileid</h3>
 
