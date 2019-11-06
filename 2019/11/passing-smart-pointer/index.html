@@ -218,7 +218,7 @@
 <p>由於接收的是物件的 reference，因此 Caller 可以相信該函數不會去控制該物件的生命 (雖然該函數也是可以直接把物件給強制 delete 掉，但這通常是頗糟的設計&hellip;)</p></li>
 </ol>
 
-<p>　　根據這個原則，我們可以知道使用 const unique_ptr&amp; 作為參數的函數可能是壞味道，因為被宣告成 const 的智慧指標並不能調整物件的生命週期。</p>
+<p>　　根據這個原則，我們可以知道使用 const unique_ptr&amp; 作為參數的函數可能是壞味道，因為被宣告成 const 的智慧指標並不能控制或轉移物件的生命週期。</p>
 
 <p>　　const shared_ptr&amp; 應該也不太常見，比較合理的解釋是該函數想使用 use_count() 取得 shared_ptr 的 reference count，但這種需求我覺得應該是蠻少的。</p>
 
@@ -251,7 +251,7 @@
 
 <h5 id="3-4-透過參考-reference-來傳遞-smart-pointer">(3) (4) 透過參考 (reference) 來傳遞 Smart Pointer</h5>
 
-<p>　　當 Smart Pointer 以傳參考方式出現在函數參數時，代表著該函數可能想重置該 Smart Pointer 的所指物件。重置可能是刪除物件，或是讓該 Smart Pointer 指向其他的物件，因為傳 reference 就是達成此目的最好的選擇，當然傳遞 Smart Pointer 的指標 (shared_ptr*) 也不是不可以，但傳參考通常會是比較好的方式。</p>
+<p>　　當 Smart Pointer 以傳參考方式出現在函數參數時，代表著該函數可能<strong>想重置該 Smart Pointer 的所指對象</strong>。重置可能是刪除物件，或是讓該 Smart Pointer 指向其他的物件，傳 reference 就是達成此目的最好的選擇，當然傳遞 Smart Pointer 的指標 (shared_ptr*) 也不是不可以，但傳參考通常會好用一點。</p>
 
 <h5 id="5-傳遞-const-shared-ptr">(5) 傳遞 const shared_ptr&amp;</h5>
 
