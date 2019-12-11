@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <meta property="og:title" content="Linux Kernel BUG_ON 傾印訊息分析及案例分享" />
+<meta property="og:description" content="前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因，這篇分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式給各位參考" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/" />
+<meta property="article:published_time" content="2019-12-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2019-12-04T00:00:00+00:00" />
+
+        <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Linux Kernel BUG_ON 傾印訊息分析及案例分享"/>
+<meta name="twitter:description" content="前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因，這篇分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式給各位參考"/>
+
+
+        <title>
+  Linux Kernel BUG_ON 傾印訊息分析及案例分享 | Jayce 的共享記憶體
+</title>
+
+        
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+
+        
+        
+        
+
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+
+        
+  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
+
+
+<link rel="shortcut icon" href="/images/favicon.ico">
+
+<link rel="shortcut icon" href="/images/favicon.png">
+
+<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
+
+<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
+
+
+<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
+
+<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+<meta name="author" content="" />
+<meta name="copyright" content="" />
+
+
+<meta name="description" content="前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因，這篇分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式給各位參考">
+
+  <style type="text/css">
+  .feature-image {
+    background-image: linear-gradient(
+      rgba(0, 0, 0, 0.15),
+      rgba(0, 0, 0, 0.15)
+    ), url('https://blog.jaycetyle.com/images/banner.jpg');
+    height: 400px;
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: center;
+  }
+  .feature-image-text {
+    margin-top: 20px;
+  }
+
+  @media (max-width: 1024px) {
+    .feature-image {
+      height: 300px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .feature-image {
+      height: 250px;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .feature-image {
+      display: none;
+    }
+  }
+</style>
+
+
+
+
+    </head>
+    <body>
+        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
+            <div class="container">
+                    <a href="https://blog.jaycetyle.com"><img class="logo" src="https://blog.jaycetyle.com/images/logo.png"></a>
+<a class="navbar-brand pr-4 d-none d-sm-block" href="https://blog.jaycetyle.com">Jayce&#39;s Shared Memory</a>
+                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fas fa-bars" style="color:black"></i>
+                </button>
+                <div class="navbar-collapse collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com">Home</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/archive/">Archive</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
+</li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        
+  <header class="feature-image">
+  <div class="feature-image-text white-shadow-text">
+    <h1 class="font-weight:bold">Linux Kernel BUG_ON 傾印訊息分析及案例分享</h1>
+  </div>
+</header>
+
+
+        <div class="container main my-4">
+            
+  <div class="post p-3 p-sm-5">
+    <h3 class="post-title">Linux Kernel BUG_ON 傾印訊息分析及案例分享</h3>
+    <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Dec 4, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
+    </small>
+</div>
+
+    <div class="mt-4 mb-4 main-content">
+      <p>　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。</p>
+
+<p>　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。</p>
+
+<p><br/></p>
+
+<h3 id="oops">Oops!</h3>
+
+<p>　　遇到 Kernel panic 或 Oops 的時候，Kernel 通常會 dump 一些訊息出來，可以在 dmesg 或是 /var/log/kern.log 等地方找到他。以下是這次實際遇到問題時所產生的 log，由於訊息頗長，我有把部分區段省略 :</p>
+
+<pre><code>------------[ cut here ]------------
+kernel BUG at fs/ext4/inode.c:2292!
+Internal error: Oops - BUG: 0 [#1] SMP ARM
+Modules linked in: ecryptfs dm_flakey 8021q fuse vhost_scsi(OF) vhost(OF) tcm_loop(OF)  ...
+CPU: 0 PID: 24740 Comm: loop1 Tainted: PF O 3.10.108
+task: 9f1b4580 ti: 8e0ba000 task.ti: 8e0ba000
+PC is at write_cache_pages_da+0x3c0/0x460
+LR is at __wait_on_bit_lock+0x80/0xa0
+pc : [&lt;801733a4&gt;] lr : [&lt;803f0454&gt;] psr: 00000013
+sp : 8e0bbcd8 ip : 00000000 fp : 8e0bbdc0
+r10: 00000002 r9 : 00000000 r8 : 000194c3
+r7 : 8e0bbe40 r6 : 8df4a788 r5 : 9dc88368 r4 : 8082c1e0
+r3 : 0000283d r2 : 9dc8846c r1 : 20000013 r0 : 00000000
+Flags: nzcv IRQs on FIQs on Mode SVC_32 ISA ARM Segment kernel
+Control: 10c53c7d Table: 1ba0004a DAC: 00000015
+Process loop1 (pid: 24740, stack limit = 0x8e0ba238)
+Stack: (0x8e0bbcd8 to 0x8e0bc000)
+bcc0: 0000000e 805f1510
+bce0: 000194c4 00000000 ffffffff 9dc8846c 00000002 0000000e 9edb0f80 7fffff06
+bd00: 8e0bbd00 000194d0 0000000e 00000000 80655440 80888300 8082c1e0 808e4b20
+...
+bfc0: 00000000 00000000 00000000 00000000 00000000 00000000 00000000 00000000
+bfe0: 00000000 00000000 00000000 00000000 00000013 00000000 7423f168 7423eca8
+[&lt;801733a4&gt;] (write_cache_pages_da+0x3c0/0x460) from [&lt;80173688&gt;] (ext4_da_writepages+0x244/0x464)
+[&lt;80173688&gt;] (ext4_da_writepages+0x244/0x464) from [&lt;800a466c&gt;] (do_writepages+0x30/0x84)
+[&lt;800a466c&gt;] (do_writepages+0x30/0x84) from [&lt;8009b350&gt;] (__filemap_fdatawrite_range+0x4c/0x54)
+[&lt;8009b350&gt;] (__filemap_fdatawrite_range+0x4c/0x54) from [&lt;8009b474&gt;] (filemap_write_and_wait_range+0x34/0x74)
+[&lt;8009b474&gt;] (filemap_write_and_wait_range+0x34/0x74) from [&lt;8016b104&gt;] (ext4_sync_file+0x48/0x29c)
+[&lt;8016b104&gt;] (ext4_sync_file+0x48/0x29c) from [&lt;80106aa0&gt;] (vfs_fsync+0x3c/0x54)
+[&lt;80106aa0&gt;] (vfs_fsync+0x3c/0x54) from [&lt;7f345c40&gt;] (loop_thread+0x2a8/0x55c [loop])
+[&lt;7f345c40&gt;] (loop_thread+0x2a8/0x55c [loop]) from [&lt;8003d9fc&gt;] (kthread+0xb4/0xb8)
+[&lt;8003d9fc&gt;] (kthread+0xb4/0xb8) from [&lt;8000e280&gt;] (ret_from_fork+0x14/0x34)
+Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
+---[ end trace 1e36d7c9ed058ce2 ]---
+</code></pre>
+
+<p>　　每個平台在一些小細節上可能會有一點不一樣，但基本上大同小異。</p>
+
+<p><br/></p>
+
+<h4 id="出錯的原因">出錯的原因</h4>
+
+<p>　　Oops 的第一行通常可以得到錯誤的主要原因，例如這次案例所印訊息</p>
+
+<pre><code>kernel BUG at fs/ext4/inode.c:2292!
+</code></pre>
+
+<p>　　這個訊息是 Kernel BUG_ON 造成的，BUG_ON(condition) 是一個類似 assert 的函式，condition 預期是不成立的，當成立的時候，表示系統發生 BUG，然後 kernel 就會 dump 這些訊息，通常機器也就掛了。</p>
+
+<p>　　BUG_ON 通常會明確指出錯誤的程式碼位置，此時就可以打開程式碼直接進行對照，像這次發生問題的位置就在 fs/ext4/inode.c 的 2292 行</p>
+
+<pre><code>/*2291*/ wait_on_page_writeback(page);
+/*2292*/ BUG_ON(PageWriteback(page));
+</code></pre>
+
+<p>　　除了 BUG_ON 以外，<code>BUG: unable to handle kernel NULL pointer dereference at (null)</code> 也是常見的錯誤訊息。</p>
+
+<p><br/></p>
+
+<h4 id="出錯的程序">出錯的程序</h4>
+
+<p>　　知道錯誤的原因後，接下來我們可能會想知道是哪隻 Process 觸發了這個錯誤 :</p>
+
+<pre><code>CPU: 0 PID: 24740 Comm: loop1 Tainted: PF O 3.10.108
+</code></pre>
+
+<p>　　從上面的 log 中，我們可知道發生問題的指令(Comm) 為 loop1 這隻程序，出錯當下運行在 CPU 0，而 PID 為 24740。</p>
+
+<p><br/></p>
+
+<h4 id="出錯的程式碼位置">出錯的程式碼位置</h4>
+
+<p>　　並不是所有類型的錯誤都會像 BUG_ON 直接印出出錯的程式碼位置，此時我們就需要借助其他資訊來追蹤，可以利用的就是 PC (Program Counter) 中所記錄的資訊，例如以下 log</p>
+
+<pre><code>PC is at write_cache_pages_da+0x3c0/0x460
+</code></pre>
+
+<p>　　PC (Program Counter) 是程式計數器，儲存的是目前電腦執行的指令位址。Oops 發生時，kernel 會把發生當下的暫存器狀態保留下來，而保存下來的 PC 就是出錯時的執行位址囉！在 x86 的系統上，他通常會叫 IP (Instruction Pointer)，但意思是類似的。</p>
+
+<p>　　現在我們知道出問題的位置是 write_cache_pages_da+0x3c0，代表 write_cache_pages_da 函式中 offset 為 0x3c0 的地方，但如何得知 offset 0x3c0 實際指的是程式的哪一行呢？</p>
+
+<p>　　我們可以借助 gdb 來讀出 binary 內的除錯訊息。用 gdb 讀入你的 vmlinux 或是函式所在的 kernel module 後，輸入 <code>list*(write_cache_pages_da+0x3c0)</code>，就可以找到錯誤的位置了。</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># gdb ext4.ko</span>
+(gdb) list *(write_cache_pages_da+0x3c0)
+0x53e8 is in write_cache_pages_da (fs/ext4/inode.c:2292).
+<span style="color:#f60">2289</span>	}
+<span style="color:#f60">2290</span>
+<span style="color:#f60">2291</span>	wait_on_page_writeback(page);
+<span style="color:#f60">2292</span>	BUG_ON(PageWriteback(page));
+<span style="color:#f60">2293</span>
+<span style="color:#f60">2294</span>	/*</code></pre></div>
+
+<p>　　有時候位置可能會誤差一到兩行，但通常也已經足夠精確讓我們進行判斷，另外要注意，如果你的 kernel 沒有打開 CONFIG_DEBUG_INFO 的選項，你可能會需要打開他並重新建置，否則 gdb 會找不到 debug symbol。</p>
+
+<p><br/></p>
+
+<h4 id="出錯的過程-call-stack">出錯的過程 (Call Stack)</h4>
+
+<p>　　接下來我們可能會想知道出錯的程式是從哪些函式一層一層呼叫進來，我們可以從 Oops 所印的 Call Stack 的訊息來得知:</p>
+
+<pre><code>[&lt;801733a4&gt;] (write_cache_pages_da+0x3c0/0x460) from [&lt;80173688&gt;] (ext4_da_writepages+0x244/0x464)
+[&lt;80173688&gt;] (ext4_da_writepages+0x244/0x464) from [&lt;800a466c&gt;] (do_writepages+0x30/0x84)
+[&lt;800a466c&gt;] (do_writepages+0x30/0x84) from [&lt;8009b350&gt;] (__filemap_fdatawrite_range+0x4c/0x54)
+[&lt;8009b350&gt;] (__filemap_fdatawrite_range+0x4c/0x54) from [&lt;8009b474&gt;] (filemap_write_and_wait_range+0x34/0x74)
+[&lt;8009b474&gt;] (filemap_write_and_wait_range+0x34/0x74) from [&lt;8016b104&gt;] (ext4_sync_file+0x48/0x29c)
+[&lt;8016b104&gt;] (ext4_sync_file+0x48/0x29c) from [&lt;80106aa0&gt;] (vfs_fsync+0x3c/0x54)
+[&lt;80106aa0&gt;] (vfs_fsync+0x3c/0x54) from [&lt;7f345c40&gt;] (loop_thread+0x2a8/0x55c [loop])
+[&lt;7f345c40&gt;] (loop_thread+0x2a8/0x55c [loop]) from [&lt;8003d9fc&gt;] (kthread+0xb4/0xb8)
+[&lt;8003d9fc&gt;] (kthread+0xb4/0xb8) from [&lt;8000e280&gt;] (ret_from_fork+0x14/0x34)
+</code></pre>
+
+<p>　　例如以上的 log，出錯時的呼叫過程是 <code>kthread -&gt; loop_thread -&gt; vfs_fsync -&gt; ext4_sync_file -&gt; ... -&gt; write_cache_pages_da</code> 這樣一層一層呼叫走到出錯當下的程式碼，如果有需求的話。</p>
+
+<p>　　像是 ext4_sync_file+0x48 之類的訊息，我們也一樣可以利用 gdb 找出實際在程式碼的哪一行。</p>
+
+<p><br/></p>
+
+<h4 id="出錯的記憶體資訊">出錯的記憶體資訊</h4>
+
+<p>　　有些時候我們還需要記憶體相關的資訊來協助我們判斷問題，例如這次的案例中，BUG 是發生在 page-&gt;flags 有 0x2000 (PG_writeback) 這個 bit:</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wait_on_page_writeback(page);  <span style="color:#0f0">// 若 page-&gt;flags 有 PG_writeback，就等到他被清除
+</span><span style="color:#0f0"></span>BUG_ON(PageWriteback(page));   <span style="color:#0f0">// 若 page-&gt;flags 的 PG_writeback 還在，就觸發 BUG
+</span></code></pre></div>
+
+<p>　　page-&gt;flags 這個變數當時到底是什麼值呢？我們此時需要 dump 出來的暫存器來協助我們找出當下的變數值。</p>
+
+<p>　　由於 Oops 並沒有告訴我們各個暫存器當時是在處理什麼變數，因此會需要對照編譯後的組合語言來進行確認，我們可以利用 objdump -d 來解出人比較好看懂的組合語言。以下是這次案例的 objdump 結果，由於 dump 出來內容有點長，所以我只留下了關鍵的部分:</p>
+
+<pre><code># objdump -d ext4.ko
+...
+0000000000005028 &lt;write_cache_pages_da&gt;:
+...
+53d8: ebfffffe bl  0 &lt;wait_on_page_bit&gt;
+53dc: e5943000 ldr r3, [r4]    ; 把 [r4] 讀到 r3
+53e0: e3130a02 tst r3, #8192   ; 測試 r3 的 0x2000 (PG_writeback) bit 是否為零
+53e4: 0affff6d beq 51a0 &lt;write_cache_pages_da+0x178&gt;  ; jump
+...
+</code></pre>
+
+<p>　　從組合語言中可以看到，出錯的當下是把 r4 的位址讀到 r3，並檢查 r3 是否有 0x2000 的 bit，也就是 page-&gt;flags 這個變數被放入了 r3 暫存器，而 r4 的暫存器則是存著 page-&gt;flags 的記憶體位址。再對照先前的 dump 資訊，我們可以發現出錯當下的 r3 為 0x283d，確實有 0x2000 的 bit！</p>
+
+<pre><code>sp : 8e0bbcd8 ip : 00000000 fp : 8e0bbdc0
+r10: 00000002 r9 : 00000000 r8 : 000194c3
+r7 : 8e0bbe40 r6 : 8df4a788 r5 : 9dc88368 r4 : 8082c1e0
+r3 : 0000283d r2 : 9dc8846c r1 : 20000013 r0 : 00000000
+</code></pre>
+
+<p>　　由於 0x283d 是一個合理的 page flags，所以在這個例子中，我們可以暫且排除記憶體溢位之類的因素，導致 page-&gt;flags 被別人寫壞的可能性，因為要溢位且寫入合理的變數值，那難度也太高了。</p>
+
+<p><br/></p>
+
+<h3 id="深入追蹤問題">深入追蹤問題</h3>
+
+<p>　　至此我們已經對出錯時的系統狀況有了初步的輪廓，比較簡單的問題可能從以上的資訊就可以找到修復的辦法。</p>
+
+<p>　　許多複雜問題還需要程式深入的理解才能找出 root cause，這時候只能慢慢檢查程式碼或是找出其他重製步驟等等。在這個案例中，我們後續還實際測試證明程式邏輯，排除了 lock 忘記拿等等可能，才逐步追蹤出真正的錯誤原因。</p>
+
+      <div class="share-icons d-flex justify-content-center d-print-none">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f12%2flinux-bug-on-case-study%2f&text=Linux%20Kernel%20BUG_ON%20%e5%82%be%e5%8d%b0%e8%a8%8a%e6%81%af%e5%88%86%e6%9e%90%e5%8f%8a%e6%a1%88%e4%be%8b%e5%88%86%e4%ba%ab&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Tweet</small></div>
+</a>
+
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f12%2flinux-bug-on-case-study%2f&t=Linux%20Kernel%20BUG_ON%20%e5%82%be%e5%8d%b0%e8%a8%8a%e6%81%af%e5%88%86%e6%9e%90%e5%8f%8a%e6%a1%88%e4%be%8b%e5%88%86%e4%ba%ab" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2019%2f12%2flinux-bug-on-case-study%2f&title=Linux%20Kernel%20BUG_ON%20%e5%82%be%e5%8d%b0%e8%a8%8a%e6%81%af%e5%88%86%e6%9e%90%e5%8f%8a%e6%a1%88%e4%be%8b%e5%88%86%e4%ba%ab&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Share</small></div>
+</a>
+
+<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
+    <div>
+        <span class="fa-stack">
+            <i class="fas fa-circle fa-stack-2x"></i>
+            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
+        </span>
+    </div>
+    <div class="fa-inverse text-center"><small>Print</small></div>
+</a>
+      </div>
+    </div>
+
+    
+
+    <div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+  </div>
+  <div class="sidebar d-print-none d-none d-xl-block">
+  <h5 class="mt-4 post-title">Recent Posts</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
+    
+  </ul>
+  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
+  <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/c/c&#43;&#43;/'>
+      C/C&#43;&#43;
+      <span class="badge badge-pill badge-secondary">11</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
+      Ubuntu 作業系統
+      <span class="badge badge-pill badge-secondary">7</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
+      Linux Kernel
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
+      開發環境
+      <span class="badge badge-pill badge-secondary">5</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
+      版本控制
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E9%96%92%E8%81%8A/'>
+      閒聊
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
+      樹莓派
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">3</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/c%23/'>
+      C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
+      NAS 與資料備份
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/python/'>
+      Python
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
+      工具軟體
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+  </ul>
+</div>
+
+        </div>
+
+        <footer class="mt-auto footer d-print-none">
+            <div class="container-fluid">
+                <div class="d-flex col-xl-12 justify-content-center">
+                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
+                </div>
+                </hr>
+                <div class="d-flex justify-content-center icons">
+                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
+
+                </div>
+            </div>
+        </footer>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-112038536-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+    </body>
+</html>
