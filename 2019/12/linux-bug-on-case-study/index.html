@@ -239,7 +239,7 @@ Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
 
 <h4 id="出錯的程式碼位置">出錯的程式碼位置</h4>
 
-<p>　　並不是所有類型的錯誤都會像 BUG_ON 直接印出出錯的程式碼位置，此時我們就需要借助其他資訊來追蹤，可以利用的就是 PC (Program Counter) 中所記錄的資訊，例如以下 log</p>
+<p>　　有些時候， dump 出來的訊息可能沒有直接指出錯誤的程式碼位置，此時我們需要借助其他資訊來追蹤，可以利用的就是 PC (Program Counter) 中所記錄的資訊，例如以下 log</p>
 
 <pre><code>PC is at write_cache_pages_da+0x3c0/0x460
 </code></pre>
@@ -295,20 +295,23 @@ Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
 
 <p>　　page-&gt;flags 這個變數當時到底是什麼值呢？我們此時需要 dump 出來的暫存器來協助我們找出當下的變數值。</p>
 
-<p>　　由於 Oops 並沒有告訴我們各個暫存器當時是在處理什麼變數，因此會需要對照編譯後的組合語言來進行確認，我們可以利用 objdump -d 來解出人比較好看懂的組合語言。以下是這次案例的 objdump 結果，由於 dump 出來內容有點長，所以我只留下了關鍵的部分:</p>
+<p>　　由於 Oops 並沒有告訴我們各個暫存器當時是在處理什麼變數，因此會需要對照編譯後的組合語言來進行確認，我們可以利用 objdump -d 來解出人比較好看懂的組合語言。以下是這次案例的 objdump 結果:</p>
 
 <pre><code># objdump -d ext4.ko
 ...
-0000000000005028 &lt;write_cache_pages_da&gt;:
+00005028 &lt;write_cache_pages_da&gt;:
 ...
 53d8: ebfffffe bl  0 &lt;wait_on_page_bit&gt;
 53dc: e5943000 ldr r3, [r4]    ; 把 [r4] 讀到 r3
 53e0: e3130a02 tst r3, #8192   ; 測試 r3 的 0x2000 (PG_writeback) bit 是否為零
 53e4: 0affff6d beq 51a0 &lt;write_cache_pages_da+0x178&gt;  ; jump
+53e8:	e7f001f2 	.word	0xe7f001f2
 ...
 </code></pre>
 
-<p>　　從組合語言中可以看到，出錯的當下是把 r4 的位址讀到 r3，並檢查 r3 是否有 0x2000 的 bit，也就是 page-&gt;flags 這個變數被放入了 r3 暫存器，而 r4 的暫存器則是存著 page-&gt;flags 的記憶體位址。再對照先前的 dump 資訊，我們可以發現出錯當下的 r3 為 0x283d，確實有 0x2000 的 bit！</p>
+<p>　　由於 dump 出來內容很長，所以我只留下了關鍵的部分。至於要如何找到關鍵的組語位置呢？我們知道出錯的地方是 write_cache_pages_da+0x3c0，可以直接在 objdump 搜尋 <write_cache_pages_da>，前方有該函式的位址，像這次的位址是 0x5028，之後再加上 0x3c0 我們可以得到 0x53e8，而關鍵的組語可能就會在這個位址的附近。</p>
+
+<p>　　從組合語言中可以看到，出錯的當下是把 r4 的位址讀到 r3，並檢查 r3 是否有 0x2000 的 bit。也就是 page-&gt;flags 這個變數被放入了 r3 暫存器，而 r4 的暫存器則是存著 page-&gt;flags 的記憶體位址，再對照先前的 dump 資訊，我們可以發現出錯當下的 r3 為 0000283d，確實有 0x2000 的 bit！</p>
 
 <pre><code>sp : 8e0bbcd8 ip : 00000000 fp : 8e0bbdc0
 r10: 00000002 r9 : 00000000 r8 : 000194c3
