@@ -279,9 +279,7 @@ Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
 [&lt;8003d9fc&gt;] (kthread+0xb4/0xb8) from [&lt;8000e280&gt;] (ret_from_fork+0x14/0x34)
 </code></pre>
 
-<p>　　例如以上的 log，出錯時的呼叫過程是 <code>kthread -&gt; loop_thread -&gt; vfs_fsync -&gt; ext4_sync_file -&gt; ... -&gt; write_cache_pages_da</code> 這樣一層一層呼叫走到出錯當下的程式碼，如果有需求的話。</p>
-
-<p>　　像是 ext4_sync_file+0x48 之類的訊息，我們也一樣可以利用 gdb 找出實際在程式碼的哪一行。</p>
+<p>　　例如以上的 log，出錯時的呼叫過程是 <code>kthread -&gt; loop_thread -&gt; vfs_fsync -&gt; ext4_sync_file -&gt; ... -&gt; write_cache_pages_da</code> 這樣一層一層呼叫走到出錯當下的程式碼。如果有需求的話，像是 ext4_sync_file+0x48 之類的訊息，我們也一樣可以利用 gdb 找出實際在程式碼的哪一行。</p>
 
 <p><br/></p>
 
