@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
     <head>
-	<meta name="generator" content="Hugo 0.58.3" />
+	<meta name="generator" content="Hugo 0.88.1" />
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -10,7 +10,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.jaycetyle.com/" />
 
-<meta property="og:updated_time" content="2019-12-04T00:00:00+00:00" />
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Jayce 的共享記憶體"/>
@@ -128,6 +127,24 @@
     
     
       <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/"><h3 class="post-title">升級囉！Ubuntu 18.04</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Apr 28, 2018&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
+    </small>
+</div>
+        <div>
+            <p>　　Stable Ubuntu 18.04 LTS 在 4 月 26 日正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)。我沒有經歷過 14.04 升 16.04 的階段，系統升級的部分據說<a href="https://askubuntu.com/questions/1028624/not-able-to-upgrade-from-16-04-lts-to-18-04-lts">會在第一個 patch，也就是大約一個月後釋後釋出</a>。</p>
+<p>　　不過我今天沒什麼特別的事，就手動把 Ubuntu 升級了一下，反正檔案都放在電腦硬碟或<a href="https://www.synology.com/zh-tw">NAS</a>上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2018/04/me-to-cs/"><h3 class="post-title">機械跨軟體開發心得分享 - 入門篇</h3></a>
         <div class="mt-2 mb-3">
     <small>
@@ -150,7 +167,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Apr 7, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>樹莓派</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>樹莓派</a>
     </small>
 </div>
         <div>
@@ -184,12 +201,11 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Mar 24, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
         <div>
             <p>　　軟體開發常常會需要 Linux 作業環境，但電腦又想裝 Windows 時候，一個常見的解決方式是在裝 Virtual Box，不過前一陣子覺得這不完全滿足我的需求，因為我有桌電和筆電兩台電腦，出門用筆電，在家用桌電，要兩台電腦共享 VM 就有一點麻煩了，後來決定直接把 Ubuntu 裝在隨身碟裡面，這樣就可以隨時切換我的開發環境，反正程式碼會丟到 github 或其他雲端，隨身碟掛了也沒損失。</p>
-
 <p>　　這篇簡單筆記當初怎麼安裝 Ubuntu 到 USB 內，因為當初安裝的時候沒有記得很詳細，所以僅列出主要重點。</p>
         </div>
         <div>
@@ -214,131 +230,44 @@
         </div>
       </article>
     
-      <article class="post p-3 p-sm-5 mb-1">
-        <a class="title" href="https://blog.jaycetyle.com/2018/02/git-commit/"><h3 class="post-title">Git 版本控制筆記 - 在 Git 提交(commit)檔案</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Feb 11, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>版本控制</a>
-    </small>
-</div>
-        <div>
-            <p>　　在<a href="https://blog.jaycetyle.com/2018/02/git-startup/">上一篇文章</a>中我們已經架設好 git 的基本環境，現在可以來開始使用 Git 囉，這篇文章會說明如何初始化一個 Repository (Git 的儲存庫)，並提交檔案到裡面。</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2018/02/git-commit/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
     <div class="d-flex align-items-center justify-content-center">
       
-
-<ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-    <a href="/page/3/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/page/4/">4</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/5/">5</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/page/7/">7</a></li>
-    
-    
-    <li class="page-item">
-    <a href="/page/5/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/3/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item active">
+        <a href="#" aria-current="page" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/6/" aria-label="Page 6" class="page-link" role="button">6</a>
+      </li>
+      <li class="page-item">
+        <a href="/page/5/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/page/7/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </div>
   </div>
   <div class="sidebar d-print-none d-none d-xl-block">
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
@@ -347,8 +276,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -371,7 +298,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

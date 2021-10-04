@@ -7,9 +7,10 @@
         <meta property="og:title" content="將 Ubuntu 家目錄資料夾的語言改為英文" />
 <meta property="og:description" content="如果 Ubuntu 安裝成中文版的話，家目錄 (home) 內的資料夾名稱也會安裝成中文的，例如「桌面」、「下載」之類的，但對於經常使用 terminal 的使用者來說，要在中英文之間切換很麻煩，以下教學如何將這些目錄的名稱無痛轉換為英文" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/06/ubuntu-home-folder-lang/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/06/ubuntu-home-folder-lang/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-06-04T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-06-04T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="將 Ubuntu 家目錄資料夾的語言改為英文"/>
@@ -152,23 +153,17 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jun 4, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　如果 Ubuntu 安裝成中文版的話，家目錄 (home) 內的資料夾名稱也會安裝成中文的，例如「桌面」、「下載」之類的，但對於經常使用 terminal 的使用者來說，要在中英文之間切換很麻煩，以下教學如何將這些目錄的名稱無痛轉換為英文。</p>
-
 <p>首先打開 terminal 輸入以下指令</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ export <span style="color:#eedd82">LANG</span>=en_US
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ export <span style="color:#eedd82">LANG</span>=en_US
 $ xdg-user-dirs-gtk-update</code></pre></div>
-
-<p>　　輸入完以後會出現以下視窗，告知哪些資料夾會被修改，修改成什麼
-<figure class="center">
-<img src="/images/2018/06/home-fold-lang.png" alt="">
-</figure></p>
-
+<p>　　輸入完以後會出現以下視窗，告知哪些資料夾會被修改，修改成什麼</p>
+<!-- raw HTML omitted -->
 <p>　　按下「Update Names」以後，資料夾名稱就自動被改好了。另外原資料夾內如果有檔案的話，該資料夾內的檔案不會被搬移，且原資料夾會被保留，如果有檔案的話再手動搬移即可。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -241,6 +236,8 @@ $ xdg-user-dirs-gtk-update</code></pre></div>
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -248,8 +245,6 @@ $ xdg-user-dirs-gtk-update</code></pre></div>
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -272,7 +267,7 @@ $ xdg-user-dirs-gtk-update</code></pre></div>
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

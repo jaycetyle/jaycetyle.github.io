@@ -7,9 +7,10 @@
         <meta property="og:title" content="避免 Firefox 套用 Ubuntu 的暗色主題" />
 <meta property="og:description" content="因為 Chrome 記憶體吃太兇的關係，最近我改用 Firefox 瀏覽器了，用起來很順的但一直有一個問題：Firefox 似乎會吃 Ubuntu gtk theme 的顏色。這導致某些網站的文字框或下拉式選單會變成暗色，看起來很奇怪，甚至會造成瀏覽障礙，這篇筆記如何複寫 Firefox 套用到的主題顏色" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/07/firefox-ubuntu-dark-gtk/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/07/firefox-ubuntu-dark-gtk/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-07-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-07-11T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="避免 Firefox 套用 Ubuntu 的暗色主題"/>
@@ -152,43 +153,23 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jul 11, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　因為 Chrome 記憶體吃太兇的關係，最近我改用 Firefox 瀏覽器了，用起來很順的但一直有一個問題：Firefox 似乎會吃 Ubuntu gtk theme 的顏色。這導致某些網站的文字框或下拉式選單會變成暗色，看起來很奇怪，甚至會造成瀏覽障礙，這篇筆記如何複寫 Firefox 套用到的主題顏色。</p>
-
 <h2 id="修改方法">修改方法</h2>
-
-<p>我以臺灣證券交易所的網站為例(因為他比較明顯)，可以看到一些文字框都變成了暗色，這應該不是網站設計者原始期望的顏色
-<figure class="center">
-<img src="/images/2018/07/override-firefox-gtk-theme-01.png" alt="">
-</figure>
-　</p>
-
-<p>在網址列輸入 about:config 進入進階設定，會出現以下警告訊息，點選 &ldquo;我發誓，我一定會小心的!&rdquo; 進入設定頁面
-<figure class="center">
-<img src="/images/2018/07/override-firefox-gtk-theme-02.png" alt="">
-</figure>
-　</p>
-
-<p>在設定頁面中按滑鼠右鍵-&gt;新增-&gt;字串，出現新字串設定，名稱輸入 widget.content.gtk-theme-override
-<figure class="center">
-<img src="/images/2018/07/override-firefox-gtk-theme-03.png" alt="">
-</figure>
-　</p>
-
-<p>按下確定後，接著輸入字串的值，內容輸入一個淺色系的 Ubuntu 主題，我是使用 Ambiance
-<figure class="center">
-<img src="/images/2018/07/override-firefox-gtk-theme-04.png" alt="">
-</figure>
-　</p>
-
-<p>按確定後重新開啟 Firefox，進到同一個網站比對一下看有沒有修改成功～
-<figure class="center">
-<img src="/images/2018/07/override-firefox-gtk-theme-05.png" alt="">
-</figure></p>
+<p>我以臺灣證券交易所的網站為例(因為他比較明顯)，可以看到一些文字框都變成了暗色，這應該不是網站設計者原始期望的顏色</p>
+<!-- raw HTML omitted -->
+<p>在網址列輸入 about:config 進入進階設定，會出現以下警告訊息，點選 &ldquo;我發誓，我一定會小心的!&rdquo; 進入設定頁面</p>
+<!-- raw HTML omitted -->
+<p>在設定頁面中按滑鼠右鍵-&gt;新增-&gt;字串，出現新字串設定，名稱輸入 widget.content.gtk-theme-override</p>
+<!-- raw HTML omitted -->
+<p>按下確定後，接著輸入字串的值，內容輸入一個淺色系的 Ubuntu 主題，我是使用 Ambiance</p>
+<!-- raw HTML omitted -->
+<p>按確定後重新開啟 Firefox，進到同一個網站比對一下看有沒有修改成功～</p>
+<!-- raw HTML omitted -->
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f07%2ffirefox-ubuntu-dark-gtk%2f&text=%e9%81%bf%e5%85%8d%20Firefox%20%e5%a5%97%e7%94%a8%20Ubuntu%20%e7%9a%84%e6%9a%97%e8%89%b2%e4%b8%bb%e9%a1%8c&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
@@ -260,6 +241,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -267,8 +250,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -291,7 +272,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

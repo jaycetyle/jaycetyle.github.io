@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux Kernel on Jayce 的共享記憶體</title>
@@ -6,10 +6,16 @@
     <description>Recent content in Linux Kernel on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 04 Dec 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.jaycetyle.com/tags/linux-kernel/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/linux-kernel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kprobe Userspace Tool 使用筆記</title>
+      <link>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</link>
+      <pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</guid>
+      <description>&lt;p&gt;　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。&lt;/p&gt;
+&lt;p&gt;　　詳細的技術原理 &amp;hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看&lt;a href=&#34;https://www.kernel.org/doc/html/latest/trace/kprobes.html&#34;&gt;核心的技術說明手冊&lt;/a&gt;，會比我介紹清楚得多，這邊只簡單介紹好用工具。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Linux Kernel BUG_ON 傾印訊息分析及案例分享</title>
@@ -18,7 +24,6 @@
       
       <guid>https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/</guid>
       <description>&lt;p&gt;　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。&lt;/p&gt;
-
 &lt;p&gt;　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。&lt;/p&gt;</description>
     </item>
     

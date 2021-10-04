@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.jaycetyle.com/post/" />
 
-<meta property="og:updated_time" content="2019-12-04T00:00:00+00:00" />
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -125,12 +124,29 @@
     
     
       <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2019/01/linux-read-write/"><h3 class="post-title">Linux 系統程式設計 - read()、write() 與 page cache</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jan 1, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/linux-kernel/'>Linux Kernel</a>
+    </small>
+</div>
+        <div>
+            <p>　　這篇延續 <a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a>，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 <a href="https://www.tenlong.com.tw/products/9789862769812">Robert Love 的 Linux System Programming</a> 一書。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2019/01/linux-read-write/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/"><h3 class="post-title">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</h3></a>
         <div class="mt-2 mb-3">
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Dec 30, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/linux-kernel/'>linux kernel</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
         <div>
@@ -147,7 +163,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Nov 4, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>nas 與資料備份</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>NAS 與資料備份</a>
     </small>
 </div>
         <div>
@@ -164,7 +180,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Oct 29, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/linux-kernel/'>linux kernel</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
         <div>
@@ -181,7 +197,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Sep 24, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
         <div>
@@ -198,7 +214,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Sep 20, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
     </small>
 </div>
         <div>
@@ -209,127 +225,44 @@
         </div>
       </article>
     
-      <article class="post p-3 p-sm-5 mb-1">
-        <a class="title" href="https://blog.jaycetyle.com/2018/09/nfs-filehandle/"><h3 class="post-title">Linux NFS filehandle 筆記</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Sep 8, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>linux kernel</a>
-    </small>
-</div>
-        <div>
-            <p>　　最近在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle 的運作機制。</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2018/09/nfs-filehandle/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
     <div class="d-flex align-items-center justify-content-center">
       
-
-<ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-    <a href="/post/" class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/post/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/page/7/">7</a></li>
-    
-    
-    <li class="page-item">
-    <a href="/post/page/3/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/post/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item">
+        <a href="/post/" aria-label="First" class="page-link" role="button"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/" aria-label="Previous" class="page-link" role="button"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item active">
+        <a href="#" aria-current="page" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/3/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/7/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </div>
   </div>
   <div class="sidebar d-print-none d-none d-xl-block">
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
@@ -338,8 +271,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -362,7 +293,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

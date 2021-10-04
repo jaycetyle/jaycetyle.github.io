@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.jaycetyle.com/post/" />
 
-<meta property="og:updated_time" content="2019-12-04T00:00:00+00:00" />
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Posts"/>
@@ -125,6 +124,24 @@
     
     
       <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/"><h3 class="post-title">Kprobe Userspace Tool 使用筆記</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Oct 4, 2021&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
+    </small>
+</div>
+        <div>
+            <p>　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。</p>
+<p>　　詳細的技術原理 &hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看<a href="https://www.kernel.org/doc/html/latest/trace/kprobes.html">核心的技術說明手冊</a>，會比我介紹清楚得多，這邊只簡單介紹好用工具。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/"><h3 class="post-title">Linux Kernel BUG_ON 傾印訊息分析及案例分享</h3></a>
         <div class="mt-2 mb-3">
     <small>
@@ -135,7 +152,6 @@
 </div>
         <div>
             <p>　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。</p>
-
 <p>　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。</p>
         </div>
         <div>
@@ -154,9 +170,7 @@
 </div>
         <div>
             <p>　　相較於其他程式語言，C++ 的函數參數傳遞方式有很多種方法，如傳值(value)、傳址(address/pointer)，及傳參考(reference)等，再加上 const 修飾詞後又有不同的變化。</p>
-
 <p>　　C++11 引入的 unique_ptr 及 shared_ptr 等智慧指標，也同樣有傳值或傳參考等方式。雖然很多手段都可以達到相同目的，但如果透過傳遞方式的不同，就可以表現出函數設計者想傳達的「語意」，那一定會是比較好的設計，同時好的設計也能借助編譯器的輔助來降低程式出錯的機會。</p>
-
 <p>　　針對各種不同需求及使用情境，這篇整理我蒐集到的建議實作方式，主要源自於 <a href="https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines">C++ Core Guideline</a>，提供給各位參考。</p>
         </div>
         <div>
@@ -192,7 +206,6 @@
 </div>
         <div>
             <p>　　最近在思考如何讓<a href="https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global">我的插件</a>能夠跑在 WSL 裡面，後來發現了 <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl">Visual Studio Code Remote - WSL</a> 這個好東西，它可以讓 VS Code Server 實際執行在 WSL 裡面，只留 UI 介面在 Windows。</p>
-
 <p>　　這對某些插件非常有用，因為有些東西跑在 Linux 環境是比較容易的。另外 Visual Studio Code Remote 系列還包含 Remote - SSH 模式，這東西就更猛了，如果你的 Build Machine 是遠端的 Linux Server ，他可以直接透過 SSH 跑在 Linux Server 端，像是檔案搜尋等動作，直接執行在遠端 Linux 就會比透過 Samba 或 NFS 快上很多。</p>
         </div>
         <div>
@@ -206,12 +219,11 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jul 13, 2019&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
     </small>
 </div>
         <div>
             <p>　　在 <a href="https://blog.jaycetyle.com/2018/10/vscode-gnu-global/">VS Code + GNU Global - 打造 Trace Linux Kernel 環境</a> 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。</p>
-
 <p>　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。</p>
         </div>
         <div>
@@ -219,127 +231,44 @@
         </div>
       </article>
     
-      <article class="post p-3 p-sm-5 mb-1">
-        <a class="title" href="https://blog.jaycetyle.com/2019/01/linux-read-write/"><h3 class="post-title">Linux 系統程式設計 - read()、write() 與 page cache</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Jan 1, 2019&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/linux-kernel/'>linux kernel</a>
-    </small>
-</div>
-        <div>
-            <p>　　這篇延續 <a href="https://blog.jaycetyle.com/2018/12/linux-fd-open-close/">Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</a>，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 <a href="https://www.tenlong.com.tw/products/9789862769812">Robert Love 的 Linux System Programming</a> 一書。</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2019/01/linux-read-write/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
     <div class="d-flex align-items-center justify-content-center">
       
-
-<ul class="pagination">
-    
-    <li class="page-item">
-        <a href="/post/" class="page-link" aria-label="First"><span aria-hidden="true">&laquo;&laquo;</span></a>
-    </li>
-    
-    <li class="page-item disabled">
-    <a  class="page-link" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-    </li>
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item active"><a class="page-link" href="/post/">1</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/page/2/">2</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/page/3/">3</a></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item disabled"><span aria-hidden="true">&nbsp;&hellip;&nbsp;</span></li>
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    
-    
-    
-    
-    
-        
-        
-    
-    
-    <li class="page-item"><a class="page-link" href="/post/page/7/">7</a></li>
-    
-    
-    <li class="page-item">
-    <a href="/post/page/2/" class="page-link" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-    </li>
-    
-    <li class="page-item">
-        <a href="/post/page/7/" class="page-link" aria-label="Last"><span aria-hidden="true">&raquo;&raquo;</span></a>
-    </li>
-    
-</ul>
-
-
+    <ul class="pagination pagination-default">
+      <li class="page-item disabled">
+        <a href="#" aria-disabled="true" aria-label="First" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;&laquo;</span></a>
+      </li>
+      <li class="page-item disabled">
+        <a href="#" aria-disabled="true" aria-label="Previous" class="page-link" role="button" tabindex="-1"><span aria-hidden="true">&laquo;</span></a>
+      </li>
+      <li class="page-item active">
+        <a href="#" aria-current="page" aria-label="Page 1" class="page-link" role="button">1</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/2/" aria-label="Page 2" class="page-link" role="button">2</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/3/" aria-label="Page 3" class="page-link" role="button">3</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/4/" aria-label="Page 4" class="page-link" role="button">4</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/5/" aria-label="Page 5" class="page-link" role="button">5</a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/2/" aria-label="Next" class="page-link" role="button"><span aria-hidden="true">&raquo;</span></a>
+      </li>
+      <li class="page-item">
+        <a href="/post/page/7/" aria-label="Last" class="page-link" role="button"><span aria-hidden="true">&raquo;&raquo;</span></a>
+      </li>
+    </ul>
     </div>
   </div>
   <div class="sidebar d-print-none d-none d-xl-block">
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
@@ -348,8 +277,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -372,7 +299,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

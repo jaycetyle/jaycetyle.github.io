@@ -4,21 +4,21 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <meta property="og:title" content="[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)" />
-<meta property="og:description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。" />
+        <meta property="og:title" content="Kprobe Userspace Tool 使用筆記" />
+<meta property="og:description" content="kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，本篇為 Userspace Tool 的使用筆記給各位參考" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/09/c-xmacro/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2018-09-20T00:00:00+00:00" />
-<meta property="article:modified_time" content="2018-09-20T00:00:00+00:00" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-10-04T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-10-04T00:00:00+00:00" />
 
 
         <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)"/>
-<meta name="twitter:description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。"/>
+<meta name="twitter:title" content="Kprobe Userspace Tool 使用筆記"/>
+<meta name="twitter:description" content="kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，本篇為 Userspace Tool 的使用筆記給各位參考"/>
 
 
         <title>
-  [C/C&#43;&#43;] enum to string 的方法實作 (X Macro) | Jayce 的共享記憶體
+  Kprobe Userspace Tool 使用筆記 | Jayce 的共享記憶體
 </title>
 
         
@@ -70,7 +70,7 @@
 <meta name="copyright" content="" />
 
 
-<meta name="description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。">
+<meta name="description" content="kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，本篇為 Userspace Tool 的使用筆記給各位參考">
 
   <style type="text/css">
   .feature-image {
@@ -140,7 +140,7 @@
         
   <header class="feature-image">
   <div class="feature-image-text white-shadow-text">
-    <h1 class="font-weight:bold">[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)</h1>
+    <h1 class="font-weight:bold">Kprobe Userspace Tool 使用筆記</h1>
   </div>
 </header>
 
@@ -148,100 +148,62 @@
         <div class="container main my-4">
             
   <div class="post p-3 p-sm-5">
-    <h3 class="post-title">[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)</h3>
+    <h3 class="post-title">Kprobe Userspace Tool 使用筆記</h3>
     <div class="mt-2 mb-3">
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Sep 20, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Oct 4, 2021&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
-      <p>　　相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#、Java 等都有方法直接支援，但是 C/C++ 就沒這麼方便了。以下介紹幾種在 C++ 實作 enum 轉 string 的方法。</p>
-<h3 id="方法-1-使用-switch-case">方法 1. 使用 switch case</h3>
-<p>　　這個方法應該是最容易想到的方法了，以下是程式的範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
+      <p>　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。</p>
+<p>　　詳細的技術原理 &hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看<a href="https://www.kernel.org/doc/html/latest/trace/kprobes.html">核心的技術說明手冊</a>，會比我介紹清楚得多，這邊只簡單介紹好用工具。</p>
+<p> </p>
+<h3 id="userspace-tool">Userspace Tool</h3>
+<p>　　常見的 kprobe 使用方式是撰寫一個 kernel module，他可以提供最強大的功能，例如在插入點中執行我們想執行的程式碼，但很多時候只是想<strong>快速</strong>知道函式<strong>是否有被呼叫</strong>、<strong>參數及回傳值</strong>為何，重新寫一個 kernel module 就顯得麻煩。這個時候可以使用 <a href="https://www.kernel.org/doc/Documentation/trace/kprobetrace.txt">krpobe 的 debugfs 介面</a>，他可以在不編譯 kernel module 的情況下達成上述的目的。</p>
+<p>　　不過呢，直接操作 debugfs 介面還是有點麻煩，大神 Brendangregg 已經將這個介面包裝成一個<a href="https://github.com/brendangregg/perf-tools/blob/master/kernel/kprobe">好用的 tool</a>，名字也叫做 kprobe ，是用 shell script 寫成的，可以<a href="https://github.com/brendangregg/perf-tools/blob/master/kernel/kprobe">直接下載</a>使用他。</p>
+<h4 id="範例">範例</h4>
+<h5 id="1-我想要-trace-do_sys_open-被呼叫時的-filename-及-mode-參數">1. 我想要 trace do_sys_open 被呼叫時的 filename 及 mode 參數</h5>
+<pre tabindex="0"><code>## long do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
 
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">switch</span> (value) {
-	<span style="color:#f00">case</span> KZero:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Zero&#34;</span>;
-	<span style="color:#f00">case</span> KOne:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;One&#34;</span>;
-	<span style="color:#f00">case</span> KTwo:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Two&#34;</span>;
-	}
-	<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Not Defined&#34;</span>;
-}</code></pre></div>
-<p>　　使用的時候把想要轉換的 enum 當作引數呼叫 ToString 函數就可以了。實作簡單、直覺，但有個小缺點，當 enum 列舉的數量一大的時候，這個 switch case 會讓人覺得很討厭，有沒有辦法改善呢？</p>
-<p>　</p>
-<h3 id="方法-2-使用陣列索引進行查表">方法 2. 使用陣列索引進行查表</h3>
-<p>　　這個方法是利用 enum 會從 0 開始列舉的特性，直接將 enum 值當作陣列索引值來查表，如以下範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
-
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { <span style="color:#87ceeb">&#34;Zero&#34;</span>, <span style="color:#87ceeb">&#34;One&#34;</span>, <span style="color:#87ceeb">&#34;Two&#34;</span> };
-	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
-<p>　　使用方法一樣是呼叫 ToString 就可以了，但實作變得簡潔多了，是吧？不過這個方法一樣有個缺點，當 enum 列舉數量變多的時候，看程式碼時要比對就有點痛苦了，比如第 17 個列舉值對應的字串是什麼？是不是要慢慢數了呢？簡單的辦法是透過排版和註解來協助程式碼的閱讀，或者是使用 C99 語法，不過以下再介紹另一個辦法來改善這個問題。</p>
-<p>　</p>
-<h3 id="方法-3-使用-x-macro-來實作陣列查表">方法 3. 使用 X Macro 來實作陣列查表</h3>
-<p>　　 X macro 是一種 C/C++ 的技術，簡單的說明和範例可以在<a href="https://en.wikipedia.org/wiki/X_Macro">維基百科</a>查到，這裡便是要運用這個技術來改善方法 2 的小問題，參考以下程式碼：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
-</span><span style="color:#e5e5e5">	X(KZero, &#34;Zero&#34;) \
-</span><span style="color:#e5e5e5">	X(KOne, &#34;One&#34;) \
-</span><span style="color:#e5e5e5">	X(KTwo, &#34;Two&#34;)
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#e5e5e5">#define X(a, b) a,
-</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-<span style="color:#e5e5e5">#define X(a, b) b,
-</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
-<p>　　這個方法的關鍵在於 X macro 的定義，雖然看起來有點可怕，仔細推敲一下，會發現這裡定義的 EValue 和 table[] 與方法 2 所定義的完全一模一樣，只是中間的程式碼透過前處理器以 VALUE_TABLE 取代了，但確實改善了 &ldquo;索引&rdquo; 和 &ldquo;值&rdquo; 之間比對的問題，在 VALUE_TABLE 中可以很明確地看出每一個 enum 列舉值所對應的 string。</p>
-<p>　　到這裡我們已經改善很多問題，但還有一個明顯的瑕疵，就是 enum 不一定要從 0 開始，也不一定要是連續整數，這時候該怎麼辦呢？</p>
-<p>　</p>
-<h3 id="方法-4-使用-x-macro-及-stdmap-實作查表方法">方法 4. 使用 X Macro 及 std::map 實作查表方法</h3>
-<p>　　如果要實作非連續整數的查表，最簡單的方法就是運用 std::map 了，他是一個紅黑樹的實作，使用索引查詢一個值的時間複雜度是 O(logN)。參考以下範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
-</span><span style="color:#e5e5e5">	X(KZero, = 0, &#34;Zero&#34;) \
-</span><span style="color:#e5e5e5">	X(KOne,  = 1, &#34;One&#34;) \
-</span><span style="color:#e5e5e5">	X(KTwo,  = 8, &#34;Two&#34;)
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#e5e5e5">#define X(a, b, c) a b,
-</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">static</span> std::map&lt;EValue, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>*&gt; table;
-	<span style="color:#f00">static</span> <span style="color:#ee82ee">bool</span> isInit = false;
-	<span style="color:#f00">if</span> (isInit)
-		<span style="color:#f00">return</span> table[value];
-
-<span style="color:#e5e5e5">#define X(a, b, c) table[a] = c;
-</span><span style="color:#e5e5e5"></span>	VALUE_TABLE
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-	isInit = true;
-	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
-<p>　　我故意把 KTwo 的列舉值改成 8 ，以驗證這個函數是可以允許非連續的列舉值。這邊有運用了一個 isInit 的變數來避免表被重複初始化，X Macro 的部分，在 enum 是被展開成：</p>
-<!-- raw HTML omitted -->
-<p>　　在 table 的部分則是被展開成：</p>
-<!-- raw HTML omitted -->
-<p>　　相信大家仔細想一下應該看得懂。<a href="http://www.drdobbs.com/the-new-c-x-macros/184401387">這裡</a>是我學到這個方法參考網站，其中裡面有 C99 的實作方法，另外上面的 std::map 也是可以用 switch case 來做。</p>
+# kprobe -F 'p:myopen do_sys_open filename=+0(%si):string mode=%cx:u16'
+Tracing kprobe myopen. Ctrl-C to end.
+    &lt;...&gt;-29624 [001] d... 622771.361190: myopen: (do_sys_open+0x0/0x240) filename=&quot;/etc/ld.so.cache&quot; mode=0x0
+    &lt;...&gt;-29624 [001] d... 622771.361195: myopen: (do_sys_open+0x0/0x240) filename=&quot;/lib64/tls/haswell/x86_64/libc.so.6&quot;
+</code></pre><ul>
+<li>p: 代表使用的是 kprobe, do_sys_open 是想追蹤的函式名稱</li>
+<li>myopen, filename, mode 是可以自己隨便定義的名稱，輸出方便看得懂就好</li>
+<li>印參數可參考 (x86 only)
+<ul>
+<li>參數順序: di, si, dx, cx, r8, r9</li>
+<li>參數型別: u8, s8, u16, s16, u32, s32, u64, s64</li>
+<li>指標字串 (char*): 用 +offset(%REG) 的方式取址，例如 +0(%si):string</li>
+</ul>
+</li>
+</ul>
+<h5 id="2-我想要-trace-do_sys_open-的回傳值">2. 我想要 trace do_sys_open 的回傳值</h5>
+<pre tabindex="0"><code># kprobe -F 'r:myopen do_sys_open ret=$retval'
+Tracing kprobe myopen. Ctrl-C to end.
+    kprobe-2829  [001] d... 673251.101610: myopen: (SyS_openat+0xf/0x20 &lt;- do_sys_open) ret=0x3
+</code></pre><ul>
+<li>r: 代表使用的是 kretprobe，其他的部份與 kprobe 類似</li>
+</ul>
+<h5 id="3-我想要同時-trace-參數及回傳值">3. 我想要同時 trace 參數及回傳值</h5>
+<p>還不知道怎麼辦到這件事，有可能不行</p>
+<p> </p>
+<h3 id="限制">限制</h3>
+<p>　　能夠被追蹤的函式必須要有 symbol 才行，如果函式被 inline 展開或是被優化，有可能無法被 probe 到，用前處理器 macro 定義的函式也無法被追蹤。要看有哪些 symbol 可以被追蹤的話可以從 /proc/kallsyms 找到。</p>
+<p> </p>
+<h3 id="kernel-module">Kernel Module</h3>
+<p>　　如果 Userspace tool 沒辦法滿足需求，就可能需要撰寫 Kernel Module，範例位於 linux-kernel-source/samples/kprobes/ 底下，可以自行參考編譯，但新一點的 Kernel 可能使用 ebpf 會更快速一點。</p>
+<p> </p>
+<h3 id="reference">Reference</h3>
+<p><a href="https://github.com/brendangregg/perf-tools/blob/master/kernel/kprobe">kprobe script 下載連結</a></p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
-        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&text=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
+        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2021%2f10%2fkprobe-userspace-tool%2f&text=Kprobe%20Userspace%20Tool%20%e4%bd%bf%e7%94%a8%e7%ad%86%e8%a8%98&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
     <div>
         <span class="fa-stack">
             <i class="fas fa-circle fa-stack-2x"></i>
@@ -251,7 +213,7 @@
     <div class="fa-inverse text-center"><small>Tweet</small></div>
 </a>
 
-<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&t=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
+<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2021%2f10%2fkprobe-userspace-tool%2f&t=Kprobe%20Userspace%20Tool%20%e4%bd%bf%e7%94%a8%e7%ad%86%e8%a8%98" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
     <div>
         <span class="fa-stack">
             <i class="fas fa-circle fa-stack-2x"></i>
@@ -261,7 +223,7 @@
     <div class="fa-inverse text-center"><small>Share</small></div>
 </a>
 
-<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fc-xmacro%2f&title=%5bC%2fC%2b%2b%5d%20enum%20to%20string%20%e7%9a%84%e6%96%b9%e6%b3%95%e5%af%a6%e4%bd%9c%20%28X%20Macro%29&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
+<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2021%2f10%2fkprobe-userspace-tool%2f&title=Kprobe%20Userspace%20Tool%20%e4%bd%bf%e7%94%a8%e7%ad%86%e8%a8%98&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
     <div>
         <span class="fa-stack">
             <i class="fas fa-circle fa-stack-2x"></i>

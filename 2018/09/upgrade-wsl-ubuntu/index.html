@@ -7,9 +7,10 @@
         <meta property="og:title" content="更新 WSL 內的 Ubuntu 到 18.04" />
 <meta property="og:description" content="Stable Ubuntu 18.04 LTS 正式 release 以後，大家應該陸陸續續開始從 16.04 升上去了，不過 WSL (Windows Subsystem for Linux) 內的並不會自動升級，應該也有人發現 Microsoft Store 內多出了 Ubuntu 16.04 LTS 和 Ubuntu 18.04 LTS 兩個 Image，那到底該如何更新呢？" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-09-24T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-09-24T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="更新 WSL 內的 Ubuntu 到 18.04"/>
@@ -152,46 +153,33 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Sep 24, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　Stable Ubuntu 18.04 LTS 正式 release 以後，大家應該陸陸續續開始從 16.04 升上去了，不過 WSL (Windows Subsystem for Linux) 內的 Ubuntu 並不會自動升級，應該也有人發現 Microsoft Store 內多出了 Ubuntu 16.04 LTS 和 Ubuntu 18.04 LTS 兩個 Image，那到底該如何更新呢？</p>
-
 <h2 id="升級流程">升級流程</h2>
-
 <p>　　<a href="https://blogs.msdn.microsoft.com/commandline/2018/07/09/upgrading-ubuntu/">Microsoft Developer 部落格</a>有簡單說明了升級的方式。首先，<em>Ubuntu 16.04 LTS</em> 和 <em>Ubuntu 18.04 LTS</em> 這兩個 Image 是提供給想要安裝指定版本的使用者，Ubuntu 16.04 LTS 會持續維護到 2021 年壽命終止(end of live)，而 Ubuntu 18.04 LTS 則會繼續維護到 2023 年 EOL。</p>
-
-<figure class="center">
-<img src="/images/2018/09/wsl-ubuntu-upgrade-01.png" alt="">
-</figure>
-
+<!-- raw HTML omitted -->
 <p>　　在這之前的使用者應該裝的都是<em>無印版 Ubuntu</em> 這個 Image，這個 Image 的版本會持續追蹤之後所有的 LTS 版，不想升級的使用者可以繼續使用，想升級的使用者，<a href="https://blogs.msdn.microsoft.com/commandline/2018/07/09/upgrading-ubuntu/">Microsoft Developer 部落格</a> 建議的方法是使用 sudo do-release-upgrade 來升級。</p>
-
 <p>　　我的升級流程如下，提供給各位參考：</p>
-
 <ol>
 <li>備份所有重要資料: 裝 WSL 的人應該資料都還是存在 Windows 居多，因此主要是備份一些設定。</li>
 <li>輸入以下指令升級:</li>
 </ol>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt update -y
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt update -y
 $ sudo apt upgrade -y
 $ sudo apt update -y
 $ sudo <span style="color:#f00">do</span>-release-upgrade</code></pre></div>
-
-<p>　　前三個指令只是順便升級一下已經安裝的套件，避免 16.04 升 18.04 時跳太大。另外在升級過程中會問一些問題看要不要繼續，反正重要資料都備份了，就直接一路 y 下去。
-<figure class="center">
-<img src="/images/2018/09/wsl-ubuntu-upgrade-02.png" alt="">
-</figure></p>
-
+<p>　　前三個指令只是順便升級一下已經安裝的套件，避免 16.04 升 18.04 時跳太大。另外在升級過程中會問一些問題看要不要繼續，反正重要資料都備份了，就直接一路 y 下去。</p>
+<!-- raw HTML omitted -->
 <p>　　整個過程大概半小時到一小時，中間大概還手動 y 了 3 ~ 4 次吧？升級完成以後重新開啟終端機，並透過以下指令確認有無升級成功！
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jaycelin@JAYCE-NB:~$ lsb_release -a
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jaycelin@JAYCE-NB:~$ lsb_release -a
 No LSB modules are available.
 Distributor ID: Ubuntu
-Description:    Ubuntu <span style="color:#f60">18</span>.04.1 LTS
-Release:        <span style="color:#f60">18</span>.04
+Description:    Ubuntu 18.04.1 LTS
+Release:        18.04
 Codename:       bionic</code></pre></div></p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -273,6 +261,8 @@ Codename:       bionic</code></pre></div></p>
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -280,8 +270,6 @@ Codename:       bionic</code></pre></div></p>
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -304,7 +292,7 @@ Codename:       bionic</code></pre></div></p>
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

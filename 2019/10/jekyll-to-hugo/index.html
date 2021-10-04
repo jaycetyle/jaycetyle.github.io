@@ -7,9 +7,10 @@
         <meta property="og:title" content="從 Jekyll 遷移到 Hugo 步驟心得分享" />
 <meta property="og:description" content="Hugo 是一個以 golang 為基礎開發的靜態網站產生器，他的建置速度很快，且操作指令以及目錄規劃也蠻乾淨好上手，這篇筆記一下我從 jekyll 轉換到 hugo 的過程及一些重點。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-10-23T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-10-23T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="從 Jekyll 遷移到 Hugo 步驟心得分享"/>
@@ -158,21 +159,14 @@
 
     <div class="mt-4 mb-4 main-content">
       <p>　　部落格從去年一月至今也快滿兩年了，中間一直有想修改部落格的樣板，經過一陣選擇與研究以後，決定連產生器也換掉試試看，於是就轉到了 Hugo。Hugo 是一個以 golang 為基礎開發的靜態網站產生器，他的建置速度很快，目前感覺他的操作指令以及目錄規劃也蠻乾淨好上手。這篇就筆記一下我從 jekyll 轉換到 hugo 的過程及一些重點。</p>
-
 <h2 id="step-1-環境安裝">Step 1: 環境安裝</h2>
-
 <p>　　因為我平常主要比較習慣使用 Linux Bash，因此我是把 hugo 安裝在 <a href="https://blog.jaycetyle.com/2018/01/win-subsys-linux/">WSL</a>，不過 Ubuntu 自帶的 Hugo 版本比較舊，我建議直接去 <a href="https://github.com/gohugoio/hugo/releases">github 抓最新的 Release 版 deb</a>下來安裝，安裝完以後可以執行 hugo version 指令，確認安裝是否成功以及安裝版本。</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dpkg -i hugo_VERSION_Linux-64bit.deb
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo dpkg -i hugo_VERSION_Linux-64bit.deb
 $ hugo version</code></pre></div>
-
 <p>　</p>
-
 <h2 id="step-2-初始化部落格">Step 2: 初始化部落格</h2>
-
 <p>　　初始化的流程還蠻簡單的，我就直接在每行指令說明：</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 建立部落格目錄，目錄名稱可以自己決定</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 建立部落格目錄，目錄名稱可以自己決定</span>
 $ mkdir hugo-site
 $ cd hugo-site
 <span style="color:#0f0"># 初始化 git，之後我們會使用 git 做版本控管</span>
@@ -182,20 +176,13 @@ $ git commit --allow-empty -m Init
 $ hugo new site . --force
 <span style="color:#0f0"># 測試</span>
 $ hugo serve -D</code></pre></div>
-
-<p>　　執行完 hugo serve -D 以後，可以到 <a href="http://localhost:1313/">http://localhost:1313/</a> 確認一下是否有架起來，這個指令之後會很常用。有架起來的話應該會看到一個空白網頁，畢竟我們什麼都還沒放進去嘛 ～ 如果有問題的話應該會顯示無法連上該網站之類的錯誤。</p>
-
+<p>　　執行完 hugo serve -D 以後，可以到 http://localhost:1313/ 確認一下是否有架起來，這個指令之後會很常用。有架起來的話應該會看到一個空白網頁，畢竟我們什麼都還沒放進去嘛 ～ 如果有問題的話應該會顯示無法連上該網站之類的錯誤。</p>
 <p>　　另外 public 和 resources 這兩個目錄是 hugo 建置時會產生的，可以把他們加入到 gitignore 裡面。</p>
-
 <p>　</p>
-
 <h2 id="step-3-加入樣板主題">Step 3: 加入樣板主題</h2>
-
 <p>　　主題可以到 <a href="https://themes.gohugo.io/">Hugo Themes</a> 去找自己喜歡的來套，都有預覽可以看。</p>
-
 <p>　　Hugo 主題的程式碼是放在 themes 底下，<a href="https://gohugo.io/getting-started/quick-start/">hugo 官方教學</a>使用 git submodule 來追蹤，但我不是很喜歡 git submodule 的設計，而且我也已經預期會自己動手改造樣板，也沒有打算很認真追蹤上游的修改，因此我是使用 git subtree 指令來把主題的 git tree 直接合併到我的 git tree 上：</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote add gohugo-theme-ananke https://github.com/budparr/gohugo-theme-ananke.git
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ git remote add gohugo-theme-ananke https://github.com/budparr/gohugo-theme-ananke.git
 $ git fetch gohugo-theme-ananke
 <span style="color:#0f0"># 以下建立 branch 是 workaround，不確定為什麼 git subtree 在沒有其他 branch 的情況下有時候會出錯</span>
 $ git co -b theme
@@ -204,50 +191,34 @@ $ git co master
 $ git subtree add -P themes/gohugo-theme-ananke gohugo-theme-ananke master
 <span style="color:#0f0"># 指定 theme</span>
 $ echo <span style="color:#87ceeb">&#39;theme = &#34;gohugo-theme-ananke&#34;&#39;</span> &gt;&gt; config.toml</code></pre></div>
-
 <p>　　加入 subtree 以後可以使用 tig 或是其他 git 工具，可以看到 theme 的 git 分支已經合併到我們的主線上了：</p>
-
-<p><figure class="large center">
-<img src="/images/2019/10/jekyll-to-hugo-0.png">
-</figure>
-　</p>
-
+<!-- raw HTML omitted -->
 <h2 id="step-4-加入測試文章">Step 4: 加入測試文章</h2>
-
 <p>　　到這步以後，網站的雛型已經差不多出來了，可以先加個測試用的文章試試看，hugo 的文章都是放在 content 目錄下，可以使用 hugo new 指令來協助建立</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 建立一篇新文章到 content/posts/my-first-post.md</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 建立一篇新文章到 content/posts/my-first-post.md</span>
 $ hugo new posts/my-first-post.md
 <span style="color:#0f0"># 測試</span>
 $ hugo serve -D</code></pre></div>
-
-<p>　　一樣到 <a href="http://localhost:1313/">http://localhost:1313/</a> 看一下目前網站的情況，應該已經可以看到第一篇文章了。</p>
-
+<p>　　一樣到 http://localhost:1313/ 看一下目前網站的情況，應該已經可以看到第一篇文章了。</p>
 <p>　</p>
-
 <h2 id="step-5-搬移舊文章">Step 5: 搬移舊文章</h2>
-
 <p>　　用 Markdown 寫文章的好處就是相容性<strong>比較</strong>好，但也只有<strong>比較</strong>好而已。一些轉換的工具可以參考<a href="https://gohugo.io/tools/migrations/">官方的 Migrate 文章</a>。我但試用了幾個方法以後發現還是有地方需要人工調整，研究了一段時間，我最後選擇的是 <a href="https://github.com/coderzh/ConvertToHugo">ConvertToHugo</a>，他是一個簡單的 python script 做 markdown 文章的轉換，所以有一點程式能力的話可以再稍作微調，減少手工的部分。</p>
-
 <p>以下記錄幾個轉換要注意的點</p>
-
 <ol>
 <li>每篇文章的 url
-
 <ul>
 <li>hugo 可以指定每一篇文章的位址，確定最終位址跟原本的一樣，否則位址更換後，搜尋引擎的搜索紀錄都會錯誤</li>
-</ul></li>
+</ul>
+</li>
 <li>每篇文章的 date、lastmod、author
-
 <ul>
 <li>轉完最好確認一下有符合預期</li>
-</ul></li>
+</ul>
+</li>
 <li>內文的超連結</li>
 <li>code block 和內嵌 html 的部分</li>
 </ol>
-
 <p>文章轉換完以後，還有一些部落格的設定要記得檢查修改，這些大部分會在 config.toml 裡面</p>
-
 <ol>
 <li>Blog Title</li>
 <li>Google Analytics</li>
@@ -255,20 +226,13 @@ $ hugo serve -D</code></pre></div>
 <li>其他的個人外部網站連結，例如 Github、FB 以及 About Me 等等</li>
 <li>CNAME</li>
 </ol>
-
 <p>　</p>
-
 <h2 id="step-6-發布新部落格到-github">Step 6: 發布新部落格到 github</h2>
-
 <p>　　hugo 建置網站的指令非常簡單，只需要執行 hugo，他就會把網站建置好並放到 public 資料夾內。</p>
-
 <p>　　和 jekyll 比較不一樣的是，由於 github 不支援直接建置 hugo 的專案，因此要發布的話，要把建置出來的 public 目錄 push 到原本在 yourname.github.io 的專案，而不像 jekyll 只需要 push 建置前的就好。</p>
-
 <p>　　所以最後會有兩個 git project，其中一個是包含整個 hugo 專案的原始碼，另一個是要建置好的網站程式碼。hugo 專案原始碼可以放在 private 的 github 專案，或是你想放在其他代碼託管網站都可以，而建置好的網站程式碼則是推到 yourname.github.io 的專案裡面。</p>
-
 <p>　　至於原本的 jekyll 專案，我是直接把他 rename 到其他的 branch，以下指令因為<strong>會涉及到刪除指令，請確定理解每個指令的行為，小心操作</strong></p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 在原本的 jekyll 專案內執行以下指令</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># 在原本的 jekyll 專案內執行以下指令</span>
 <span style="color:#0f0"># 建立新 branch</span>
 $ git co -b jekyll
 <span style="color:#0f0"># 把新 branch 推到 remote</span>
@@ -280,10 +244,8 @@ $ git push --delete origin master
 <span style="color:#0f0"># 建立一個獨立的新 master branch</span>
 $ git co --orphan master
 <span style="color:#0f0"># 之後把 hugo 建置好的 public 資料夾內容推到 master branch 即可</span></code></pre></div>
-
 <p>　　Hugo 的教學文件有提供一個簡單的 script 來讓你快速執行發布這件事情，他也是使用 git submodule 來達成這件事，但我不太喜歡 git submodule，所以我稍微改了一下，讓他變成一般的獨立 project，可參考以下的 script，第一次執行我建議先一行一行手動執行看看。</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e5e5e5">#!/bin/sh
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#e5e5e5">#!/bin/sh
 </span><span style="color:#e5e5e5"></span>
 <span style="color:#0f0"># If a command fails then the deploy stops</span>
 set -e
@@ -313,13 +275,9 @@ git commit -s -m <span style="color:#87ceeb">&#34;</span><span style="color:#eed
 
 <span style="color:#0f0"># Push source and build repos.</span>
 git push origin master</code></pre></div>
-
 <p>　</p>
-
 <h2 id="搬遷心得後記">搬遷心得後記</h2>
-
 <p>　　目前的感想是 hugo 還蠻簡單好上手的，而且也換了一個好修改的樣板主題，所以這次的搬移算是非常值得。雖然寫在後面已經有點晚了，不過我的建議是，如果會想要客製化樣板主題，建議要好好挑選，找個簡單精練的會比較容易去改。</p>
-
 <p>　</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -399,6 +357,8 @@ git push origin master</code></pre></div>
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -406,8 +366,6 @@ git push origin master</code></pre></div>
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -430,7 +388,7 @@ git push origin master</code></pre></div>
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

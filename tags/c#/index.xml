@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>C# on Jayce 的共享記憶體</title>
@@ -6,11 +6,7 @@
     <description>Recent content in C# on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Thu, 11 Jun 2015 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.jaycetyle.com/tags/c#/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 11 Jun 2015 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/c#/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>[C#] 用 dll Reflection 做 Plugin 吧！</title>
       <link>https://blog.jaycetyle.com/2015/06/csharp-dll-plugin/</link>

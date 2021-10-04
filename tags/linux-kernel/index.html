@@ -9,7 +9,6 @@
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://blog.jaycetyle.com/tags/linux-kernel/" />
 
-<meta property="og:updated_time" content="2019-12-04T00:00:00+00:00" />
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux Kernel"/>
@@ -125,6 +124,24 @@
     
     
       <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/"><h3 class="post-title">Kprobe Userspace Tool 使用筆記</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Oct 4, 2021&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
+    </small>
+</div>
+        <div>
+            <p>　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。</p>
+<p>　　詳細的技術原理 &hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看<a href="https://www.kernel.org/doc/html/latest/trace/kprobes.html">核心的技術說明手冊</a>，會比我介紹清楚得多，這邊只簡單介紹好用工具。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/"><h3 class="post-title">Linux Kernel BUG_ON 傾印訊息分析及案例分享</h3></a>
         <div class="mt-2 mb-3">
     <small>
@@ -135,7 +152,6 @@
 </div>
         <div>
             <p>　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。</p>
-
 <p>　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。</p>
         </div>
         <div>
@@ -166,7 +182,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Dec 30, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/linux-kernel/'>linux kernel</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
         <div>
@@ -183,7 +199,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Oct 29, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>, <a href='/tags/linux-kernel/'>linux kernel</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>, <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
         <div>
@@ -200,7 +216,7 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Sep 8, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>linux kernel</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
     </small>
 </div>
         <div>
@@ -213,13 +229,13 @@
     
     <div class="d-flex align-items-center justify-content-center">
       
-
-
     </div>
   </div>
   <div class="sidebar d-print-none d-none d-xl-block">
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
+    
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
@@ -228,8 +244,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -252,7 +266,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

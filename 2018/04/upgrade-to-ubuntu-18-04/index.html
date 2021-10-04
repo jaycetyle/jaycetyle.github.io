@@ -7,9 +7,10 @@
         <meta property="og:title" content="升級囉！Ubuntu 18.04" />
 <meta property="og:description" content="Stable Ubuntu 18.04 LTS 在 4 月 26 日正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)，系統升級的部分據說會在第一個 patch，也就是大約一個月後釋出。以下筆記如何手動搶先從 16.04 升級上去。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-04-28T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-04-28T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="升級囉！Ubuntu 18.04"/>
@@ -152,45 +153,28 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Apr 28, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　Stable Ubuntu 18.04 LTS 在 4 月 26 日正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)。我沒有經歷過 14.04 升 16.04 的階段，系統升級的部分據說<a href="https://askubuntu.com/questions/1028624/not-able-to-upgrade-from-16-04-lts-to-18-04-lts">會在第一個 patch，也就是大約一個月後釋後釋出</a>。</p>
-
 <p>　　不過我今天沒什麼特別的事，就手動把 Ubuntu 升級了一下，反正檔案都放在電腦硬碟或<a href="https://www.synology.com/zh-tw">NAS</a>上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。</p>
-
 <h2 id="升級流程">升級流程</h2>
-
 <p>　　我是用 Ubuntu 內建的軟體更新來升級，不過在還沒正式開放的情況下，直接打開軟體更新是找不到可升級的新版本的，可以打開 terminal 輸入以下命令:
 {% highlight bash %}
 $ update-manager -cd
 {{1&lt; /highlight &gt;}}</p>
-
-<p>　　參數 c 是確認是否新發行版可以更新，參數 d 則是更新到 development release，等他搜尋完會出現以下畫面，點下升級吧！
-<figure class="mid center">
-    <img src="/images/2018/04/ubuntu-1804-upgrade-0.png" alt="">
-</figure></p>
-
-<p>　　然後會進到發行版升級的畫面，等他跑一下
-<figure class="half center">
-    <img src="/images/2018/04/ubuntu-1804-upgrade-1.png" alt="">
-</figure></p>
-
-<p>　　確認一下升級內容，看起來會多吃掉 1GB 左右，另外有幾個套件會被移除，列在詳情裡面，稍微看了一下，嗯 &hellip; 我覺得沒差，大不了再裝就有，直接按下開始升級
-<figure class="mid center">
-    <img src="/images/2018/04/ubuntu-1804-upgrade-2.png" alt="">
-</figure></p>
-
+<p>　　參數 c 是確認是否新發行版可以更新，參數 d 則是更新到 development release，等他搜尋完會出現以下畫面，點下升級吧！</p>
+<!-- raw HTML omitted -->
+<p>　　然後會進到發行版升級的畫面，等他跑一下</p>
+<!-- raw HTML omitted -->
+<p>　　確認一下升級內容，看起來會多吃掉 1GB 左右，另外有幾個套件會被移除，列在詳情裡面，稍微看了一下，嗯 &hellip; 我覺得沒差，大不了再裝就有，直接按下開始升級</p>
+<!-- raw HTML omitted -->
 <p>　　過程中彈了不少 python3 相關的升級錯誤我沒有截圖下來，不過 python3 是一個很廣泛的東西，所以我沒有很擔心，只是要一直手動按關閉很煩，按一按等他跑完就可以重開機了。進到新桌面後果然有點不習慣，馬上裝一下 tweak-tool 來調整，Ubuntu 18.04 改成 gnome 了，輸入以下指令安裝
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt install gnome-tweak-tool</code></pre></div></p>
-
-<p>　　稍微調整以後，選擇了 Adwaita-dark 的主題，介面如下，用起來還算順手
-<figure class="large center">
-    <img src="/images/2018/04/ubuntu-1804-upgrade-4.png" alt="">
-</figure></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt install gnome-tweak-tool</code></pre></div></p>
+<p>　　稍微調整以後，選擇了 Adwaita-dark 的主題，介面如下，用起來還算順手</p>
+<!-- raw HTML omitted -->
 <p>　　後來試了一下 python3，果然沒猜錯，keras 和 tensorflow 等 python package 被刪掉了，不過這些再裝就有了，如果有在用這些套件的可以在升級完以後確認一下</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -263,6 +247,8 @@ $ update-manager -cd
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -270,8 +256,6 @@ $ update-manager -cd
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -294,7 +278,7 @@ $ update-manager -cd
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

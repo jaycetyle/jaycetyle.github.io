@@ -7,9 +7,10 @@
         <meta property="og:title" content="在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (1)" />
 <meta property="og:description" content="Linux gcc 及 Makefile 教學筆記(1): 使用 gcc 編譯程式及簡單的 Makefile 規則說明" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2015/01/linux-gcc-makefile/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2015/01/linux-gcc-makefile/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2015-01-20T00:00:00+00:00" />
 <meta property="article:modified_time" content="2015-01-20T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="在 Linux 寫程式 - gcc 及 Makefile 教學筆記 (1)"/>
@@ -152,18 +153,15 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jan 20, 2015&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　剛從 Windows 跳到 Linux 的 Programmer 應該都會跟我遇到類似的問題吧，就是 Linux 到處都是看不懂的 Makefile，畢竟 Windows 沒有這種東西，在 Windows 裡，Makefile 的工作都由 IDE 代勞了，這裡不得不說 Visual Studio 真的是很強大的整合開發環境，會寵壞小孩。但現在要進到 Linux 的領域，就勢必要搞懂這個 Makefile 在做什麼，大概怎麼寫，不然會遇到蠻多障礙，而這篇就是筆記 Makefile 的使用方式。</p>
-
 <p>首先，準備以下三個檔案以方便我們之後的測試 :</p>
-
 <p><strong>main.c</strong></p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;stdio.h&gt;</span><span style="color:#e5e5e5">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;stdio.h&gt;</span><span style="color:#e5e5e5">
 </span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&#34;op.h&#34;</span><span style="color:#e5e5e5">
 </span><span style="color:#e5e5e5"></span>
 <span style="color:#ee82ee">int</span> <span style="color:#ff0">main</span>(<span style="color:#ee82ee">void</span>)
@@ -178,85 +176,70 @@
 <span style="color:#e5e5e5">#endif
 </span><span style="color:#e5e5e5"></span>    <span style="color:#f00">return</span> <span style="color:#f60">0</span>;
 }</code></pre></div>
-
 <p><strong>op.h</strong></p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#ifndef OP_H
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#ifndef OP_H
 </span><span style="color:#e5e5e5">#define OP_H
 </span><span style="color:#e5e5e5"></span>
 <span style="color:#ee82ee">int</span> <span style="color:#ff0">add</span>(<span style="color:#ee82ee">int</span> a, <span style="color:#ee82ee">int</span> b);
 
 <span style="color:#e5e5e5">#endif</span></code></pre></div>
-
 <p><strong>op.c</strong></p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&#34;op.h&#34;</span><span style="color:#e5e5e5">
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&#34;op.h&#34;</span><span style="color:#e5e5e5">
 </span><span style="color:#e5e5e5"></span>
 <span style="color:#ee82ee">int</span> <span style="color:#ff0">add</span>(<span style="color:#ee82ee">int</span> a, <span style="color:#ee82ee">int</span> b)
 {
     <span style="color:#f00">return</span> a + b;
 }</code></pre></div>
-
 <p>　　請把三個檔案都放在同一個路徑內。程式很簡單，相信會 C 語言的應該都看得懂。準備好程式以後，接著就要開始來編譯以產生執行檔，要怎麼編呢？</p>
-
 <p>　</p>
-
 <h3 id="實驗-一-直接使用-gcc">實驗 (一) 直接使用 gcc</h3>
-
 <p>　　直接 gcc 應該是最簡單的辦法，使用以下命令來呼叫 gcc 幫我們編譯 :</p>
-
 <p>　　<em>$ gcc main.c op.c -o test</em></p>
-
 <p>　　gcc 就是我們要使用的編譯器，後面接的兩個檔案名稱就是我們要編譯的檔案名稱，-o 代表我們要指定輸出的執行檔檔名，而後面接的 test 就是指定的檔名。如果不使用 -o 的話，預設的輸出名稱會是 a.out，可以自己試試看。除了 -o 以外，gcc 還有很多編譯器參數可以設定，以下列舉幾個可能會用到的:</p>
-
 <ol>
-<li><p><strong>-c : 只編譯不連結</strong><br />
-只產生 obj 檔而不連結成執行檔。<br />
-在這個範例中，可以先把之前產生的 obj 檔和執行檔刪掉，輸入 <em>$ gcc main.c op.c -c</em> ，會發現只有 main.o 及 op.o 生成，接著再輸入 <em>$ gcc main.o op.o -o test</em> 就可以將兩個 obj 檔連結成執行檔。也就是說，最先前執行的 <em>$ gcc main.c op.c -o test</em> 其實是這兩條命令結合而成的。</p></li>
-
-<li><p><strong>-S : 只產生組合語言檔案 (.s)</strong><br />
-這個參數一般情況應該比較少用到，不過可以試試看會生出什麼東西。</p></li>
-
-<li><p><strong>-O0, O1, O2, O3 : 啟動編譯最佳化</strong><br />
-O0 是不最佳化，O3 是最高等級的最佳化。這個東西可以配合上面的 -S 就能看出效果，測試以下兩個編譯命令，可以觀察出有無開最佳化編譯後的差異:<br />
-<em>gcc op.c -o op.s -S</em><br />
-<em>gcc op.c -o op.s2 -O3 -S</em></p></li>
-
-<li><p><strong>-I : 指定 include 路徑</strong><br />
-如果 header 放在其他資料夾的話可以使用此參數，這個東西和 VC project property 中的 Additional Include Directories 類似。</p></li>
-
-<li><p><strong>-L : 指定 library 路徑</strong><br />
-和 -I 類似，只是這裡指定的是 library 的路徑，和 VC  中的 Additional Library Directories 類似。</p></li>
-
-<li><p><strong>-Dname : 預定義 macro</strong><br />
-和 VC 的 Preprocessor Definitions 相同。這個範例可以使用 $ gcc main.c op.c -o -DTEST test ，會多印出 Program End 的文字。</p></li>
+<li>
+<p><strong>-c : 只編譯不連結</strong><br>
+只產生 obj 檔而不連結成執行檔。<br>
+在這個範例中，可以先把之前產生的 obj 檔和執行檔刪掉，輸入 <em>$ gcc main.c op.c -c</em> ，會發現只有 main.o 及 op.o 生成，接著再輸入 <em>$ gcc main.o op.o -o test</em> 就可以將兩個 obj 檔連結成執行檔。也就是說，最先前執行的 <em>$ gcc main.c op.c -o test</em> 其實是這兩條命令結合而成的。</p>
+</li>
+<li>
+<p><strong>-S : 只產生組合語言檔案 (.s)</strong><br>
+這個參數一般情況應該比較少用到，不過可以試試看會生出什麼東西。</p>
+</li>
+<li>
+<p><strong>-O0, O1, O2, O3 : 啟動編譯最佳化</strong><br>
+O0 是不最佳化，O3 是最高等級的最佳化。這個東西可以配合上面的 -S 就能看出效果，測試以下兩個編譯命令，可以觀察出有無開最佳化編譯後的差異:<br>
+<em>gcc op.c -o op.s -S</em><br>
+<em>gcc op.c -o op.s2 -O3 -S</em></p>
+</li>
+<li>
+<p><strong>-I : 指定 include 路徑</strong><br>
+如果 header 放在其他資料夾的話可以使用此參數，這個東西和 VC project property 中的 Additional Include Directories 類似。</p>
+</li>
+<li>
+<p><strong>-L : 指定 library 路徑</strong><br>
+和 -I 類似，只是這裡指定的是 library 的路徑，和 VC  中的 Additional Library Directories 類似。</p>
+</li>
+<li>
+<p><strong>-Dname : 預定義 macro</strong><br>
+和 VC 的 Preprocessor Definitions 相同。這個範例可以使用 $ gcc main.c op.c -o -DTEST test ，會多印出 Program End 的文字。</p>
+</li>
 </ol>
-
 <p>　</p>
-
-<h3 id="實驗-二-使用-make">實驗 (二)  使用 Make</h3>
-
+<h3 id="實驗-二--使用-make">實驗 (二)  使用 Make</h3>
 <p>　　在大部分的情況下我們不會直接使用 gcc 命令來編譯，因為如果檔案變多，專案結構複雜，gcc 的命令就會變得很冗長。而 make 其實就像是編譯器的自動腳本，我們把編譯的方法和流程寫在 Makefile 裡面，之後只要輸入 make 命令就可以執行一連串的編譯指令，另外，make 會自動辨識目前程式碼的修改情況，來決定哪些文件要重新編譯，節省編譯時間。</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">test</span>: main.c op.c
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">test</span>: main.c op.c
 	gcc main.c op.c -o test
 </code></pre></div>
-
 <p>　　可以發現內容和最早的編譯指令是一樣的，來簡單說明一下 Makefile 最基本的語法的規則 :</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">target ... </span>: prerequisites ...
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-make" data-lang="make"><span style="color:#ff0">target ... </span>: prerequisites ...
 	command
 	...
 </code></pre></div>
-
 <p>　　<strong>target</strong> 通常是我們最後要產生的目標名字，可能是一個執行檔，或是一個 .o 檔。target 也有可能代表的是一個動作命令，比較常見的有 all 和 clean。</p>
-
 <p>　　<strong>all</strong> 是一個習慣的用法，Makefile 可能有多個編譯流程或步驟，可以選擇只編譯某一項步驟，但如果是 make all 的話，他會執行所有有相依性的編譯步驟以完成一個完整的建置，通常 all 會放在 Makefile 的最前面，也就是預設執行的 target。</p>
-
 <p>　　<strong>clean</strong> 則是執行清除的動作，清除一些編譯過程的中繼檔案或執行檔，當然清除的方式和目標也是要自己寫的。</p>
-
 <p>　　<strong>prerequisites</strong> 是要生成 target 時所相依的檔案，這個範例的話就是兩個 .c 檔，在比較複雜的編譯步驟中，這裡也可以是其他的步驟的 target。在這個範例中這段是可以忽略不寫的，可以試試看。</p>
-
 <p>　　<strong>command</strong> 的部分就是生成 target 所需要執行的命令，而生成的方法就是 gcc 指令了，注意 command 的前面的 tab 是規定的，有縮排可讀性也比較高。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -338,6 +321,8 @@ O0 是不最佳化，O3 是最高等級的最佳化。這個東西可以配合�
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -345,8 +330,6 @@ O0 是不最佳化，O3 是最高等級的最佳化。這個東西可以配合�
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -369,7 +352,7 @@ O0 是不最佳化，O3 是最高等級的最佳化。這個東西可以配合�
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

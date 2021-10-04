@@ -7,9 +7,10 @@
         <meta property="og:title" content="Windows Subsystem for Linux 安裝 (Ubuntu bash)" />
 <meta property="og:description" content="Windows 內建的命令列工具有 cmd 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW 等等。現在 Win 10 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/01/win-subsys-linux/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/01/win-subsys-linux/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-01-07T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-03-27T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Windows Subsystem for Linux 安裝 (Ubuntu bash)"/>
@@ -152,39 +153,24 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jan 7, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　Windows 的視窗介面很好用，不過對於開發者而言，有些工作使用命令列工具 (Command Line) 還是方便些。Windows 內建的命令列工具有命令提示字元 (cmd) 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW，如果有安裝過 git 的話還有 git bash。以上這些工具我都有試過，現在 <strong>Windows 10</strong> 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。</p>
-
-<p>安裝 WSL 的方法非常簡單，首先使用<strong>系統管理員權限</strong>開啟 <strong>Power Shell</strong> :
-<figure class="half center">
-    <img src="/images/2018/01/open-powershell.png">
-</figure></p>
-
+<p>安裝 WSL 的方法非常簡單，首先使用<strong>系統管理員權限</strong>開啟 <strong>Power Shell</strong> :</p>
+<!-- raw HTML omitted -->
 <p>　　執行以下命令 :
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code></pre></div></p>
-
-<p>　　執行完以後會要求重新開機，輸入 Y 重開 :
-<figure class="large center">
-    <img src="/images/2018/01/enable-wsl.png">
-</figure></p>
-
-<p>　　接下來到灌完 Win 10 以後就幾乎沒開過的 <strong>Windows Store</strong> ，安裝 Ubuntu :
-<figure class="large center">
-    <img src="/images/2018/01/winstore-ubuntu.png">
-</figure></p>
-
-<p>　　我們已經快完成了，執行剛剛安裝好的 Ubuntu ，依照指示輸入使用者名稱和密碼就大功告成！
-<figure class="large center">
-    <img src="/images/2018/01/init-ubuntu.png">
-</figure></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux</code></pre></div></p>
+<p>　　執行完以後會要求重新開機，輸入 Y 重開 :</p>
+<!-- raw HTML omitted -->
+<p>　　接下來到灌完 Win 10 以後就幾乎沒開過的 <strong>Windows Store</strong> ，安裝 Ubuntu :</p>
+<!-- raw HTML omitted -->
+<p>　　我們已經快完成了，執行剛剛安裝好的 Ubuntu ，依照指示輸入使用者名稱和密碼就大功告成！</p>
+<!-- raw HTML omitted -->
 <p>　　下面是提供給使用 VS Code 的開發者， VS Code 有一個非常好用地方是整合了終端機，如果想把終端機換成 Ubuntu 子系統的話，可以在 File &gt; Preferences &gt; Settings 內加上
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#87ceeb">&#34;terminal.integrated.shell.windows&#34;</span>: <span style="color:#87ceeb">&#34;C:\\Windows\\sysnative\\bash.exe&#34;</span></code></pre></div></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#87ceeb">&#34;terminal.integrated.shell.windows&#34;</span>: <span style="color:#87ceeb">&#34;C:\\Windows\\sysnative\\bash.exe&#34;</span></code></pre></div></p>
 <p>　　按快捷鍵 Ctrl + `(tab 上面那個按鈕) 把終端機叫出來，此時終端機已經換成剛剛安裝好的 Ubuntu Subsystem 囉！</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -266,6 +252,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -273,8 +261,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -297,7 +283,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

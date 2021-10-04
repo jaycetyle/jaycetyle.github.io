@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on Jayce 的共享記憶體</title>
@@ -6,10 +6,16 @@
     <description>Recent content in Posts on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 04 Dec 2019 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.jaycetyle.com/post/index.xml" rel="self" type="application/rss+xml" />
-    
+    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kprobe Userspace Tool 使用筆記</title>
+      <link>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</link>
+      <pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</guid>
+      <description>&lt;p&gt;　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。&lt;/p&gt;
+&lt;p&gt;　　詳細的技術原理 &amp;hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看&lt;a href=&#34;https://www.kernel.org/doc/html/latest/trace/kprobes.html&#34;&gt;核心的技術說明手冊&lt;/a&gt;，會比我介紹清楚得多，這邊只簡單介紹好用工具。&lt;/p&gt;</description>
+    </item>
     
     <item>
       <title>Linux Kernel BUG_ON 傾印訊息分析及案例分享</title>
@@ -18,7 +24,6 @@
       
       <guid>https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/</guid>
       <description>&lt;p&gt;　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。&lt;/p&gt;
-
 &lt;p&gt;　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。&lt;/p&gt;</description>
     </item>
     
@@ -29,9 +34,7 @@
       
       <guid>https://blog.jaycetyle.com/2019/11/passing-smart-pointer/</guid>
       <description>&lt;p&gt;　　相較於其他程式語言，C++ 的函數參數傳遞方式有很多種方法，如傳值(value)、傳址(address/pointer)，及傳參考(reference)等，再加上 const 修飾詞後又有不同的變化。&lt;/p&gt;
-
 &lt;p&gt;　　C++11 引入的 unique_ptr 及 shared_ptr 等智慧指標，也同樣有傳值或傳參考等方式。雖然很多手段都可以達到相同目的，但如果透過傳遞方式的不同，就可以表現出函數設計者想傳達的「語意」，那一定會是比較好的設計，同時好的設計也能借助編譯器的輔助來降低程式出錯的機會。&lt;/p&gt;
-
 &lt;p&gt;　　針對各種不同需求及使用情境，這篇整理我蒐集到的建議實作方式，主要源自於 &lt;a href=&#34;https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines&#34;&gt;C++ Core Guideline&lt;/a&gt;，提供給各位參考。&lt;/p&gt;</description>
     </item>
     
@@ -51,7 +54,6 @@
       
       <guid>https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/</guid>
       <description>&lt;p&gt;　　最近在思考如何讓&lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global&#34;&gt;我的插件&lt;/a&gt;能夠跑在 WSL 裡面，後來發現了 &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl&#34;&gt;Visual Studio Code Remote - WSL&lt;/a&gt; 這個好東西，它可以讓 VS Code Server 實際執行在 WSL 裡面，只留 UI 介面在 Windows。&lt;/p&gt;
-
 &lt;p&gt;　　這對某些插件非常有用，因為有些東西跑在 Linux 環境是比較容易的。另外 Visual Studio Code Remote 系列還包含 Remote - SSH 模式，這東西就更猛了，如果你的 Build Machine 是遠端的 Linux Server ，他可以直接透過 SSH 跑在 Linux Server 端，像是檔案搜尋等動作，直接執行在遠端 Linux 就會比透過 Samba 或 NFS 快上很多。&lt;/p&gt;</description>
     </item>
     
@@ -62,7 +64,6 @@
       
       <guid>https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/</guid>
       <description>&lt;p&gt;　　在 &lt;a href=&#34;https://blog.jaycetyle.com/2018/10/vscode-gnu-global/&#34;&gt;VS Code + GNU Global - 打造 Trace Linux Kernel 環境&lt;/a&gt; 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。&lt;/p&gt;
-
 &lt;p&gt;　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。&lt;/p&gt;</description>
     </item>
     
@@ -181,7 +182,6 @@
       
       <guid>https://blog.jaycetyle.com/2018/04/upgrade-to-ubuntu-18-04/</guid>
       <description>&lt;p&gt;　　Stable Ubuntu 18.04 LTS 在 4 月 26 日正式 release 了，根據歷年 Ubuntu 的習慣，這次的版本代號不意外的是 B 開頭的 Bionic Beaver (仿生河狸?)。我沒有經歷過 14.04 升 16.04 的階段，系統升級的部分據說&lt;a href=&#34;https://askubuntu.com/questions/1028624/not-able-to-upgrade-from-16-04-lts-to-18-04-lts&#34;&gt;會在第一個 patch，也就是大約一個月後釋後釋出&lt;/a&gt;。&lt;/p&gt;
-
 &lt;p&gt;　　不過我今天沒什麼特別的事，就手動把 Ubuntu 升級了一下，反正檔案都放在電腦硬碟或&lt;a href=&#34;https://www.synology.com/zh-tw&#34;&gt;NAS&lt;/a&gt;上，環境爛掉大不了重裝一下就好。以下筆記如何手動搶先從 16.04 升級上去。&lt;/p&gt;</description>
     </item>
     
@@ -219,7 +219,6 @@
       
       <guid>https://blog.jaycetyle.com/2018/03/ubuntu-on-usb/</guid>
       <description>&lt;p&gt;　　軟體開發常常會需要 Linux 作業環境，但電腦又想裝 Windows 時候，一個常見的解決方式是在裝 Virtual Box，不過前一陣子覺得這不完全滿足我的需求，因為我有桌電和筆電兩台電腦，出門用筆電，在家用桌電，要兩台電腦共享 VM 就有一點麻煩了，後來決定直接把 Ubuntu 裝在隨身碟裡面，這樣就可以隨時切換我的開發環境，反正程式碼會丟到 github 或其他雲端，隨身碟掛了也沒損失。&lt;/p&gt;
-
 &lt;p&gt;　　這篇簡單筆記當初怎麼安裝 Ubuntu 到 USB 內，因為當初安裝的時候沒有記得很詳細，所以僅列出主要重點。&lt;/p&gt;</description>
     </item>
     
@@ -275,7 +274,6 @@
       
       <guid>https://blog.jaycetyle.com/2018/01/jekyll-on-win10/</guid>
       <description>&lt;p&gt;　　Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多，可以自行修改成具有個人特色的網站。&lt;/p&gt;
-
 &lt;p&gt;　　什麼是&lt;strong&gt;靜態網頁&lt;/strong&gt;呢？簡單來說就是不包含資料庫等能和使用者互動的單純網頁，這對於單一網頁不常變動的部落格來說是一個不錯的選擇，唯一的缺點是一般部落格都會需要的留言系統會需要資料庫，但這部分已經有相當多平台提供服務，像本站是使用 &lt;a href=&#34;https://disqus.com/&#34;&gt;Disqus&lt;/a&gt;，其他像是 &lt;a href=&#34;https://developers.facebook.com/docs/plugins/comments?locale=zh_TW&#34;&gt;Facebook 留言外掛程式&lt;/a&gt; 也是不錯的選擇。&lt;/p&gt;</description>
     </item>
     
@@ -286,7 +284,6 @@
       
       <guid>https://blog.jaycetyle.com/2018/01/google-domain/</guid>
       <description>&lt;p&gt;　　在架設這個部落格之前，我曾經做了幾個考量，像是「我是否應該使用部落格平台」？還有「我是否應該要申請域名」？&lt;/p&gt;
-
 &lt;p&gt;　　會有第二個考量主要來自於我打算搬遷之前的部落格，而搬遷部落格最大的問題，就是會損失好不容易建立的搜尋引擎排行。之前「大腦的外接記憶體」有不少文章用特定關鍵字去搜尋，結果會出現在第一頁，算是小有成就感，不過網址改變以後當然就只能重來。如果有心要長期經營的話，「私人域名」就顯得特別重要，有了私人域名，就算整個大改版甚至是搬移到別的平台，只要文章的網址沒有改變，其他人還是可以找得到你。&lt;/p&gt;</description>
     </item>
     
@@ -314,9 +311,9 @@
       <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.jaycetyle.com/about/</guid>
-      <description> Lin Chieh (Jayce) 　一個熱愛程式與科技的軟體工程師，機械研究所的背景造就了一個有一點歪歪的技能樹，專長領域有設備自動化控制及 Windows 軟體開發，不過目前工作主要接觸 Linux 核心 (疑?)。
+      <description>Lin Chieh (Jayce) 　一個熱愛程式與科技的軟體工程師，機械研究所的背景造就了一個有一點歪歪的技能樹，專長領域有設備自動化控制及 Windows 軟體開發，不過目前工作主要接觸 Linux 核心 (疑?)。
 　數年的軟體開發與職涯探索了不少領域，體認到了工程師保持靈活、持續學習的重要性，只要基礎札實，各種任務都一樣能夠手到擒來。如果您有任何想討論的問題或疑問，或是想認識不帥的宅宅作者 (宅也是一種專業表現！)，都歡迎透過郵件 jaycetyle@gmail.com 與我聯絡。
-　 　其他網站連結 　大豬小豬趴趴走 ： 小豬豬與 Jayce 的遊記部落格
+　　其他網站連結 　大豬小豬趴趴走 ： 小豬豬與 Jayce 的遊記部落格
 　</description>
     </item>
     

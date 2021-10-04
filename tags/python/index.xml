@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Jayce 的共享記憶體</title>
@@ -6,11 +6,7 @@
     <description>Recent content in Python on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Thu, 25 Jan 2018 00:00:00 +0000</lastBuildDate>
-    
-	<atom:link href="https://blog.jaycetyle.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
-    
-    
+    <lastBuildDate>Thu, 25 Jan 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Python Format String 字串格式化整理</title>
       <link>https://blog.jaycetyle.com/2018/01/python-format-string/</link>

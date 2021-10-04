@@ -7,9 +7,10 @@
         <meta property="og:title" content="VS Code GNU Global 相依專案路徑設定" />
 <meta property="og:description" content="GNU Global 具備將 Tag file 分散在不同 Project 的功能，並透過相依專案設定，搜尋位於其他專案的 symbol。這在某些大型專案非常有用，因為他可以有效加速 Tag 搜尋和更新的速度。這篇會介紹 gnuGlobal.libraryPath 及 gnuGlobal.objDirPrefix 這兩個好用的設定要怎麼用" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2019-07-13T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-07-13T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="VS Code GNU Global 相依專案路徑設定"/>
@@ -152,59 +153,41 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Jul 13, 2019&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>c/c&#43;&#43;</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　在 <a href="https://blog.jaycetyle.com/2018/10/vscode-gnu-global/">VS Code + GNU Global - 打造 Trace Linux Kernel 環境</a> 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。</p>
-
 <p>　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。</p>
-
 <h2 id="打開-vs-code-設定檔">打開 VS Code 設定檔</h2>
-
 <p>　　第一次接觸 VS Code 的人對於 VS Code 的設定檔一定很陌生，VS Code 的設定都是透過 json 格式來撰寫的。如果不知道設定檔在哪的話，可以從 File &gt; Preferences &gt; Settings &gt; Workspace &gt; Entensions &gt; C/C++ GNU Global &gt; Gnu Global: Library Path，點擊 &ldquo;Edit in settings.json&rdquo;，會打開一個 json file。這個 json file 就位於專案目錄下的 .vscode/settings.json，以後可以直接打開他編輯即可。</p>
-
-<figure class="large center">
-<img src="/images/2019/07/vscode-gnu-global-setting.png" alt="">
-</figure>
-
+<!-- raw HTML omitted -->
 <p>　</p>
-
-<h2 id="設定相依專案-gnuglobal-librarypath">設定相依專案 (gnuGlobal.libraryPath)</h2>
-
+<h2 id="設定相依專案-gnugloballibrarypath">設定相依專案 (gnuGlobal.libraryPath)</h2>
 <p>　　假設你現在有兩個專案，一個位於 /Projects/DocParser，另一個專案位於 /Projects/StrLib 的專案，其中 DocParser 有使用到一些 StrLib 的函式，因此你會希望 Trace DocParser 的時候可以跳轉過去，那該怎麼做呢？</p>
-
 <ol>
-<li><p>首先替這兩個專案建立 Tag Files。個別打開這兩個專案後，按 F1 叫出命令列後執行 <code>Global: Rebuild Gtags Database</code>，來建立 GTAGS 檔案</p></li>
-
-<li><p>打開 DocParser 的 settings.json，加入 &ldquo;gnuGlobal.libraryPath&rdquo;，內容輸入相依專案的<strong>絕對路徑</strong>，如下:</p></li>
+<li>
+<p>首先替這兩個專案建立 Tag Files。個別打開這兩個專案後，按 F1 叫出命令列後執行 <code>Global: Rebuild Gtags Database</code>，來建立 GTAGS 檔案</p>
+</li>
+<li>
+<p>打開 DocParser 的 settings.json，加入 &ldquo;gnuGlobal.libraryPath&rdquo;，內容輸入相依專案的<strong>絕對路徑</strong>，如下:</p>
+</li>
 </ol>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     &#34;gnuGlobal.libraryPath&#34;: [<span style="color:#87ceeb">&#34;/Projects/StrLib&#34;</span>]
 }</code></pre></div>
-
-<p>　　這樣子就完成設定了，&rdquo;gnuGlobal.libraryPath&rdquo; 接受的是字串陣列，如果你的專案相依於多個專案時，在陣列內用 &lsquo;,&rsquo; 隔開多個路徑即可。</p>
-
+<p>　　這樣子就完成設定了，&ldquo;gnuGlobal.libraryPath&rdquo; 接受的是字串陣列，如果你的專案相依於多個專案時，在陣列內用 &lsquo;,&rsquo; 隔開多個路徑即可。</p>
 <p>　　如果你有非常多的專案，而且你也有辦法取得專案的相依性的話，這個設定是可以寫 Script 來產生的 (我相信我的同事會我在說什麼)，當然 GTAGS 等檔案也是可以寫程式去執行。</p>
-
 <p>　</p>
-
-<h2 id="設定-tag-path-prefix-gnuglobal-objdirprefix">設定 Tag Path Prefix (gnuGlobal.objDirPrefix)</h2>
-
+<h2 id="設定-tag-path-prefix-gnuglobalobjdirprefix">設定 Tag Path Prefix (gnuGlobal.objDirPrefix)</h2>
 <p>　　這是我最近增加的一個非常好用的功能，也是拜這次改版所賜，套件總算突破2萬下載！</p>
-
-<p>　　好了不廢話，&rdquo;gnuGlobal.objDirPrefix&rdquo; 這個設定對於不想把 GTAGS 放在專案目錄的人很有用。他只支援 Unix 檔案系統，因此目前 Windows 版的是不支援的。這個設定接受一個絕對路徑，例如以下:</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
+<p>　　好了不廢話，&ldquo;gnuGlobal.objDirPrefix&rdquo; 這個設定對於不想把 GTAGS 放在專案目錄的人很有用。他只支援 Unix 檔案系統，因此目前 Windows 版的是不支援的。這個設定接受一個絕對路徑，例如以下:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json">{
     &#34;gnuGlobal.objDirPrefix&#34;: <span style="color:#87ceeb">&#34;/Tags/&#34;</span>
 }</code></pre></div>
-
 <p>　　當然 /Tags/ 這個目錄必須要先手動建立。之後執行 <code>Global: Rebuild Gtags Database</code> 建立 GTAGS 等檔案時，他會把你的專案目錄的絕對路徑前面加上這個 Prefix，並且把 GTAGS 產生在裡面。</p>
-
 <p>　　例如你的專案路徑位於 /Projects/DocParser，你的 GTAGS 檔案就會產生在 /Tags/Projects/DocParser/ 中，之後搜尋符號的時候也是會到該目錄搜尋，這樣 GTAGS 就不會汙染你的專案目錄囉！</p>
-
 <p>　　這個功能的實作是使用 GTAGSOBJDIRPREFIX 這個環境變數，想要用 Script 來自動對大量 Project 建立 GTAGS 的朋友們，可以直接設定這個環境變數，然後再下 gtags 指令，詳細說明可以參考 <a href="https://www.gnu.org/software/global/globaldoc_toc.html">GNU Global 的說明文件</a>。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -288,6 +271,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -295,8 +280,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -319,7 +302,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

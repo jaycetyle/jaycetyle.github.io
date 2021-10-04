@@ -7,9 +7,10 @@
         <meta property="og:title" content="帶著走的開發環境 - 把 Ubuntu 裝到 USB" />
 <meta property="og:description" content="這篇簡單筆記如何安裝完整的 Ubuntu 到 USB 內。因為當初安裝的時候沒有記得很詳細，所以僅列出安裝過程中的主要重點" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/03/ubuntu-on-usb/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/03/ubuntu-on-usb/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-03-24T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-06-02T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="帶著走的開發環境 - 把 Ubuntu 裝到 USB"/>
@@ -152,45 +153,44 @@
     <small>
         <strong>By Lin Chieh (Jayce)</strong>
         | <i class="far fa-calendar-alt"></i>&nbsp;Mar 24, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>ubuntu 作業系統</a>
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
     </small>
 </div>
 
     <div class="mt-4 mb-4 main-content">
       <p>　　軟體開發常常會需要 Linux 作業環境，但電腦又想裝 Windows 時候，一個常見的解決方式是在裝 Virtual Box，不過前一陣子覺得這不完全滿足我的需求，因為我有桌電和筆電兩台電腦，出門用筆電，在家用桌電，要兩台電腦共享 VM 就有一點麻煩了，後來決定直接把 Ubuntu 裝在隨身碟裡面，這樣就可以隨時切換我的開發環境，反正程式碼會丟到 github 或其他雲端，隨身碟掛了也沒損失。</p>
-
 <p>　　這篇簡單筆記當初怎麼安裝 Ubuntu 到 USB 內，因為當初安裝的時候沒有記得很詳細，所以僅列出主要重點。</p>
-
 <h2 id="安裝流程">安裝流程</h2>
-
 <ol>
-<li><p>準備兩隻 USB，一隻做為安裝用的開機碟，需求 4GB 以上。另一隻是要安裝系統用的，我建議是 <strong>USB3.0</strong> 以上的規格，速度才夠快，容量看需求，建議 <strong>32GB</strong> 以上。</p></li>
-
-<li><p>製作 Live USB。有很多方法，Google &ldquo;Ubuntu live usb&rdquo; 應該就可以找到很多，例如 UNetbootin 之類的軟體都可以。</p></li>
-
-<li><p>拔掉安裝 Windows 的硬碟。這步對筆電比較麻煩，但也比較安全，可以防止之後安裝誤操作把 Windows 砍掉，也可以避免 Ubuntu 動到 Windows 開機設定。我們的目的不是多開機，而是希望做出一個帶著跑的 USB，因此讓 Ubuntu 去偵測 Windows 來建 grub 多開機是沒有必要的。筆電使用者如果覺得拆硬碟太麻煩的話，我看過另一個方式是在 VM 環境下安裝，但我沒有嘗試過。</p></li>
-
-<li><p>用 Live USB 開機並安裝，開機時選擇用 UEFI 開機。小心選擇安裝的位置，不要選錯磁碟了。將第一個分割分割為 128 MB 以上的 efi，第二個分割作為 ext4 主分割，mount root (/)。swap 可以不切割，全靠主記憶體，Install 跳出建議 swap 分割時可以無視 (下圖僅供參考)。</p>
-
-<figure class="center">
-<img src="/images/2018/03/ubuntu-install.png" alt="">
-</figure></li>
-
-<li><p>安裝完後，拔掉 Live USB 重新開機進到新安裝的 Ubuntu，mount sdx1，也就是剛剛切割的 efi partition，確認裡面是否有 EFI 資料夾。</p></li>
-
-<li><p>如果沒有 EFI 資料夾 &hellip;</p>
-
+<li>
+<p>準備兩隻 USB，一隻做為安裝用的開機碟，需求 4GB 以上。另一隻是要安裝系統用的，我建議是 <strong>USB3.0</strong> 以上的規格，速度才夠快，容量看需求，建議 <strong>32GB</strong> 以上。</p>
+</li>
+<li>
+<p>製作 Live USB。有很多方法，Google &ldquo;Ubuntu live usb&rdquo; 應該就可以找到很多，例如 UNetbootin 之類的軟體都可以。</p>
+</li>
+<li>
+<p>拔掉安裝 Windows 的硬碟。這步對筆電比較麻煩，但也比較安全，可以防止之後安裝誤操作把 Windows 砍掉，也可以避免 Ubuntu 動到 Windows 開機設定。我們的目的不是多開機，而是希望做出一個帶著跑的 USB，因此讓 Ubuntu 去偵測 Windows 來建 grub 多開機是沒有必要的。筆電使用者如果覺得拆硬碟太麻煩的話，我看過另一個方式是在 VM 環境下安裝，但我沒有嘗試過。</p>
+</li>
+<li>
+<p>用 Live USB 開機並安裝，開機時選擇用 UEFI 開機。小心選擇安裝的位置，不要選錯磁碟了。將第一個分割分割為 128 MB 以上的 efi，第二個分割作為 ext4 主分割，mount root (/)。swap 可以不切割，全靠主記憶體，Install 跳出建議 swap 分割時可以無視 (下圖僅供參考)。</p>
+<!-- raw HTML omitted -->
+</li>
+<li>
+<p>安裝完後，拔掉 Live USB 重新開機進到新安裝的 Ubuntu，mount sdx1，也就是剛剛切割的 efi partition，確認裡面是否有 EFI 資料夾。</p>
+</li>
+<li>
+<p>如果沒有 EFI 資料夾 &hellip;</p>
 <ul>
 <li>把 /boot/efi/EFI 的資料夾複製到 sdx1</li>
 <li>確認 /etc/fstab 內的 /boot/efi mount 的 disk UUID 為 sdx1，如果不是的話，用 blkid 指令查詢 sdx1 的 UUID，並將其改掉</li>
-</ul></li>
-
-<li><p>關閉 UTC 時鐘，避免 Ubuntu 和 Windows 時間不同而錯亂
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo timedatectl set-local-rtc <span style="color:#f60">1</span> --adjust-system-clock</code></pre></div></p></li>
+</ul>
+</li>
+<li>
+<p>關閉 UTC 時鐘，避免 Ubuntu 和 Windows 時間不同而錯亂
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo timedatectl set-local-rtc <span style="color:#f60">1</span> --adjust-system-clock</code></pre></div></p>
+</li>
 </ol>
-
 <p>　　</p>
-
 <p>　　<strong>大功告成！</strong></p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -263,6 +263,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -270,8 +272,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -294,7 +294,7 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

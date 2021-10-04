@@ -7,9 +7,10 @@
         <meta property="og:title" content="Git 版本控制筆記 - 將 Mercurial (hg) 轉到 github" />
 <meta property="og:description" content="我覺得現在的版本控制主流已經是 git 了，但有一些 Open Source 專案的版本控制會選擇用 Mercurial (hg)，這邊主要教學如何將 hg 的專案移轉到 github 上，並保留所有的 commit 紀錄" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/06/hg-to-git/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/06/hg-to-git/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-06-27T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-06-27T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Git 版本控制筆記 - 將 Mercurial (hg) 轉到 github"/>
@@ -158,43 +159,32 @@
 
     <div class="mt-4 mb-4 main-content">
       <p>　　我覺得現在的版本控制主流已經是 git 了，但有一些 Open Source 專案的版本控制會選擇用 Mercurial (hg)，這兩個版本控制系統有著不少相似的地方，都是不錯的工具。這篇主要教學如何將 hg 的專案移轉到 github 上，並保留所有的 commit 紀錄。</p>
-
 <h2 id="移轉方法">移轉方法</h2>
-
 <p>　以下的操作都是在 Ubuntu。首先安裝 hg 及下載 hg-git</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ apt install mercurial
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ apt install mercurial
 $ pip install dulwich
 $ hg clone http://bitbucket.org/durin42/hg-git/</code></pre></div>
-
 <p>　
 　修改 ~/.hgrc，加入以下內容，如果沒有該檔案的話就建立一個</p>
-
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[extensions]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[extensions]</span>
 hgext.bookmarks =
 hggit = <span style="color:#87ceeb">path-to/hg-git/hggit</span></code></pre></div>
-
 <p>　
 　clone 想要搬家的 hg project
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg clone https://hg-project
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg clone https://hg-project
 $ cd hg-project</code></pre></div></p>
-
 <p>　
 　修改 hg 專案的 .hg/hgrc，在 Paths 標籤加入以下內容，注意 username 前面是 / 不是 :
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[paths]</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[paths]</span>
 git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git</span></code></pre></div></p>
-
 <p>　
 　bookmark default to git master
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg bookmark -r default master</code></pre></div></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg bookmark -r default master</code></pre></div></p>
 <p>　
 　推上 github，這樣就完成囉！
-<div class="highlight"><pre style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg push git</code></pre></div></p>
-
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg push git</code></pre></div></p>
 <p>　</p>
-
-<p><a href="http://hg-git.github.io/ http://hgtip.com/tips/advanced/2009-11-09-create-a-git-mirror/">參考資料來源</a></p>
+<p>[參考資料來源](<a href="http://hg-git.github.io/">http://hg-git.github.io/</a> <a href="http://hgtip.com/tips/advanced/2009-11-09-create-a-git-mirror/">http://hgtip.com/tips/advanced/2009-11-09-create-a-git-mirror/</a>)</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f06%2fhg-to-git%2f&text=Git%20%e7%89%88%e6%9c%ac%e6%8e%a7%e5%88%b6%e7%ad%86%e8%a8%98%20-%20%e5%b0%87%20Mercurial%20%28hg%29%20%e8%bd%89%e5%88%b0%20github&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
@@ -277,6 +267,8 @@ git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git<
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -284,8 +276,6 @@ git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git<
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -308,7 +298,7 @@ git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git<
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     

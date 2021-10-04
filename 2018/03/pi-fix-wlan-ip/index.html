@@ -7,9 +7,10 @@
         <meta property="og:title" content="為 Raspberry pi 的 wlan 設定固定的區域網路 IP" />
 <meta property="og:description" content="我的 Raspberry pi 是透過 USB 無線網卡上網(wlan0)，但家裡 Hinet 的小烏龜如果重開，或是重新開機，IP 有可能會變，連接時就要重新設定 IP，很麻煩！所以我小小研究了一下讓 pi 的 wlan0 IP 可以固定的方法，蠻簡單的，以下說明設定流程" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://blog.jaycetyle.com/2018/03/pi-fix-wlan-ip/" />
+<meta property="og:url" content="https://blog.jaycetyle.com/2018/03/pi-fix-wlan-ip/" /><meta property="article:section" content="post" />
 <meta property="article:published_time" content="2018-03-27T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-03-27T00:00:00+00:00" />
+
 
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="為 Raspberry pi 的 wlan 設定固定的區域網路 IP"/>
@@ -158,18 +159,11 @@
 
     <div class="mt-4 mb-4 main-content">
       <p>　　我的 Raspberry pi 是透過 USB 無線網卡上網(wlan0)，但家裡 Hinet 的小烏龜如果重開，或是重新開機，IP 有可能會變，這樣子連接時就要重新設定 IP ，很麻煩！所以我小小研究了一下讓 Raspberry pi 的 wlan0 IP 可以固定的方法，蠻簡單的，以下說明設定流程。</p>
-
 <p>首先，為了避免改壞設定檔，先輸入 sudo cp /etc/network/interfaces /etc/network/interfaces.backup 備份一下，接著輸入 route -n 及 ifconfig 命令來查詢網路的狀態，可以得到以下的畫面</p>
-
-<figure class="large center">
-    <img src="/images/2018/03/pi-ifconfig.png" alt="">
-</figure>
-
+<!-- raw HTML omitted -->
 <p>　　有三個重要的位址已經標記在圖上了，把這 1 和 2 的位址記下來。圖中標記的這三個位址的前三個數字都是 192.168.1.*，你想要指定的 IP 位址前三個數字也要相同。</p>
-
 <p>　　接著輸入 sudo vim /etc/network/interfaces 打開設定檔 (或其他習慣的文字編輯器也可以)，在最後直接加入以下內容，其他的部分不需更改：</p>
-
-<pre><code>auto wlan0
+<pre tabindex="0"><code>auto wlan0
 iface wlan0 inet static
 address 192.168.1.110   # 你想要指定的 IP 位址
 netmask 255.255.255.0
@@ -177,9 +171,7 @@ gateway 192.168.1.1     # 輸入上圖中 2 的位址
 network 192.168.1.0     # 輸入上圖中 1 的位址
 wpa-essid ****          # 無線網路的 id
 wpa-psk ****            # 無線網路的密碼
-</code></pre>
-
-<p>　　都設定好後，sudo reboot 重新開機，看看 IP 有沒有變成指定的位址，有的話就是成功了！</p>
+</code></pre><p>　　都設定好後，sudo reboot 重新開機，看看 IP 有沒有變成指定的位址，有的話就是成功了！</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f03%2fpi-fix-wlan-ip%2f&text=%e7%82%ba%20Raspberry%20pi%20%e7%9a%84%20wlan%20%e8%a8%ad%e5%ae%9a%e5%9b%ba%e5%ae%9a%e7%9a%84%e5%8d%80%e5%9f%9f%e7%b6%b2%e8%b7%af%20IP&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
@@ -251,6 +243,8 @@ wpa-psk ****            # 無線網路的密碼
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
@@ -258,8 +252,6 @@ wpa-psk ****            # 無線網路的密碼
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/">VS Code GNU Global 相依專案路徑設定</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -282,7 +274,7 @@ wpa-psk ****            # 無線網路的密碼
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/linux-kernel/'>
       Linux Kernel
-      <span class="badge badge-pill badge-secondary">5</span>
+      <span class="badge badge-pill badge-secondary">6</span>
       </a>
     </li>
     
