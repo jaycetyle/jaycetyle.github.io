@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -162,7 +162,9 @@
 <p>　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。</p>
 <h2 id="打開-vs-code-設定檔">打開 VS Code 設定檔</h2>
 <p>　　第一次接觸 VS Code 的人對於 VS Code 的設定檔一定很陌生，VS Code 的設定都是透過 json 格式來撰寫的。如果不知道設定檔在哪的話，可以從 File &gt; Preferences &gt; Settings &gt; Workspace &gt; Entensions &gt; C/C++ GNU Global &gt; Gnu Global: Library Path，點擊 &ldquo;Edit in settings.json&rdquo;，會打開一個 json file。這個 json file 就位於專案目錄下的 .vscode/settings.json，以後可以直接打開他編輯即可。</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+<img src="/images/2019/07/vscode-gnu-global-setting.png" alt="">
+</figure>
 <p>　</p>
 <h2 id="設定相依專案-gnugloballibrarypath">設定相依專案 (gnuGlobal.libraryPath)</h2>
 <p>　　假設你現在有兩個專案，一個位於 /Projects/DocParser，另一個專案位於 /Projects/StrLib 的專案，其中 DocParser 有使用到一些 StrLib 的函式，因此你會希望 Trace DocParser 的時候可以跳轉過去，那該怎麼做呢？</p>
@@ -271,6 +273,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -278,8 +282,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -344,6 +346,13 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

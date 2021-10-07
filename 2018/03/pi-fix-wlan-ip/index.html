@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -160,7 +160,9 @@
     <div class="mt-4 mb-4 main-content">
       <p>　　我的 Raspberry pi 是透過 USB 無線網卡上網(wlan0)，但家裡 Hinet 的小烏龜如果重開，或是重新開機，IP 有可能會變，這樣子連接時就要重新設定 IP ，很麻煩！所以我小小研究了一下讓 Raspberry pi 的 wlan0 IP 可以固定的方法，蠻簡單的，以下說明設定流程。</p>
 <p>首先，為了避免改壞設定檔，先輸入 sudo cp /etc/network/interfaces /etc/network/interfaces.backup 備份一下，接著輸入 route -n 及 ifconfig 命令來查詢網路的狀態，可以得到以下的畫面</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/03/pi-ifconfig.png" alt="">
+</figure>
 <p>　　有三個重要的位址已經標記在圖上了，把這 1 和 2 的位址記下來。圖中標記的這三個位址的前三個數字都是 192.168.1.*，你想要指定的 IP 位址前三個數字也要相同。</p>
 <p>　　接著輸入 sudo vim /etc/network/interfaces 打開設定檔 (或其他習慣的文字編輯器也可以)，在最後直接加入以下內容，其他的部分不需更改：</p>
 <pre tabindex="0"><code>auto wlan0
@@ -243,6 +245,8 @@ wpa-psk ****            # 無線網路的密碼
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -250,8 +254,6 @@ wpa-psk ****            # 無線網路的密碼
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -316,6 +318,13 @@ wpa-psk ****            # 無線網路的密碼
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

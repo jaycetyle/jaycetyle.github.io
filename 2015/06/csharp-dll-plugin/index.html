@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -161,7 +161,7 @@
       <p>　　這次的內容主要介紹 C# 應用程式如何透過 dll 及反射 (Reflection) 來做 plugin，方法沒有很困難，不過一個 plugin 就是一個 dll 檔，也就等於是一個專案，所以在範例中會開蠻多專案的，手續會稍微繁複一點。現在就開始撰寫我們的範例程式吧！</p>
 <h3 id="建立-dll-插件">建立 dll 插件</h3>
 <p>　　首先要開第一個 dll 專案做為 plugin 的介面 (interface)。雖然我覺得會想看這篇的人應該都已經知道怎麼開 dll 專案了，不過我還是簡單介紹一下，開 dll 專案沒有很困難，在新增專案的時候，專案類型選擇 ClassLibrary，編譯出來的程式就會是 dll 了。</p>
-<!-- raw HTML omitted -->
+<figure class="large center"> <img src="/images/2015/csharp-plugin-01.png"> </figure>
 <p>　　我的專案名稱是取名為 IPlugin，然後這個介面很單純，程式碼如下</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#f00">namespace</span> IPlugin
 {
@@ -171,7 +171,7 @@
     }
 }</code></pre></div>
 <p>　　只有取得名稱的功能，夠簡單了吧！接下來開二個 dll 專案，也就是實際實作 IPlugin 介面的類別，我的專案名稱取名叫做 Foo。當然，因為要實作介面，所以要記得把 IPlugin.dll 加到專案的 Reference 裡面</p>
-<!-- raw HTML omitted -->
+<figure class="half center"> <img src="/images/2015/csharp-plugin-02.png" alt=""> </figure>
 <p>　　Foo.cs 裡面的內容一樣超級簡單，只是實作 Name 的 Property 而已～
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-csharp" data-lang="csharp"><span style="color:#f00">namespace</span> Foo
 {
@@ -252,7 +252,7 @@
 <p>到這裡我們已經取得所有插件的類別啦，最後一步是透過 Activator.CreateInstance 這個函數來實際產生物件，有了物件我們就可以實際執行插件的內容囉！這個範例就是把 plugin 裡面的 Name 給印出來 WriteLine(plugin.Name)，實際輸出大概會長這樣</p>
 </li>
 </ol>
-<!-- raw HTML omitted -->
+<figure class="large center"> <img src="/images/2015/csharp-plugin-03.png" alt=""> </figure>
 <p>　　如果你的程式沒有印出Foo, Bar 或者是你插件定義的內容，<strong>確認一下是否已經把插件的 dll 放到程式的執行目錄下</strong>，也可以試著把插件的 dll 移出執行目錄比較結果，不必重新編譯主程式就會動態載入囉！</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -325,6 +325,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -332,8 +334,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -398,6 +398,13 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

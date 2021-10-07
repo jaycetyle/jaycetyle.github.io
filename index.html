@@ -41,7 +41,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <style type="text/css">
@@ -125,6 +125,27 @@
       
     
     
+    
+      <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/"><h3 class="post-title">Linux fio 測試參數的眉眉角角</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Oct 6, 2021&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-system-performance/'>Linux System Performance</a>
+    </small>
+</div>
+        <div>
+            fio 是一個好用的合成 IO (Synthetic IO Workload) 產生器，我們經常用他來測試例如檔案系統或是 Raw Device 的 IO 效能等等，他有非常多可調參數，很多時候我們只是複製了某測試的參數就打，這在大多數情況可能是夠用的，但身為一個優秀的效能分析者，我們還是必須要知道
+ 測試目的? 模擬的測試情境? 為何使用這組測試參數?  　亂選測試參數只會造成 Garbage in, garbage out，結果沒有參考價值，而且可能還渾然不自知。這篇會介紹幾個常見的測試參數以及他的對應情境，但這些例子並非適用所有情境，某些情境還是需要比較特別的參數設定才適合。
+ Direct / Buffered 　direct 用來指定是否開啟 Direct IO (O_DIRECT)，與之對應的是 Buffered IO，兩者在整個 Linux IO stack 有很大差距，在不同測試環境及參數下很難說哪個數據會較好。這裡主要提供一個測試參數選擇的概略方向，不會在細節上做比較。
+　Direct IO 與 Buffered IO 最大的差異是有無經過 Memory Management 的 Page Cache，因此從是否希望 fio HOST 的 Page Cache 影響 IO Pattern 來判斷選擇何者是其中一個方式。
+　如果希望 Page Cache 影響的話選 Buffered IO，不希望的話選 Direct IO。由於 Page Cache 對大多數應用來說都有幫助，若要模擬一般應用過檔案系統的行為，選用 Buffered IO 來模擬通常是較合理的。
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
     
       <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/"><h3 class="post-title">Kprobe Userspace Tool 使用筆記</h3></a>
@@ -216,24 +237,6 @@
         </div>
       </article>
     
-      <article class="post p-3 p-sm-5 mb-1">
-        <a class="title" href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/"><h3 class="post-title">VS Code GNU Global 相依專案路徑設定</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Jul 13, 2019&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>, <a href='/tags/c/c&#43;&#43;/'>C/C&#43;&#43;</a>
-    </small>
-</div>
-        <div>
-            <p>　　在 <a href="https://blog.jaycetyle.com/2018/10/vscode-gnu-global/">VS Code + GNU Global - 打造 Trace Linux Kernel 環境</a> 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。</p>
-<p>　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
     <div class="d-flex align-items-center justify-content-center">
       
     <ul class="pagination pagination-default">
@@ -271,6 +274,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -278,8 +283,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -344,6 +347,13 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

@@ -6,7 +6,20 @@
     <description>Recent content on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux fio 測試參數的眉眉角角</title>
+      <link>https://blog.jaycetyle.com/2021/10/linux-fio-tips/</link>
+      <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/2021/10/linux-fio-tips/</guid>
+      <description>fio 是一個好用的合成 IO (Synthetic IO Workload) 產生器，我們經常用他來測試例如檔案系統或是 Raw Device 的 IO 效能等等，他有非常多可調參數，很多時候我們只是複製了某測試的參數就打，這在大多數情況可能是夠用的，但身為一個優秀的效能分析者，我們還是必須要知道
+ 測試目的? 模擬的測試情境? 為何使用這組測試參數?  　亂選測試參數只會造成 Garbage in, garbage out，結果沒有參考價值，而且可能還渾然不自知。這篇會介紹幾個常見的測試參數以及他的對應情境，但這些例子並非適用所有情境，某些情境還是需要比較特別的參數設定才適合。
+ Direct / Buffered 　direct 用來指定是否開啟 Direct IO (O_DIRECT)，與之對應的是 Buffered IO，兩者在整個 Linux IO stack 有很大差距，在不同測試環境及參數下很難說哪個數據會較好。這裡主要提供一個測試參數選擇的概略方向，不會在細節上做比較。
+　Direct IO 與 Buffered IO 最大的差異是有無經過 Memory Management 的 Page Cache，因此從是否希望 fio HOST 的 Page Cache 影響 IO Pattern 來判斷選擇何者是其中一個方式。
+　如果希望 Page Cache 影響的話選 Buffered IO，不希望的話選 Direct IO。由於 Page Cache 對大多數應用來說都有幫助，若要模擬一般應用過檔案系統的行為，選用 Buffered IO 來模擬通常是較合理的。</description>
+    </item>
+    
     <item>
       <title>Kprobe Userspace Tool 使用筆記</title>
       <link>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</link>
@@ -313,7 +326,7 @@
       <guid>https://blog.jaycetyle.com/about/</guid>
       <description>Lin Chieh (Jayce) 　一個熱愛程式與科技的軟體工程師，機械研究所的背景造就了一個有一點歪歪的技能樹，專長領域有設備自動化控制及 Windows 軟體開發，不過目前工作主要接觸 Linux 核心 (疑?)。
 　數年的軟體開發與職涯探索了不少領域，體認到了工程師保持靈活、持續學習的重要性，只要基礎札實，各種任務都一樣能夠手到擒來。如果您有任何想討論的問題或疑問，或是想認識不帥的宅宅作者 (宅也是一種專業表現！)，都歡迎透過郵件 jaycetyle@gmail.com 與我聯絡。
-　　其他網站連結 　大豬小豬趴趴走 ： 小豬豬與 Jayce 的遊記部落格
+　 　其他網站連結 　大豬小豬趴趴走 ： 小豬豬與 Jayce 的遊記部落格
 　</description>
     </item>
     

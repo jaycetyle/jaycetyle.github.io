@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -178,7 +178,9 @@ $ ll                <span style="color:#0f0"># 列舉資料夾</span></code></pr
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#87ceeb">&#34;git practice&#34;</span> &gt; README.txt</code></pre></div></p>
 <p>　　在真正操作 git 之前，我想先介紹 git 的暫存區域。這個是 git 和許多版本控管系統不同的地方，git 在提交之前，必須要先把檔案的「變更」加入(add)到暫存區域(staging area)，這個變更才能被提交(commit)到版本儲存庫。</p>
 <p>　　注意一個關鍵，雖然在之後操作指令時是輸入檔案名稱，但實際加入的是檔案的「變更」，因此<strong>檔案加入到暫存區域後有變更的話還要再加入一次</strong>，否則之後的變更不會被提交，參考下圖</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/02/git-staging-area.png" alt="">
+</figure>
 <p>　　現在我們知道變更要先加入到暫存區域。在加入之前，我們先用 git status 看一下目前的 git 狀態
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git status
 <span style="color:#0f0"># On branch master</span>
@@ -197,7 +199,9 @@ $ git status
 <p>　　現在 README.txt 已經變成 <strong>Changes to be committed</strong>，而且是 <strong>new file</strong>，使用 git commit 將變更提交到儲存庫
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git commit</code></pre></div></p>
 <p>　　如果有照上一篇文章的設定做的話，此時會進入到 vim，按 a 或 i 進入 insert 模式編輯提交的紀錄，其中單行 # 開頭的是註解，不會進入提交訊息之中。輸入完成後按 ESC 退出 insert 模式並輸入 :x 存檔離開，這樣便完成了一次提交</p>
-<!-- raw HTML omitted -->
+<figure class="center">
+	<img src="/images/2018/02/git-commit-message.png" alt="">
+</figure>
 <p>　　使用 git log 確認提交紀錄
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log
 <span style="color:#0f0"># commit d9f0b6880081ba202e27feeaa1f96558354eb4f0 (HEAD -&gt; master)</span>
@@ -308,6 +312,8 @@ $ git status
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -315,8 +321,6 @@ $ git status
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -381,6 +385,13 @@ $ git status
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

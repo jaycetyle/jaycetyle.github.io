@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -164,13 +164,19 @@
 <p>　　樹莓派上需要安裝 gdb，如果沒有安裝的話可以透過 apt install 安裝他，並掛載開發機上的 source code 目錄。</p>
 <p>　　設定 NFS 的主要目的是，VS Code 的除錯方式是透過 ssh 連進樹莓派，並叫起樹莓派上的 gdb 來除錯，gdb 在除錯的時候會需要程式碼，我的方式是透過 NFS 讓他可以去得開發機上的程式碼。想把程式碼放在樹莓派上也行，NFS Server 和 Client 相反而已，總之只要讓樹莓派和開發機能夠看到同一份程式碼就可以了。Windows 我沒有試過，但只要能夠 ssh 應該就可以，樹莓派則可能要設定 Samba 之類的來共享程式碼。</p>
 <p>　　以上環境都準備好以後，<strong>在 VS Code 上安裝 Native Debug 插件</strong>。</p>
-<!-- raw HTML omitted -->
+<figure class="center">
+<img src="/images/2018/04/native-debug-extension.png">
+</figure>
 <p>　</p>
 <h2 id="操作流程">操作流程</h2>
 <p>　使用 VS Code 開啟專案目錄，如下圖依序點選 VS Code 的 debugger 設定，並選擇 GDB</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+<img src="/images/2018/04/native-debug-1.png">
+</figure>
 <p>　launch.json 內有一些預設的 configuration，選擇GDB: Launch over SSH。如果你沒有這個選項的話，請先確認 Native Debug 插件是否有正確安裝</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+<img src="/images/2018/04/native-debug-2.png">
+</figure>
 <p>　Json configurations 主要有以下設定需要修改，我用註解標示
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-json" data-lang="json"><span style="color:#87ceeb">&#34;configurations&#34;</span>: [
     {
@@ -188,7 +194,9 @@
     }
 ]</code></pre></div></p>
 <p>　當然，要把想偵錯的執行檔編譯出來，可以使用 cross compiler 或直接用 pi 上帶的 gcc，記得加上 -g 編譯 debug symbol。這樣就搞定了，按 F5 開始進行 debug，可以在行號旁邊點一下設定中斷點，F10 則是單步執行</p>
-<!-- raw HTML omitted -->
+<figure class="center">
+<img src="/images/2018/04/native-debug-3.png">
+</figure>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f04%2fvscode-ssh-debug%2f&text=VS%20Code%20%2b%20ssh%20%e6%a8%b9%e8%8e%93%e6%b4%be%e9%81%a0%e7%ab%af%e9%99%a4%e9%8c%af&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
@@ -271,6 +279,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -278,8 +288,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -344,6 +352,13 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

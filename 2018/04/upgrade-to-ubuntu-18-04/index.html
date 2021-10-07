@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -166,15 +166,23 @@
 $ update-manager -cd
 {{1&lt; /highlight &gt;}}</p>
 <p>　　參數 c 是確認是否新發行版可以更新，參數 d 則是更新到 development release，等他搜尋完會出現以下畫面，點下升級吧！</p>
-<!-- raw HTML omitted -->
+<figure class="mid center">
+	<img src="/images/2018/04/ubuntu-1804-upgrade-0.png" alt="">
+</figure>
 <p>　　然後會進到發行版升級的畫面，等他跑一下</p>
-<!-- raw HTML omitted -->
+<figure class="half center">
+	<img src="/images/2018/04/ubuntu-1804-upgrade-1.png" alt="">
+</figure>
 <p>　　確認一下升級內容，看起來會多吃掉 1GB 左右，另外有幾個套件會被移除，列在詳情裡面，稍微看了一下，嗯 &hellip; 我覺得沒差，大不了再裝就有，直接按下開始升級</p>
-<!-- raw HTML omitted -->
+<figure class="mid center">
+	<img src="/images/2018/04/ubuntu-1804-upgrade-2.png" alt="">
+</figure>
 <p>　　過程中彈了不少 python3 相關的升級錯誤我沒有截圖下來，不過 python3 是一個很廣泛的東西，所以我沒有很擔心，只是要一直手動按關閉很煩，按一按等他跑完就可以重開機了。進到新桌面後果然有點不習慣，馬上裝一下 tweak-tool 來調整，Ubuntu 18.04 改成 gnome 了，輸入以下指令安裝
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ sudo apt install gnome-tweak-tool</code></pre></div></p>
 <p>　　稍微調整以後，選擇了 Adwaita-dark 的主題，介面如下，用起來還算順手</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/04/ubuntu-1804-upgrade-4.png" alt="">
+</figure>
 <p>　　後來試了一下 python3，果然沒猜錯，keras 和 tensorflow 等 python package 被刪掉了，不過這些再裝就有了，如果有在用這些套件的可以在升級完以後確認一下</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -247,6 +255,8 @@ $ update-manager -cd
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -254,8 +264,6 @@ $ update-manager -cd
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -320,6 +328,13 @@ $ update-manager -cd
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

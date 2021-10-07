@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -167,7 +167,9 @@
 <dt>1.　安裝 Windows 版 git</dt>
 <dd>在 Windows 安裝軟體我想對各位來說應該都不難，先到<a href="https://git-scm.com/download/win">官方網站</a>下載合適的版本，一直點下一步安裝即可。安裝完以後執行 Git Bash，可以嘗試在裡面輸入圖中的指令，會顯示 Git 安裝的版本。</dd>
 </dl>
-<!-- raw HTML omitted -->
+<figure class="center">
+	<img src="/images/2018/02/git-bash.png" alt="">
+</figure>
 <p>　　之後是我個人推薦的環境: 使用 Ubuntu 子系統。<strong>你可以自行決定是否要採納</strong>，如果是初心者我建議可以跟著試試。使用 Ubuntu 子系統有相當多好處，工具齊全、問題容易 Google，光是以上這兩點應該就值得你試試看了，學會以後連 Linux 都可以順便上手，算是一舉數得。</p>
 <dl>
 <dt>2.　<a href="https://blog.jaycetyle.com/2018/01/win-subsys-linux/">安裝 Windows Subsystem for Linux</a></dt>
@@ -195,13 +197,17 @@ $ git config --global alias.st status</code></pre></div></p>
 <p>　　git 設定檔的位置會儲存在使用者家目錄的 .gitconfig，也就是 ~/.gitconfig，在 Linux 中 ~ 代表使用者的家目錄，通常會是在 /home/your_name 這個位置。我們可以用 vim 嘗試打開他看看
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ vim ~/.gitconfig</code></pre></div></p>
 <p>　　第一次接觸 vim 通常會很慌亂 「要怎麼退出他？」。其實不用緊張，我們先認識 vim 的兩個模式，第一個是 normal mode，在這個模式下可以輸入一些 vim 的操作指令。第二個模式是 insert mode，在這個模式下打字的話可以編輯內文。我們可以在畫面的最下方看是否有 &ldquo;Insert&rdquo; 來判斷是在哪個模式。如果想要從 normal 進到 insert，可以按鍵盤的 a 或是 i，反之，如果要從 insert 模式回到 normal mode，可以按 ESC，如果沒退回去就多按幾下。</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/02/vim-mode.png" alt="">
+</figure>
 <p>　　那要如何退出 vim 呢？這可是個熱門問題呢！要離開 vim 我們需要切換到 <strong>normal mode</strong> 中輸入指令並按 enter，其中最常使用的指令就是以下三種
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">:q		<span style="color:#0f0"># 離開</span>
 :x		<span style="color:#0f0"># 存檔並離開</span>
 :q!		<span style="color:#0f0"># 不存檔並離開</span></code></pre></div></p>
 <p>　　輸入的指令會顯示在最下方，可以參考下圖 (email 需要輸入，只是被我馬賽克掉了)</p>
-<!-- raw HTML omitted -->
+<figure class="half center">
+	<img src="/images/2018/02/vim-quit.png" alt="">
+</figure>
 <p>　　VIM 的功能有很多，不過我們只需要會使用到這個程度就很夠用了。git 的設定也可以直接在 ~/.gitconfig 修改，可以嘗試用 VIM 編輯看看。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -285,6 +291,8 @@ $ git config --global alias.st status</code></pre></div></p>
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -292,8 +300,6 @@ $ git config --global alias.st status</code></pre></div></p>
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -358,6 +364,13 @@ $ git config --global alias.st status</code></pre></div></p>
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -162,9 +162,13 @@
 <h2 id="在-github-建立一個新的-repository">在 github 建立一個新的 repository</h2>
 <p>　　首先要到 github 申請一個帳號，這應該不困難所以我就沒有建說明了。對於現在軟體工程師而言，github 幾乎快要變成個人名片，所以我很建議可以申請有代表性一點的帳號名稱，github 也是未來找工作時很好展示作品的地方。</p>
 <p>　　申請完 git 帳號以後就可以來建立 repository，也就是版本管理的儲存庫。首先將首頁個人頭像旁邊的加號點開，點選 New repository</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/02/github-new-repo.png" alt="">
+</figure>
 <p>　　在以下頁面輸入 repository 的名稱以後再按 Create repository，就可以建立一個新的 repository 了</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/02/github-new-repo-conti.png" alt="">
+</figure>
 <p>　　注意到建立版本庫的時候也可以選擇 public 和 private，不過 github 只有學生和付費使用者可以建立私人的儲存庫，不過個人使用沒有要營利的話，公開代碼往往好處大於壞處，所以選擇 public 就可以了。</p>
 <h2 id="設定-ssh-金鑰">設定 ssh 金鑰</h2>
 <p>　　在我們正式上傳到 github 以前，我們需要先設定 ssh 金鑰。為什麼要設定這個金鑰呢？這是為了讓 github 知道，拿著這個金鑰的操作者是屬於那一個帳號，以賦予上傳等等的權限。如果是第一次使用 ssh key，會需要先產生 ssh 的金鑰，在 Bash 輸入以下指令以產生金鑰
@@ -179,15 +183,23 @@ The key fingerprint is:                        <span style="color:#0f0"># 之後
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /home/jaycelin/.ssh/id_rsa.pub           <span style="color:#0f0"># 讀取檔案內容</span>
 ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 從 ssh-rsa 複製到 username@pc-name</span></code></pre></div></p>
 <p>　　接著到 github 的設定頁面將剛剛複製的金鑰輸入進去，參考下圖流程</p>
-<!-- raw HTML omitted -->
+<figure class="center">
+	<img src="/images/2018/02/github-settings.png" alt="">
+</figure>
 <hr>
-<!-- raw HTML omitted -->
+<figure class="center">
+	<img src="/images/2018/02/github-new-sshkey.png" alt="">
+</figure>
 <hr>
-<!-- raw HTML omitted -->
+<figure class="center">
+	<img src="/images/2018/02/github-enter-sshkey.png" alt="">
+</figure>
 <p>　　輸入完畢後就完成金鑰設定了。對於不同的 git server，例如 bitbucket 或 gitlab 等等，流程都是類似的，只是匯入金鑰的網頁介面稍有不同而已，重點就是要將 id_rsa.pub 的內容提供給伺服器。</p>
 <h2 id="第一次推送程式碼到-github">第一次推送程式碼到 github</h2>
 <p>　　到這邊我們已經完成　github 的設定了，我們回到剛剛新建的 repository，會發現 github 已經告訴我們該怎麼做了，這邊假設我們已經在本地初始化一個儲存庫，先 cd 到已經準備好要推送的儲存庫資料夾，接著貼上 github 所提示的指令:</p>
-<!-- raw HTML omitted -->
+<figure class="large center">
+	<img src="/images/2018/02/github-first-push.png" alt="">
+</figure>
 <p>　　以下說明這些指令在做什麼，以及一些常用的操作指令 :</p>
 <dl>
 <dt>**　1. git remote add origin git@URL**</dt>
@@ -284,6 +296,8 @@ ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -291,8 +305,6 @@ ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -357,6 +369,13 @@ ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

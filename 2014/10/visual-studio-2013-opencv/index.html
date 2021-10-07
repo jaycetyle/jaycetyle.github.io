@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -162,17 +162,17 @@
 <p>首先到 <a href="http://opencv.org/">OpenCV 官方網站</a> 下載 OpenCV函式庫，根據我翻查以前的資料，每個版本下載下來的東西可能會有不同，不過安裝後有的東西應該差不多，我下載 2.4.9 版本時是一個自解壓縮檔，解壓縮後會有 sources 和 build 兩個資料夾。sources 放的是原始程式碼，我們沒有要修改或編譯他所以可以先不管他，build 內的資料夾就是我們要的東西。</p>
 <p>　　doc 資料夾裡面有一個 open_tutorial.pdf ，裡面有很詳盡的教學，包括編譯環境的建置 ( 我寫這篇幹麻？整理翻譯賺文章數嘛 XD)。</p>
 <p>　　接著建立環境變數：在我的電腦按右鍵 -&gt; 內容 -&gt; 進階系統設定 -&gt; 進階 -&gt; 環境變數，新增 系統變數</p>
-<!-- raw HTML omitted -->
+<figure class="large center"> <img src="/images/2014/vs2013-opencv-01.png"> </figure>
 <pre tabindex="0"><code>變數名稱: OPENCV_DIR
 變數值　: OpenCV路徑\build\x86\vc12
 </code></pre><p>　</p>
 <p>　　如果你的是 VS2012，vc12 改成 vc11，如果編譯器設定是 x64 就把 x86 改成 x64，以此類推。接著找到 Path 環境變數，按編輯，在變數值的最後方加上 ; %OPENCV_DIR%\bin (每個變數是使用 ; 進行區隔)</p>
-<!-- raw HTML omitted -->
+<figure class="center"> <img src="/images/2014/vs2013-opencv-02.png"> </figure>
 <p>　　這個步驟主要是要把 OpenCV 的 dll 檔路徑設定成 Windows 搜尋 dll 檔時的預設路徑，當然把 dll 檔和執行檔放在同一個資料夾內也是可行的辦法，但是 OpenCV 的 dll 檔案數量多而且也蠻大的，如果要開發多個軟體，會導致到處都有大量的 dll 檔，比較麻煩。另外，由於 Visual Studio 是在軟體啟動時讀取電腦的環境變數，所以修改環境變數後，Visaul Studio 要重新啟動才有效。</p>
 <p>　　接著打開 Visual Studio C++ 專案，在專案名稱按右鍵 -&gt; Property -&gt; Configuration Properties -&gt; C/C++ -&gt; General -&gt; Additional Include Directories 加入 $(OPENCV_DIR)....\include</p>
-<!-- raw HTML omitted -->
+<figure class="center"> <img src="/images/2014/vs2013-opencv-03.png"> </figure>
 <p>　　Linker -&gt; General -&gt; Additional Library Directories 加入 $(OPENCV_DIR)\lib</p>
-<!-- raw HTML omitted -->
+<figure class="center"> <img src="/images/2014/vs2013-opencv-04.png"> </figure>
 <p>　　Linker -&gt; Input -&gt; Additional Dependencies 加入</p>
 <pre tabindex="0"><code>opencv_core249d.lib
 opencv_imgproc249d.lib
@@ -185,7 +185,7 @@ opencv_objdetect249d.lib
 opencv_contrib249d.lib
 opencv_legacy249d.lib
 opencv_flann249d.lib
-</code></pre><!-- raw HTML omitted -->
+</code></pre><figure class="center"> <img src="/images/2014/vs2013-opencv-05.png"> </figure>
 <p>　　可以看到上面的檔案名稱最後的結尾都是 d，表示這些檔案是用於 debug 的編譯設定，如果用於 release 的編譯設定，檔案名稱要換成沒有 d 的版本。249則是版本號，如果使用的版本不同也要更改。</p>
 <p>　　$(OPENCV_DIR) 是剛剛設定的系統變數名稱，存的就是我們所指定的 OpenCV 安裝路徑。設定 OPENCV_DIR 系統變數，是為了讓專案的屬性設定與電腦安裝 OpenCV 檔案的路徑盡量不要相依，避免專案設定換台電腦就會失效，在多人開發時會產生很多麻煩。另外由於環境變數只能指定一個路徑，如果你有多個 Visaul Studio 版本就得多設定幾個環境變數，是不怎麼方便，如果有知道其他辦法的麻煩留言告知給我。</p>
 <p>　　到這裡就完成了。如果要測試是否有設定成功，可以參考 <a href="http://www.cmlab.csie.ntu.edu.tw/~jsyeh/wiki/doku.php?id=%E8%91%89%E6%AD%A3%E8%81%96%E8%80%81%E5%B8%AB:%E6%95%99%E7%A0%94%E7%A9%B6%E7%94%9F%E5%AD%B8opencv#step_1%E6%9C%80%E7%B0%A15%E8%A1%8C%E7%A7%80%E5%9C%96%E7%A8%8B%E5%BC%8F">葉正聖老師的教學網站</a> 裡面有幾個不到 10 行程式碼的簡單小程式，可以測試看看！</p>
@@ -262,6 +262,8 @@ opencv_flann249d.lib
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -269,8 +271,6 @@ opencv_flann249d.lib
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -335,6 +335,13 @@ opencv_flann249d.lib
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

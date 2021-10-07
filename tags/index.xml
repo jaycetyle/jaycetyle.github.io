@@ -6,7 +6,16 @@
     <description>Recent content in Tags on Jayce 的共享記憶體</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Linux System Performance</title>
+      <link>https://blog.jaycetyle.com/tags/linux-system-performance/</link>
+      <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.jaycetyle.com/tags/linux-system-performance/</guid>
+      <description></description>
+    </item>
+    
     <item>
       <title>Linux Kernel</title>
       <link>https://blog.jaycetyle.com/tags/linux-kernel/</link>

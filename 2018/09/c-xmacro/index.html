@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -235,9 +235,17 @@
 	<span style="color:#f00">return</span> table[value];
 }</code></pre></div>
 <p>　　我故意把 KTwo 的列舉值改成 8 ，以驗證這個函數是可以允許非連續的列舉值。這邊有運用了一個 isInit 的變數來避免表被重複初始化，X Macro 的部分，在 enum 是被展開成：</p>
-<!-- raw HTML omitted -->
+<div style="line-height:150%;font-style:italic">
+　　KZero = 0,<br>
+　　KOne = 1,<br>
+　　KTwo = 8,<br>
+</div>
 <p>　　在 table 的部分則是被展開成：</p>
-<!-- raw HTML omitted -->
+<div style="line-height:150%;font-style:italic">
+　　table[KZero] = "Zero";<br>
+　　table[KOne] = "One";<br>
+　　table[KTwo] = "Two";<br>
+</div>
 <p>　　相信大家仔細想一下應該看得懂。<a href="http://www.drdobbs.com/the-new-c-x-macros/184401387">這裡</a>是我學到這個方法參考網站，其中裡面有 C99 的實作方法，另外上面的 std::map 也是可以用 switch case 來做。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
@@ -310,6 +318,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -317,8 +327,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -383,6 +391,13 @@
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>

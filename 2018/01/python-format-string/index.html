@@ -44,7 +44,7 @@
         
         
 
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.9e96d94089853eded74f786fb4bcca5595a3648e4a840f0f58d48e1a10703505.css" integrity="sha256-npbZQImFPt7XT3hvtLzKVZWjZI5KhA8PWNSOGhBwNQU="  />
+        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/bundle.min.ec6e93eace000ce269c7a99d5a55b6573d750adb857b31fc9b1005a47ebe5f38.css" integrity="sha256-7G6T6s4ADOJpx6mdWlW2Vz11CtuFezH8mxAFpH6&#43;Xzg="  />
 
         
   <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
@@ -173,9 +173,27 @@
 　　</p>
 <h2 id="數值格式化及對齊">數值格式化及對齊</h2>
 <p>　格式化的方式是在後方加上&quot;:&ldquo;及&quot;格式符&rdquo;，可用的格式符如下</p>
-<!-- raw HTML omitted -->
+<figure style="color:#303030">
+<pre style="font-size:0.8rem; line-height:1.4">
+{:d}        : 整數
+{:f}        : 浮點數
+{:e} {:E}   : 科學記號，例如 1.020000e+01，大小寫就代表 "e" 顯示的大小寫
+{:x} {:X}   : 十六進位，大小寫分別表示 A ~ F 要顯示的大小寫
+{:o}        : 八進位
+{:b}        : 二進位
+{:>}}        : 以百分比的方式輸出
+</pre>
+</figure>
 <p>　另外可以使用 &gt; ^ &lt; 這三種符號以及數值來搭配佔位及對齊。注意: 數值型別預設是靠右對齊，字串型別預設是靠左對齊</p>
-<!-- raw HTML omitted -->
+<figure style="color:#303030">
+<pre style="font-size:0.8rem; line-height:1.4">
+{:>8d}      : 整數靠右對齊，寬度為 8
+{:^8d}      : 整數置中對齊，寬度為 8
+{:<8d}      : 整數靠右對齊，寬度為 8
+{:8.3f}     : 小數點後保留 3 位，總寬度為 8 (含小數點)
+{:+8.3f}    : 小數點後保留 3 位，帶正負號，總寬度為 8 (含小數點及正負號)
+</pre>
+</figure>
 <p>　<strong>':' 前方的數值如基本操作，代表後方參數的位置</strong>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print <span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8d}</span><span style="color:#87ceeb">||</span><span style="color:#87ceeb">{1:&lt;8d}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">123</span>, <span style="color:#f60">456</span>)
 <span style="color:#0f0"># |     123||456     |</span>
@@ -191,7 +209,28 @@ print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}
 　　</p>
 <h2 id="時間表示">時間表示</h2>
 <p>　datetime 有實作 <strong>format</strong> 函數，因此也支援 format 輸出，要再加上 % 格式符，列舉如下</p>
-<!-- raw HTML omitted -->
+<figure style="color:#303030">
+<pre style="font-size:0.8rem; line-height:1.4">
+%a  : 星期縮寫 *　　　　　(Mon)
+%A  : 星期全寫 *　　　　　(Monday)
+%w  : 星期數字  　　　　　(0 ... 6)
+%d  : 日期  　　　　　　　(01 ... 31)
+%b  : 月份縮寫 *　　　　　(Jan)
+%B  : 月份全寫 *　　　　　(January)
+%m  : 月份數字  　　　　　(01 ... 12)
+%y  : 西元年二位數字  　　(00 ... 99)
+%Y  : 西元年  　　　　　　(1970 ... 2018)
+%H  : 24小時制  　　　　　(00 ... 23)
+%I  : 12小時制  　　　　　(01 ... 12)
+%p  : AM 或 PM *
+%M  : 分  　　　　　　　　(00 ... 59)
+%S  : 秒  　　　　　　　　(00 ... 59)
+%f  : 微秒，六位數字  　　(000000 ... 999999)
+%c  : 日期和時間 *　　　　(Tue Aug 16 21:30:00 2017)
+%x  : 日期 *　　　　　　　(08/16/2017)
+%X  : 時間 *　　　　　　　(21:30:00)
+</pre>
+</figure>
 <p>　其中有表示 * 根據地區會有不同的輸出，<a href="https://docs.python.org/2/library/datetime.html">詳細可參考這裡</a>，範例如下</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f00">from</span> datetime <span style="color:#f00">import</span> datetime
 <span style="color:#f00">import</span> locale
@@ -276,6 +315,8 @@ print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87cee
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
@@ -283,8 +324,6 @@ print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87cee
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/">Visual Studio Code Remote - WSL 安裝教學</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -349,6 +388,13 @@ print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87cee
     <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com/tags/c%23/'>
       C#
+      <span class="badge badge-pill badge-secondary">1</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com/tags/linux-system-performance/'>
+      Linux System Performance
       <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>
