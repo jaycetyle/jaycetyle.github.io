@@ -133,11 +133,7 @@
     </small>
 </div>
         <div>
-            fio 是一個好用的合成 IO (Synthetic IO Workload) 產生器，我們經常用他來測試例如檔案系統或是 Raw Device 的 IO 效能等等，他有非常多可調參數，很多時候我們只是複製了某測試的參數就打，這在大多數情況可能是夠用的，但身為一個優秀的效能分析者，我們還是必須要知道
- 測試目的? 模擬的測試情境? 為何使用這組測試參數?  　亂選測試參數只會造成 Garbage in, garbage out，結果沒有參考價值，而且可能還渾然不自知。這篇會介紹幾個常見的測試參數以及他的對應情境，但這些例子並非適用所有情境，某些情境還是需要比較特別的參數設定才適合。
- Direct / Buffered 　direct 用來指定是否開啟 Direct IO (O_DIRECT)，與之對應的是 Buffered IO，兩者在整個 Linux IO stack 有很大差距，在不同測試環境及參數下很難說哪個數據會較好。這裡主要提供一個測試參數選擇的概略方向，不會在細節上做比較。
-　Direct IO 與 Buffered IO 最大的差異是有無經過 Memory Management 的 Page Cache，因此從是否希望 fio HOST 的 Page Cache 影響 IO Pattern 來判斷選擇何者是其中一個方式。
-　如果希望 Page Cache 影響的話選 Buffered IO，不希望的話選 Direct IO。由於 Page Cache 對大多數應用來說都有幫助，若要模擬一般應用過檔案系統的行為，選用 Buffered IO 來模擬通常是較合理的。
+            <p>　　fio 是一個好用的合成 IO (Synthetic IO Workload) 產生器，我們經常用他來測試例如檔案系統或是 Raw Device 的 IO 效能等等，他有非常多可調參數，很多時候我們只是複製了某測試的參數就打，這在大多數情況可能是夠用的，但身為一個優秀的效能分析者，我們還是必須要知道 &hellip;</p>
         </div>
         <div>
             <a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
