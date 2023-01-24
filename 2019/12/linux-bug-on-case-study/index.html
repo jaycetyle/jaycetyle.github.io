@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2019-12-04T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-12-04T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux Kernel BUG_ON 傾印訊息分析及案例分享"/>
 <meta name="twitter:description" content="前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因，這篇分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式給各位參考"/>
@@ -219,15 +218,15 @@ Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
 </code></pre><p>　　PC (Program Counter) 是程式計數器，儲存的是目前電腦執行的指令位址。Oops 發生時，kernel 會把發生當下的暫存器狀態保留下來，而保存下來的 PC 就是出錯時的執行位址囉！在 x86 的系統上，他通常會叫 IP (Instruction Pointer)，但意思是類似的。</p>
 <p>　　現在我們知道出問題的位置是 write_cache_pages_da+0x3c0，代表 write_cache_pages_da 函式中 offset 為 0x3c0 的地方，但如何得知 offset 0x3c0 實際指的是程式的哪一行呢？</p>
 <p>　　我們可以借助 gdb 來讀出 binary 內的除錯訊息。用 gdb 讀入你的 vmlinux 或是函式所在的 kernel module 後，輸入 <code>list*(write_cache_pages_da+0x3c0)</code>，就可以找到錯誤的位置了。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#0f0"># gdb ext4.ko</span>
-(gdb) list *(write_cache_pages_da+0x3c0)
-0x53e8 is in write_cache_pages_da (fs/ext4/inode.c:2292).
-2289	}
-<span style="color:#f60">2290</span>
-2291	wait_on_page_writeback(page);
-2292	BUG_ON(PageWriteback(page));
-<span style="color:#f60">2293</span>
-2294	/*</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#0f0"># gdb ext4.ko</span>
+</span></span><span style="display:flex;"><span>(gdb) list *(write_cache_pages_da+0x3c0)
+</span></span><span style="display:flex;"><span>0x53e8 is in write_cache_pages_da (fs/ext4/inode.c:2292).
+</span></span><span style="display:flex;"><span>2289	}
+</span></span><span style="display:flex;"><span><span style="color:#f60">2290</span>
+</span></span><span style="display:flex;"><span>2291	wait_on_page_writeback(page);
+</span></span><span style="display:flex;"><span>2292	BUG_ON(PageWriteback(page));
+</span></span><span style="display:flex;"><span><span style="color:#f60">2293</span>
+</span></span><span style="display:flex;"><span>2294	/*</span></span></code></pre></div>
 <p>　　有時候位置可能會誤差一到兩行，但通常也已經足夠精確讓我們進行判斷，另外要注意，如果你的 kernel 沒有打開 CONFIG_DEBUG_INFO 的選項，你可能會需要打開他並重新建置，否則 gdb 會找不到 debug symbol。</p>
 <p> </p>
 <h4 id="出錯的過程-call-stack">出錯的過程 (Call Stack)</h4>
@@ -245,9 +244,9 @@ Code: ebfc9a04 e5943000 e3130a02 0affff6d (e7f001f2)
 <p> </p>
 <h4 id="出錯的記憶體資訊">出錯的記憶體資訊</h4>
 <p>　　有些時候我們還需要記憶體相關的資訊來協助我們判斷問題，例如這次的案例中，BUG 是發生在 page-&gt;flags 有 0x2000 (PG_writeback) 這個 bit:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp">wait_on_page_writeback(page);  <span style="color:#0f0">// 若 page-&gt;flags 有 PG_writeback，就等到他被清除
-</span><span style="color:#0f0"></span>BUG_ON(PageWriteback(page));   <span style="color:#0f0">// 若 page-&gt;flags 的 PG_writeback 還在，就觸發 BUG
-</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span>wait_on_page_writeback(page);  <span style="color:#0f0">// 若 page-&gt;flags 有 PG_writeback，就等到他被清除
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>BUG_ON(PageWriteback(page));   <span style="color:#0f0">// 若 page-&gt;flags 的 PG_writeback 還在，就觸發 BUG
+</span></span></span></code></pre></div>
 <p>　　page-&gt;flags 這個變數當時到底是什麼值呢？我們此時需要 dump 出來的暫存器來協助我們找出當下的變數值。</p>
 <p>　　由於 Oops 並沒有告訴我們各個暫存器當時是在處理什麼變數，因此會需要對照編譯後的組合語言來進行確認，我們可以利用 objdump -d 來解出人比較好看懂的組合語言。以下是這次案例的 objdump 結果:</p>
 <pre tabindex="0"><code># objdump -d ext4.ko
@@ -319,7 +318,7 @@ r3 : 0000283d r2 : 9dc8846c r1 : 20000013 r0 : 00000000
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -476,7 +475,7 @@ r3 : 0000283d r2 : 9dc8846c r1 : 20000013 r0 : 00000000
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

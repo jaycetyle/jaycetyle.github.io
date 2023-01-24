@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-01-18T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-03-27T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Win10 安裝 Jekyll 部落格網站產生器教學"/>
 <meta name="twitter:description" content="Jekyll 是一個非常方便的靜態部落格框架，可以讓想架部落格的人可以不受平台的限制架設網站，如果有程式基礎的話，他的靈活性也相對比部落格平台高上許多。這篇會介紹在 Win 10 安裝 Jekyll 部落格網站產生器，及簡單起步教學。"/>
@@ -163,36 +162,36 @@
 <h3 id="要怎麼安裝呢">要怎麼安裝呢？</h3>
 <p>　　Jekyll 主要是使用 Ruby 開發的，Ruby 本身有 Windows 版本，但相對麻煩，我個人最推薦的方式還是使用 <strong>Windows Subsystem for Linux</strong> 來安裝 Ruby，WSL 安裝方式可以參考<a href="https://blog.jaycetyle.com/2018/01/win-subsys-linux/">這篇</a>，這裡安裝的是 Ubuntu 版本，所以在接下來的範例你會看到 <em>apt-get</em>。如果你想要使用其他的方式安裝，可以參考 <a href="https://jekyllrb.com/docs/windows/">Jekyll 官方教學</a>，這篇文章主要也是翻譯自官方教學。如果你懶得看說明，就把從這個段落的的所有指令一行一行複製輸入就好囉。</p>
 <p>　　打開剛安裝好的 Ubuntu Terminal，先輸入以下指令更新套件列表
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-get update -y &amp;&amp; sudo apt-get upgrade -y</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo apt-get update -y &amp;&amp; sudo apt-get upgrade -y</span></span></code></pre></div></p>
 <p>　　接著安裝要 Ruby，我們先加入 BrightBox 的 ppa，然後就可以直接安裝
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo apt-add-repository ppa:brightbox/ruby-ng
-$ sudo apt-get update
-$ sudo apt-get install ruby2.3 ruby2.3-dev build-essential</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo apt-add-repository ppa:brightbox/ruby-ng
+</span></span><span style="display:flex;"><span>$ sudo apt-get update
+</span></span><span style="display:flex;"><span>$ sudo apt-get install ruby2.3 ruby2.3-dev build-essential</span></span></code></pre></div></p>
 <p>　　更新一下 Ruby gems
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo gem update</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo gem update</span></span></code></pre></div></p>
 <p>　　安裝 Jekyll 和 bundler
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ sudo gem install jekyll bundler</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ sudo gem install jekyll bundler</span></span></code></pre></div></p>
 <p>　　呼叫以下指令看看能不能看到 Jekyll 版本，確認我們有安裝成功
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ jekyll -v</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ jekyll -v</span></span></code></pre></div></p>
 <p>　　大功告成！(好快?)</p>
 <h3 id="要怎麼開始呢">要怎麼開始呢？</h3>
 <p>　　從這裡需要會使用 <strong>Git</strong>，如果你還不會用的話，建議先去學一下最基礎的四個指令: git clone, git add, git commit 以及 git push。</p>
 <p>　　Jekyll 起步我認為最簡單的方式還是找個樣板來改，他的樣板很多，Google <em>Jekyll Theme</em> 就可以找到一大堆，選好 theme 以後通常你也會找到他的 github，最簡單的方式就是把他 clone 下來。</p>
 <p>　　我這裡以 jekyll bootstrap 這個常見的樣板做為範例，其他的樣板大多可以依樣畫葫蘆，如果不行的話多注意他的 README 說明，首先先 clone 他
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git clone https://github.com/llorephie/jekyll-bootstrap.git
-$ cd jekyll-bootstrap</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git clone https://github.com/llorephie/jekyll-bootstrap.git
+</span></span><span style="display:flex;"><span>$ cd jekyll-bootstrap</span></span></code></pre></div></p>
 <p>　　安裝個 bundle，過程中有可能需要輸入你的 Ubuntu 密碼
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ bundle install</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ bundle install</span></span></code></pre></div></p>
 <p>　　在 Local 端執行以下指令運行看看
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ bundle exec jekyll serve</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ bundle exec jekyll serve</span></span></code></pre></div></p>
 <p>　　接著就可以到瀏覽器輸入 localhost:4000 看看運行結果囉！有沒有非常簡單？</p>
 <h3 id="再更進階一點我想要把部落格放到-github-上">再更進階一點，我想要把部落格放到 Github 上？</h3>
 <p>　　Github 有提供一個 Github Pages 的服務，可以把靜態網站放在 Github 上運行，對於本來就有在使用 Github 來說我想這一定不是難事。</p>
 <p>　　首先到你的 Github 上建立一個新的 repository，名稱為 <strong>USERNAME.github.com</strong>。注意不要真的用 <em>USERNAME</em> 建立內，這裡指的是<em>你的 github 帳號</em>。</p>
 <p>　　接著把 clone 下來的樣板 remote 換成剛剛建的 repository
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git remote set-url origin git@github.com:USERNAME/USERNAME.github.com.git</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git remote set-url origin git@github.com:USERNAME/USERNAME.github.com.git</span></span></code></pre></div></p>
 <p>　　PUSH 上去
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git push origin master</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git push origin master</span></span></code></pre></div></p>
 <p>　　大功告成！如果網頁建立有問題的話，你應該會收到 github 寄來的信告知建立狀況，如果沒問題，就可以到 USERNAME.github.io 看看你的網頁運行的成果！</p>
 <h3 id="參考文獻">參考文獻</h3>
 <p><a href="https://jekyllrb.com/docs/windows/">Jekyll on Windows 官方教學 https://jekyllrb.com/docs/windows/</a></p>
@@ -251,7 +250,7 @@ $ cd jekyll-bootstrap</code></pre></div></p>
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -408,7 +407,7 @@ $ cd jekyll-bootstrap</code></pre></div></p>
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

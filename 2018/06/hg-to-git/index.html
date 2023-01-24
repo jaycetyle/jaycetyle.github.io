@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-06-27T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-06-27T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Git 版本控制筆記 - 將 Mercurial (hg) 轉到 github"/>
 <meta name="twitter:description" content="我覺得現在的版本控制主流已經是 git 了，但有一些 Open Source 專案的版本控制會選擇用 Mercurial (hg)，這邊主要教學如何將 hg 的專案移轉到 github 上，並保留所有的 commit 紀錄"/>
@@ -161,28 +160,28 @@
       <p>　　我覺得現在的版本控制主流已經是 git 了，但有一些 Open Source 專案的版本控制會選擇用 Mercurial (hg)，這兩個版本控制系統有著不少相似的地方，都是不錯的工具。這篇主要教學如何將 hg 的專案移轉到 github 上，並保留所有的 commit 紀錄。</p>
 <h2 id="移轉方法">移轉方法</h2>
 <p>　以下的操作都是在 Ubuntu。首先安裝 hg 及下載 hg-git</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ apt install mercurial
-$ pip install dulwich
-$ hg clone http://bitbucket.org/durin42/hg-git/</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ apt install mercurial
+</span></span><span style="display:flex;"><span>$ pip install dulwich
+</span></span><span style="display:flex;"><span>$ hg clone http://bitbucket.org/durin42/hg-git/</span></span></code></pre></div>
 <p>　
 　修改 ~/.hgrc，加入以下內容，如果沒有該檔案的話就建立一個</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[extensions]</span>
-hgext.bookmarks =
-hggit = <span style="color:#87ceeb">path-to/hg-git/hggit</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#f00">[extensions]</span>
+</span></span><span style="display:flex;"><span>hgext.bookmarks =
+</span></span><span style="display:flex;"><span>hggit = <span style="color:#87ceeb">path-to/hg-git/hggit</span></span></span></code></pre></div>
 <p>　
 　clone 想要搬家的 hg project
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg clone https://hg-project
-$ cd hg-project</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ hg clone https://hg-project
+</span></span><span style="display:flex;"><span>$ cd hg-project</span></span></code></pre></div></p>
 <p>　
 　修改 hg 專案的 .hg/hgrc，在 Paths 標籤加入以下內容，注意 username 前面是 / 不是 :
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-INI" data-lang="INI"><span style="color:#f00">[paths]</span>
-git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-INI" data-lang="INI"><span style="display:flex;"><span><span style="color:#f00">[paths]</span>
+</span></span><span style="display:flex;"><span>git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git</span></span></span></code></pre></div></p>
 <p>　
 　bookmark default to git master
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg bookmark -r default master</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ hg bookmark -r default master</span></span></code></pre></div></p>
 <p>　
 　推上 github，這樣就完成囉！
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ hg push git</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ hg push git</span></span></code></pre></div></p>
 <p>　</p>
 <p>[參考資料來源](<a href="http://hg-git.github.io/">http://hg-git.github.io/</a> <a href="http://hgtip.com/tips/advanced/2009-11-09-create-a-git-mirror/">http://hgtip.com/tips/advanced/2009-11-09-create-a-git-mirror/</a>)</p>
 
@@ -244,7 +243,7 @@ git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git<
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -401,7 +400,7 @@ git = <span style="color:#87ceeb">git+ssh://git@github.com/username/project.git<
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

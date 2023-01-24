@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-02-27T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-02-27T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Git 版本控制筆記 - 使用 github 及 ssh 金鑰設定"/>
 <meta name="twitter:description" content="git 可以只作為個人版本控制用途，但更多的使用情況是另有一個主要的伺服器保管程式碼，這篇文章會介紹如何使用 github 這個時下最夯的 git 託管服務，將修改好的變更推送 (push) 到遠端以及拖拉 (pull) 本地端，另外也會介紹一下如何設定 ssh 金鑰，讓 github 授權上傳程式碼。"/>
@@ -172,16 +171,16 @@
 <p>　　注意到建立版本庫的時候也可以選擇 public 和 private，不過 github 只有學生和付費使用者可以建立私人的儲存庫，不過個人使用沒有要營利的話，公開代碼往往好處大於壞處，所以選擇 public 就可以了。</p>
 <h2 id="設定-ssh-金鑰">設定 ssh 金鑰</h2>
 <p>　　在我們正式上傳到 github 以前，我們需要先設定 ssh 金鑰。為什麼要設定這個金鑰呢？這是為了讓 github 知道，拿著這個金鑰的操作者是屬於那一個帳號，以賦予上傳等等的權限。如果是第一次使用 ssh key，會需要先產生 ssh 的金鑰，在 Bash 輸入以下指令以產生金鑰
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ ssh-keygen                                   <span style="color:#0f0"># 產生金鑰</span>
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/jaycelin/.ssh/id_rsa):   <span style="color:#0f0"># 金鑰存放路徑，直接按 Enter</span>
-Created directory <span style="color:#87ceeb">&#39;/home/jaycelin/.ssh&#39;</span>.
-Enter passphrase (empty <span style="color:#f00">for</span> no passphrase):    <span style="color:#0f0"># 密碼，可設定可不設定，設定的話每次上傳會多需要輸入一次密碼</span>
-Enter same passphrase again:                   <span style="color:#0f0"># 再輸入一次密碼</span>
-The key fingerprint is:                        <span style="color:#0f0"># 之後會顯示你的 fingerprint，到這裡就完成 key 的產生了</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ ssh-keygen                                   <span style="color:#0f0"># 產生金鑰</span>
+</span></span><span style="display:flex;"><span>Generating public/private rsa key pair.
+</span></span><span style="display:flex;"><span>Enter file in which to save the key (/home/jaycelin/.ssh/id_rsa):   <span style="color:#0f0"># 金鑰存放路徑，直接按 Enter</span>
+</span></span><span style="display:flex;"><span>Created directory <span style="color:#87ceeb">&#39;/home/jaycelin/.ssh&#39;</span>.
+</span></span><span style="display:flex;"><span>Enter passphrase (empty <span style="color:#f00">for</span> no passphrase):    <span style="color:#0f0"># 密碼，可設定可不設定，設定的話每次上傳會多需要輸入一次密碼</span>
+</span></span><span style="display:flex;"><span>Enter same passphrase again:                   <span style="color:#0f0"># 再輸入一次密碼</span>
+</span></span><span style="display:flex;"><span>The key fingerprint is:                        <span style="color:#0f0"># 之後會顯示你的 fingerprint，到這裡就完成 key 的產生了</span></span></span></code></pre></div></p>
 <p>　　金鑰生成以後會放在剛剛前面的金鑰存放路徑，我們要複製 id_rsa.pub 的內容到 github，可以使用 cat 的讀檔指令 :
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">$ cat /home/jaycelin/.ssh/id_rsa.pub           <span style="color:#0f0"># 讀取檔案內容</span>
-ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 從 ssh-rsa 複製到 username@pc-name</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat /home/jaycelin/.ssh/id_rsa.pub           <span style="color:#0f0"># 讀取檔案內容</span>
+</span></span><span style="display:flex;"><span>ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 從 ssh-rsa 複製到 username@pc-name</span></span></span></code></pre></div></p>
 <p>　　接著到 github 的設定頁面將剛剛複製的金鑰輸入進去，參考下圖流程</p>
 <figure class="center">
 	<img src="/images/2018/02/github-settings.png" alt="">
@@ -273,7 +272,7 @@ ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -430,7 +429,7 @@ ssh-rsa ~一連串金鑰~ jaycelin@HOME-PC           <span style="color:#0f0"># 
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

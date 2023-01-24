@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-12-30T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-12-30T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux 系統程式設計 - fd 及 open()、close() 系統呼叫"/>
 <meta name="twitter:description" content="開始接觸 Linux Kernel 也有差不多一年的時間，最近開始有明顯地感覺到有某種瓶頸存在，仔細思考了一下覺得是底子不夠，所以決定從基礎來好好學習一下，再搭配核心程式碼來確認是否是看到的那樣。這篇主要筆記 file descriptor、open() 及 close() 系統呼叫相關的部。"/>
@@ -162,41 +161,41 @@
 <h2 id="file-descriptor">File Descriptor</h2>
 <p>　　檔案必須先開啟後才能進行讀寫操作，開啟檔案後會回傳一個 File Descriptor (檔案描述器、簡稱 fd)，之後的所有操作都會需要 fd 作為參數。除非每個行程明確將其關閉，否則行程至少會開啟 3 個 fd，分別是 stdin(0), stdout(1) 及 stderr(2)，實際使用這三個 fd 時不需直接用 0 ~ 2 整數值，unistd.h 有預先定義好的 STDIN_FILENO, STDOUT_FILENO 及 STDERR_FILENO。</p>
 <p>　　核心內部會替每個行程(task) 維護一份 file table，放在 current-&gt;files，用來記錄行程開啟的 fd，可以在 linux/sched.h 的 task_struct中找到他。開檔的系統呼叫會調用 fs/open.c 內的 do_sys_open()，裡面就會註冊 fd 到行程的檔案表，參考以下的核心程式碼：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ee82ee">long</span> <span style="color:#ff0">do_sys_open</span>(<span style="color:#ee82ee">int</span> dfd, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> __user *filename, <span style="color:#ee82ee">int</span> flags, umode_t mode)
-{
-	<span style="color:#0f0">/* 略... */</span>
-	<span style="color:#0f0">/// 從 current-&gt;files 裡面找一個還沒有用到的 fd
-</span><span style="color:#0f0"></span>	<span style="color:#0f0">/// current-&gt;files 是一個 struct files_struct，定義於 linux/fdtable.h
-</span><span style="color:#0f0"></span>	<span style="color:#0f0">/// files_struct 裡面有一個 struct fdtable __rcu *fdt 就是 file table 了
-</span><span style="color:#0f0"></span>	fd = get_unused_fd_flags(flags);
-	<span style="color:#f00">if</span> (fd &gt;= <span style="color:#f60">0</span>) {
-		<span style="color:#0f0">/// do_filp_open 進去以後就會調用到 vfs_open 要求檔案系統進行開檔
-</span><span style="color:#0f0"></span>		<span style="color:#f00">struct</span> file *f = do_filp_open(dfd, tmp, &amp;op);
-		<span style="color:#f00">if</span> (IS_ERR(f)) {
-			<span style="color:#0f0">/// 開檔失敗，把 fd 還回去
-</span><span style="color:#0f0"></span>			put_unused_fd(fd);
-			fd = PTR_ERR(f);
-		} <span style="color:#f00">else</span> {
-			<span style="color:#0f0">/// notify 機制，通知有檔案打開了
-</span><span style="color:#0f0"></span>			<span style="color:#0f0">/// 其他的 notify 也可以在 vfs 層中找到，以 fsnotify_ 作為函數開頭
-</span><span style="color:#0f0"></span>			fsnotify_open(f);
-			<span style="color:#0f0">/// 將 fd 放到 fdtable 內的 fd array
-</span><span style="color:#0f0"></span>			fd_install(fd, f);
-		}
-	}
-	<span style="color:#0f0">/* 略... */</span>
-	<span style="color:#f00">return</span> fd;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ee82ee">long</span> <span style="color:#ff0">do_sys_open</span>(<span style="color:#ee82ee">int</span> dfd, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> __user *filename, <span style="color:#ee82ee">int</span> flags, <span style="color:#ee82ee">umode_t</span> mode)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 略... */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/// 從 current-&gt;files 裡面找一個還沒有用到的 fd
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#0f0">/// current-&gt;files 是一個 struct files_struct，定義於 linux/fdtable.h
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#0f0">/// files_struct 裡面有一個 struct fdtable __rcu *fdt 就是 file table 了
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	fd = <span style="color:#ff0">get_unused_fd_flags</span>(flags);
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">if</span> (fd &gt;= <span style="color:#f60">0</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#0f0">/// do_filp_open 進去以後就會調用到 vfs_open 要求檔案系統進行開檔
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>		<span style="color:#f00">struct</span> file *f = <span style="color:#ff0">do_filp_open</span>(dfd, tmp, &amp;op);
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">if</span> (<span style="color:#ff0">IS_ERR</span>(f)) {
+</span></span><span style="display:flex;"><span>			<span style="color:#0f0">/// 開檔失敗，把 fd 還回去
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>			<span style="color:#ff0">put_unused_fd</span>(fd);
+</span></span><span style="display:flex;"><span>			fd = <span style="color:#ff0">PTR_ERR</span>(f);
+</span></span><span style="display:flex;"><span>		} <span style="color:#f00">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#0f0">/// notify 機制，通知有檔案打開了
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>			<span style="color:#0f0">/// 其他的 notify 也可以在 vfs 層中找到，以 fsnotify_ 作為函數開頭
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>			<span style="color:#ff0">fsnotify_open</span>(f);
+</span></span><span style="display:flex;"><span>			<span style="color:#0f0">/// 將 fd 放到 fdtable 內的 fd array
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>			<span style="color:#ff0">fd_install</span>(fd, f);
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 略... */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">return</span> fd;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　詳細結構可參考文末的 files_struct 結構介紹。另外，在預設情況下，子行程會<strong>複製</strong>父行程的檔案表，例如開啟的檔案及存取模式等等，但行程中對檔案的操作不會影響其他行程，例如子行程將檔案關閉後，並不影響父行程的檔案操作。</p>
 <p>　</p>
 <h2 id="open-系統呼叫">open() 系統呼叫</h2>
 <p>　　存取檔案的操作都會需要 fd，而 fd 的取得是透過 open() 系統呼叫。open() 系統呼叫有以下兩種形式，其回傳的 int 變數就是 fd：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/types.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/stat.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;fcntl.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#ee82ee">int</span> <span style="color:#ff0">open</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">int</span> flags);
-<span style="color:#ee82ee">int</span> <span style="color:#ff0">open</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">int</span> flags, mode_t mode);</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/types.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/stat.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;fcntl.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">int</span> <span style="color:#ff0">open</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">int</span> flags);
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">int</span> <span style="color:#ff0">open</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">int</span> flags, <span style="color:#ee82ee">mode_t</span> mode);</span></span></code></pre></div>
 <p>　　open() 的 flags 可以是一個或多個值 OR 的結果，用以表示開啟要求的行為，且必須包含 O_RDONLY、O_WRONLY 或 O_RDWR 三者其中之一，但如果開檔的行程不具備對應的操作權限，當然也就不能以該模式開啟檔案。</p>
 <h4 id="必要旗標">必要旗標</h4>
 <ul>
@@ -276,24 +275,24 @@
 <li>S_IRWXO: S_IROTH | S_IWOTH | S_IXOTH</li>
 </ul>
 <p>　　實際上儲存的權限還會受到 umask 影響，是一個行程屬性，他會遮蔽 mode 中對應的權限位元，例如 022 的 mask 會把 0666 的權限變成 0644。相關的處理可以在核心 namei.c 的 lookup_open() 中找到。只要講到<strong>行程屬性</strong>，就有很大的機會會在核心 linux/sched.h 的 task_struct ，而他實際上也是在那裡，位於 task_struct 中的 fs_struct *fs 結構內，umask 系統呼叫也是直接修改該值。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c">SYSCALL_DEFINE1(umask, <span style="color:#ee82ee">int</span>, mask)
-{
-	mask = xchg(&amp;current-&gt;fs-&gt;umask, mask &amp; S_IRWXUGO);
-	<span style="color:#f00">return</span> mask;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ff0">SYSCALL_DEFINE1</span>(umask, <span style="color:#ee82ee">int</span>, mask)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	mask = <span style="color:#ff0">xchg</span>(&amp;current-&gt;fs-&gt;umask, mask &amp; S_IRWXUGO);
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">return</span> mask;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　</p>
 <h2 id="creat-系統呼叫">creat() 系統呼叫</h2>
 <p>　　Linux 還有一個系統呼叫是 creat，用來建檔 (<a href="https://en.wikiquote.org/wiki/Ken_Thompson">跟 O_CREAT 一樣，他的拼音都少了一個 e</a>)</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/types.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/stat.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;fcntl.h&gt;</span><span style="color:#e5e5e5">
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#ee82ee">int</span> <span style="color:#ff0">creat</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, mode_t mode);</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/types.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;sys/stat.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#include</span> <span style="color:#e5e5e5">&lt;fcntl.h&gt;</span><span style="color:#e5e5e5">
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">int</span> <span style="color:#ff0">creat</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">mode_t</span> mode);</span></span></code></pre></div>
 <p>　　他的行為等價於 open()  加上 O_WRONLY | O_CREAT | O_TRUNC，他會存在的原因主要是以前的 open() 沒有 mode 引數，我們也可以很容易地在 userspace 內時實作他：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#ee82ee">int</span> <span style="color:#ff0">creat</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, mode_t mode)
-{
-　　<span style="color:#f00">return</span> open(name, O_WRONLY | O_CREAT | O_TRUNC, mode)
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#ee82ee">int</span> <span style="color:#ff0">creat</span>(<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span> *name, <span style="color:#ee82ee">mode_t</span> mode)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>　　<span style="color:#f00">return</span> <span style="color:#ff0">open</span>(name, O_WRONLY | O_CREAT | O_TRUNC, mode)
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　</p>
 <h2 id="close-系統呼叫">close() 系統呼叫</h2>
 <p>　　應用程式使用完 fd 後，可以用 close() 系統呼叫將 fd 從檔案表中移出，核心主要的實作函式為 fs/file.c 內的 __close_fd()。另外，在 fd 回收完成後，核心也會呼叫檔案的 flush()。</p>
@@ -365,7 +364,7 @@
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -522,7 +521,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

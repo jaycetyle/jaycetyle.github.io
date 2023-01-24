@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-02-11T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-02-11T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Git 版本控制筆記 - 在 Git 提交(commit)檔案"/>
 <meta name="twitter:description" content="這篇文章會說明如何使用 git 初始化一個 Repository (Git 的儲存庫)，並透過 git add、git commit 提交檔案到版本庫裡面"/>
@@ -161,54 +160,54 @@
       <p>　　在<a href="https://blog.jaycetyle.com/2018/02/git-startup/">上一篇文章</a>中我們已經架設好 git 的基本環境，現在可以來開始使用 Git 囉，這篇文章會說明如何初始化一個 Repository (Git 的儲存庫)，並提交檔案到裡面。</p>
 <h2 id="初始化-repository-git-init">初始化 Repository (git init)</h2>
 <p>　　要初始化一個具有 git 託管的專案非常簡單，和 SVN 等集中式的版本管理系統不同，git 的版本控管是直接建立在專案目錄中，並不需要實際存在一個伺服器。只要在專案目錄下輸入 <strong>git init</strong> 指令，這個目錄就可以有 git 版本控管了，就算這個目錄不是空的也沒問題。以下我們還是從一個空的專案目錄開始
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ cd ~              <span style="color:#0f0"># cd 是切換當前工作目錄的指令，這條指令是切換到家目錄 (~)</span>
-$ mkdir gittest     <span style="color:#0f0"># mkdir: 建立一個名為 gittest 的資料夾</span>
-$ cd gittest        <span style="color:#0f0"># 切換到 gittest</span>
-$ git init          <span style="color:#0f0"># 初始化 git，讓這個資料夾可由 git 託管</span>
-<span style="color:#0f0"># Initialized empty Git repository in /home/xxx/gittest/.git/</span>
-
-$ ll                <span style="color:#0f0"># 列舉資料夾</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ cd ~              <span style="color:#0f0"># cd 是切換當前工作目錄的指令，這條指令是切換到家目錄 (~)</span>
+</span></span><span style="display:flex;"><span>$ mkdir gittest     <span style="color:#0f0"># mkdir: 建立一個名為 gittest 的資料夾</span>
+</span></span><span style="display:flex;"><span>$ cd gittest        <span style="color:#0f0"># 切換到 gittest</span>
+</span></span><span style="display:flex;"><span>$ git init          <span style="color:#0f0"># 初始化 git，讓這個資料夾可由 git 託管</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># Initialized empty Git repository in /home/xxx/gittest/.git/</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>$ ll                <span style="color:#0f0"># 列舉資料夾</span></span></span></code></pre></div></p>
 <p>　　最後一個指令 ll 是列舉資料夾內的檔案，列舉的結果應該會有以下 3 個東西
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">.    : 是指當前目錄，cd . 的話，工作目錄不會改變 (切換到自己)
-..   : 是指上層目錄，cd .. 的話，會切換到上層目錄
-.git : 這個就是 git 版本控管的資料庫資料夾</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>.    : 是指當前目錄，cd . 的話，工作目錄不會改變 (切換到自己)
+</span></span><span style="display:flex;"><span>..   : 是指上層目錄，cd .. 的話，會切換到上層目錄
+</span></span><span style="display:flex;"><span>.git : 這個就是 git 版本控管的資料庫資料夾</span></span></code></pre></div></p>
 <p>　　建立資料夾的動作要在 Windows 中操作也沒問題，只要 cd 到想要做練習的資料夾中輸入 git init 便可初始化 git。如果想要解除 git 託管，只要把 <strong>.git</strong> 這個資料夾刪除，<em>但同時也會失去所以版本控管的歷史紀錄</em>，要小心操作。</p>
 <h2 id="提交檔案到-git-儲存庫">提交檔案到 git 儲存庫</h2>
 <p>　　我們先建立一個檔案作為之後提交的練習，這個檔案可以直接用 Windows 建立，或者是輸入以下指令建立一個 README.txt 檔案
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ echo <span style="color:#87ceeb">&#34;git practice&#34;</span> &gt; README.txt</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ echo <span style="color:#87ceeb">&#34;git practice&#34;</span> &gt; README.txt</span></span></code></pre></div></p>
 <p>　　在真正操作 git 之前，我想先介紹 git 的暫存區域。這個是 git 和許多版本控管系統不同的地方，git 在提交之前，必須要先把檔案的「變更」加入(add)到暫存區域(staging area)，這個變更才能被提交(commit)到版本儲存庫。</p>
 <p>　　注意一個關鍵，雖然在之後操作指令時是輸入檔案名稱，但實際加入的是檔案的「變更」，因此<strong>檔案加入到暫存區域後有變更的話還要再加入一次</strong>，否則之後的變更不會被提交，參考下圖</p>
 <figure class="large center">
 	<img src="/images/2018/02/git-staging-area.png" alt="">
 </figure>
 <p>　　現在我們知道變更要先加入到暫存區域。在加入之前，我們先用 git status 看一下目前的 git 狀態
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git status
-<span style="color:#0f0"># On branch master</span>
-<span style="color:#0f0"># No commits yet</span>
-<span style="color:#0f0"># Untracked files:</span>
-<span style="color:#0f0">#   (use &#34;git add &lt;file&gt;...&#34; to include in what will be committed)</span>
-<span style="color:#0f0">#         README.txt</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git status
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># On branch master</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># No commits yet</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># Untracked files:</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">#   (use &#34;git add &lt;file&gt;...&#34; to include in what will be committed)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">#         README.txt</span></span></span></code></pre></div></p>
 <p>　　可以看到 Untracked files 裡面有 README.txt，這代表目前這個檔案還沒有被 git 追蹤，他也提示了使用 git add 加入想要提交的檔案到暫存區域，我們現在就加入看看
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git add README.txt
-$ git status
-<span style="color:#0f0"># On branch master</span>
-<span style="color:#0f0"># No commits yet</span>
-<span style="color:#0f0"># Changes to be committed:</span>
-<span style="color:#0f0">#   (use &#34;git rm --cached &lt;file&gt;...&#34; to unstage)</span>
-<span style="color:#0f0">#         new file:   README.txt</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git add README.txt
+</span></span><span style="display:flex;"><span>$ git status
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># On branch master</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># No commits yet</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># Changes to be committed:</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">#   (use &#34;git rm --cached &lt;file&gt;...&#34; to unstage)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">#         new file:   README.txt</span></span></span></code></pre></div></p>
 <p>　　現在 README.txt 已經變成 <strong>Changes to be committed</strong>，而且是 <strong>new file</strong>，使用 git commit 將變更提交到儲存庫
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git commit</code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git commit</span></span></code></pre></div></p>
 <p>　　如果有照上一篇文章的設定做的話，此時會進入到 vim，按 a 或 i 進入 insert 模式編輯提交的紀錄，其中單行 # 開頭的是註解，不會進入提交訊息之中。輸入完成後按 ESC 退出 insert 模式並輸入 :x 存檔離開，這樣便完成了一次提交</p>
 <figure class="center">
 	<img src="/images/2018/02/git-commit-message.png" alt="">
 </figure>
 <p>　　使用 git log 確認提交紀錄
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ git log
-<span style="color:#0f0"># commit d9f0b6880081ba202e27feeaa1f96558354eb4f0 (HEAD -&gt; master)</span>
-<span style="color:#0f0"># Author: Lin Chieh &lt;jaycetyle@gmail.com&gt;</span>
-<span style="color:#0f0"># Date:   Mon Feb 19 19:23:38 2018 +0800</span>
-
-<span style="color:#0f0">#     Add README</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>$ git log
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># commit d9f0b6880081ba202e27feeaa1f96558354eb4f0 (HEAD -&gt; master)</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># Author: Lin Chieh &lt;jaycetyle@gmail.com&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># Date:   Mon Feb 19 19:23:38 2018 +0800</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">#     Add README</span></span></span></code></pre></div></p>
 <h2 id="一次-git-add-多個檔案">一次 git add 多個檔案</h2>
 <p>　　在改程式的時候經常會有多個檔案變更會需要一次提交，一個一個 git add 就太麻煩了，git add 也有提供以下兩種方式讓你一次加入多個檔案</p>
 <dl>
@@ -289,7 +288,7 @@ $ git status
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -446,7 +445,7 @@ $ git status
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-09-20T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-09-20T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[C/C&#43;&#43;] enum to string 的方法實作 (X Macro)"/>
 <meta name="twitter:description" content="相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#, Java 等都有方法直接支援，但是 C/C&#43;&#43; 就沒這麼方便了。以下介紹幾種在 C&#43;&#43; 實作 enum 轉 string 的方法。"/>
@@ -161,79 +160,79 @@
       <p>　　相信很多人很多時候都會想要把 enum 列舉的數值轉換成 string，方便寫出檔案或顯示到 UI 上，這種轉換的方法在很多高階語言，例如 C#、Java 等都有方法直接支援，但是 C/C++ 就沒這麼方便了。以下介紹幾種在 C++ 實作 enum 轉 string 的方法。</p>
 <h3 id="方法-1-使用-switch-case">方法 1. 使用 switch case</h3>
 <p>　　這個方法應該是最容易想到的方法了，以下是程式的範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
-
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">switch</span> (value) {
-	<span style="color:#f00">case</span> KZero:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Zero&#34;</span>;
-	<span style="color:#f00">case</span> KOne:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;One&#34;</span>;
-	<span style="color:#f00">case</span> KTwo:
-		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Two&#34;</span>;
-	}
-	<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Not Defined&#34;</span>;
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">switch</span> (value) {
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">case</span> KZero:
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Zero&#34;</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">case</span> KOne:
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;One&#34;</span>;
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">case</span> KTwo:
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Two&#34;</span>;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">return</span> <span style="color:#87ceeb">&#34;Not Defined&#34;</span>;
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　使用的時候把想要轉換的 enum 當作引數呼叫 ToString 函數就可以了。實作簡單、直覺，但有個小缺點，當 enum 列舉的數量一大的時候，這個 switch case 會讓人覺得很討厭，有沒有辦法改善呢？</p>
 <p>　</p>
 <h3 id="方法-2-使用陣列索引進行查表">方法 2. 使用陣列索引進行查表</h3>
 <p>　　這個方法是利用 enum 會從 0 開始列舉的特性，直接將 enum 值當作陣列索引值來查表，如以下範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
-
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { <span style="color:#87ceeb">&#34;Zero&#34;</span>, <span style="color:#87ceeb">&#34;One&#34;</span>, <span style="color:#87ceeb">&#34;Two&#34;</span> };
-	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">enum</span> EValue { KZero, KOne, KTwo };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { <span style="color:#87ceeb">&#34;Zero&#34;</span>, <span style="color:#87ceeb">&#34;One&#34;</span>, <span style="color:#87ceeb">&#34;Two&#34;</span> };
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">return</span> table[value];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　使用方法一樣是呼叫 ToString 就可以了，但實作變得簡潔多了，是吧？不過這個方法一樣有個缺點，當 enum 列舉數量變多的時候，看程式碼時要比對就有點痛苦了，比如第 17 個列舉值對應的字串是什麼？是不是要慢慢數了呢？簡單的辦法是透過排版和註解來協助程式碼的閱讀，或者是使用 C99 語法，不過以下再介紹另一個辦法來改善這個問題。</p>
 <p>　</p>
 <h3 id="方法-3-使用-x-macro-來實作陣列查表">方法 3. 使用 X Macro 來實作陣列查表</h3>
 <p>　　 X macro 是一種 C/C++ 的技術，簡單的說明和範例可以在<a href="https://en.wikipedia.org/wiki/X_Macro">維基百科</a>查到，這裡便是要運用這個技術來改善方法 2 的小問題，參考以下程式碼：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
-</span><span style="color:#e5e5e5">	X(KZero, &#34;Zero&#34;) \
-</span><span style="color:#e5e5e5">	X(KOne, &#34;One&#34;) \
-</span><span style="color:#e5e5e5">	X(KTwo, &#34;Two&#34;)
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#e5e5e5">#define X(a, b) a,
-</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-<span style="color:#e5e5e5">#define X(a, b) b,
-</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e5e5e5">#define VALUE_TABLE \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KZero, &#34;Zero&#34;) \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KOne, &#34;One&#34;) \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KTwo, &#34;Two&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#define X(a, b) a,
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#undef X
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#define X(a, b) b,
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">char</span> *table[] = { VALUE_TABLE };
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#undef X
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>	<span style="color:#f00">return</span> table[value];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　這個方法的關鍵在於 X macro 的定義，雖然看起來有點可怕，仔細推敲一下，會發現這裡定義的 EValue 和 table[] 與方法 2 所定義的完全一模一樣，只是中間的程式碼透過前處理器以 VALUE_TABLE 取代了，但確實改善了 &ldquo;索引&rdquo; 和 &ldquo;值&rdquo; 之間比對的問題，在 VALUE_TABLE 中可以很明確地看出每一個 enum 列舉值所對應的 string。</p>
 <p>　　到這裡我們已經改善很多問題，但還有一個明顯的瑕疵，就是 enum 不一定要從 0 開始，也不一定要是連續整數，這時候該怎麼辦呢？</p>
 <p>　</p>
 <h3 id="方法-4-使用-x-macro-及-stdmap-實作查表方法">方法 4. 使用 X Macro 及 std::map 實作查表方法</h3>
 <p>　　如果要實作非連續整數的查表，最簡單的方法就是運用 std::map 了，他是一個紅黑樹的實作，使用索引查詢一個值的時間複雜度是 O(logN)。參考以下範例：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#e5e5e5">#define VALUE_TABLE \
-</span><span style="color:#e5e5e5">	X(KZero, = 0, &#34;Zero&#34;) \
-</span><span style="color:#e5e5e5">	X(KOne,  = 1, &#34;One&#34;) \
-</span><span style="color:#e5e5e5">	X(KTwo,  = 8, &#34;Two&#34;)
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#e5e5e5">#define X(a, b, c) a b,
-</span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-<span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
-{
-	<span style="color:#f00">static</span> std::map&lt;EValue, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>*&gt; table;
-	<span style="color:#f00">static</span> <span style="color:#ee82ee">bool</span> isInit = false;
-	<span style="color:#f00">if</span> (isInit)
-		<span style="color:#f00">return</span> table[value];
-
-<span style="color:#e5e5e5">#define X(a, b, c) table[a] = c;
-</span><span style="color:#e5e5e5"></span>	VALUE_TABLE
-<span style="color:#e5e5e5">#undef X
-</span><span style="color:#e5e5e5"></span>
-	isInit = true;
-	<span style="color:#f00">return</span> table[value];
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#e5e5e5">#define VALUE_TABLE \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KZero, = 0, &#34;Zero&#34;) \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KOne,  = 1, &#34;One&#34;) \
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5">	X(KTwo,  = 8, &#34;Two&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#define X(a, b, c) a b,
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span><span style="color:#f00">enum</span> EValue { VALUE_TABLE };
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#undef X
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span><span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>* <span style="color:#ff0">ToString</span>(EValue value)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">static</span> std::map&lt;EValue, <span style="color:#f00">const</span> <span style="color:#ee82ee">char</span>*&gt; table;
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">static</span> <span style="color:#ee82ee">bool</span> isInit = false;
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">if</span> (isInit)
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> table[value];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#define X(a, b, c) table[a] = c;
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>	VALUE_TABLE
+</span></span><span style="display:flex;"><span><span style="color:#e5e5e5">#undef X
+</span></span></span><span style="display:flex;"><span><span style="color:#e5e5e5"></span>
+</span></span><span style="display:flex;"><span>	isInit = true;
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">return</span> table[value];
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　我故意把 KTwo 的列舉值改成 8 ，以驗證這個函數是可以允許非連續的列舉值。這邊有運用了一個 isInit 的變數來避免表被重複初始化，X Macro 的部分，在 enum 是被展開成：</p>
 <div style="line-height:150%;font-style:italic">
 　　KZero = 0,<br>
@@ -295,7 +294,7 @@
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -452,7 +451,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

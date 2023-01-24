@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2019-11-03T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-11-03T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理"/>
 <meta name="twitter:description" content="C&#43;&#43; 中想要在函數傳遞 unique_ptr 及 shared_ptr 等智慧指標有傳值(value)、傳參考(reference)等不同方式。雖然很多手段都可以達到相同目的，但一個好的設計是在傳遞方式就可以表現出函數設計者想傳達的「語意」，同時也能借助編譯器的輔助降低程式出錯的機會。針對各種不同需求及使用情境，這篇簡單整理我蒐集到的建議實作方式，提供給各位參考。"/>
@@ -167,32 +166,32 @@
 <p>　　雖然智慧指標所表現的行為和許多具有垃圾回收(GC)機制的語言中的物件參考非常類似，但在語意上卻有所不同，智慧指標所表達的是<strong>該物件生命週期控制者</strong>的概念，但其他程式語言在這部分的概念就沒有那麼強烈。</p>
 <p>　　根據這項原則，如果函數想操作某個智慧指標所指的物件，應直接傳遞該物件的參考，而非智慧指標:</p>
 <h5 id="好的設計">好的設計</h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object &amp;obj)
-{
-	<span style="color:#0f0">// 或者是: void Callee(const Object &amp;obj)
-</span><span style="color:#0f0"></span>	obj.DoSomething();
-}
-
-<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
-{
-	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
-	Callee(*uniqueObj);
-	<span style="color:#0f0">// Object obj;
-</span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // OK !
-</span><span style="color:#0f0"></span>}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object &amp;obj)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 或者是: void Callee(const Object &amp;obj)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	obj.DoSomething();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+</span></span><span style="display:flex;"><span>	Callee(*uniqueObj);
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// Object obj;
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // OK !
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>}</span></span></code></pre></div>
 <h5 id="不建議的設計">不建議的設計</h5>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj)
-{
-	obj-&gt;DoSomething();
-}
-
-<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
-{
-	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
-	Callee(uniqueObj);
-	<span style="color:#0f0">// Object obj;
-</span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // Error !!
-</span><span style="color:#0f0"></span>}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	obj-&gt;DoSomething();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+</span></span><span style="display:flex;"><span>	Callee(uniqueObj);
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// Object obj;
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#0f0">// Callee(obj); // Error !!
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>}</span></span></code></pre></div>
 <p>　　直接傳遞物件的 reference 或是 const reference 主要有幾個理由:</p>
 <ol>
 <li>
@@ -206,20 +205,20 @@
 </ol>
 <p>　　根據這個原則，我們可以知道使用 const unique_ptr&amp; 作為參數的函數可能是壞味道，因為被宣告成 const 的智慧指標並不能控制或轉移物件的生命週期。</p>
 <p>　　const shared_ptr&amp; 應該也不太常見，比較合理的解釋是該函數想使用 use_count() 取得 shared_ptr 的 reference count，但這種需求我覺得應該是蠻少的。</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#0f0">// 通常是 bad design ...
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> unique_ptr&lt;Object&gt;&amp; obj);
-<span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#0f0">// 通常是 bad design ...
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> unique_ptr&lt;Object&gt;&amp; obj);
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);</span></span></code></pre></div>
 <p>　</p>
 <h3 id="smart-pointer-常見的參數傳遞方式">Smart Pointer 常見的參數傳遞方式</h3>
 <p>　　知道主要原則以後，何時需要及如何傳遞 Smart Pointer 就變得比較容易瞭解了，大致上會有以下幾種:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (1)
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (2)
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (3)
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (4)
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);	<span style="color:#0f0">// (5) 少見
-</span><span style="color:#0f0"></span>
-<span style="color:#0f0">// (6) 包含 const Object&amp; obj, Object*, const Object* 等
-</span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object&amp; obj);</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (1)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt; obj);		<span style="color:#0f0">// (2)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (3)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(shared_ptr&lt;Object&gt;&amp; obj);		<span style="color:#0f0">// (4)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(<span style="color:#f00">const</span> shared_ptr&lt;Object&gt;&amp; obj);	<span style="color:#0f0">// (5) 少見
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">// (6) 包含 const Object&amp; obj, Object*, const Object* 等
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(Object&amp; obj);</span></span></code></pre></div>
 <p>　</p>
 <h5 id="1-2-以傳值-value-方式傳遞-smart-pointer">(1) (2) 以傳值 (value) 方式傳遞 Smart Pointer</h5>
 <p>　　當 Smart Pointer 以傳值方式出現在函數參數時，通常代表該函數<strong>想取得該物件生命週期控制權</strong>。這很容易理解，因為 unique_ptr 不能被複製，因此 caller 必須使用 move 語意來呼叫此函數，同時也代表著物件控制權的轉移；而 shared_ptr 的 reference count 會增加，因此物件的控制者增加也是能理解的事。</p>
@@ -232,18 +231,18 @@
 <p>　</p>
 <h3 id="其他">其他</h3>
 <p>　　當然 C++ 還有其他的傳遞方式，例如傳遞右值參考(rvalue reference)等，但這通常也不是什麼好主意，例如以下的程式的 Caller 部分</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-cpp" data-lang="cpp"><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp;&amp; obj)
-{
-	obj-&gt;DoSomething();
-}
-
-<span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
-{
-	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
-	<span style="color:#0f0">// 因為函數接收的是 rvalue reference，因此你只能使用 move 來呼叫該函數
-</span><span style="color:#0f0"></span>	<span style="color:#0f0">// 乍看之下已經把 uniqueObj 的控制權轉移給 Callee 了，但實際上沒有！！
-</span><span style="color:#0f0"></span>	Callee(move(uniqueObj));
-}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Callee</span>(unique_ptr&lt;Object&gt;&amp;&amp; obj)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	obj-&gt;DoSomething();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ee82ee">void</span> <span style="color:#ff0">Caller</span>()
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	unique_ptr&lt;Object&gt; uniqueObj = make_unique&lt;Object&gt;();
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 因為函數接收的是 rvalue reference，因此你只能使用 move 來呼叫該函數
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#0f0">// 乍看之下已經把 uniqueObj 的控制權轉移給 Callee 了，但實際上沒有！！
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	Callee(move(uniqueObj));
+</span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>　　乍看之下 uniqueObj 的控制權似乎已經轉移給 Callee 了，但實際上並沒有，非常容易誤導人。</p>
 <p>　　關於這份文件的說明，如果有其他看法或覺得不恰當的地方，也歡迎留言給我。以下是本文的幾個主要參考資料來源:</p>
 <ul>
@@ -298,7 +297,7 @@
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -455,7 +454,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

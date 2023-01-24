@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2021-10-04T00:00:00+00:00" />
 <meta property="article:modified_time" content="2021-10-04T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Kprobe Userspace Tool 使用筆記"/>
 <meta name="twitter:description" content="kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，本篇為 Userspace Tool 的使用筆記給各位參考"/>
@@ -168,10 +167,10 @@
 <h5 id="1-我想要-trace-do_sys_open-被呼叫時的-filename-及-mode-參數">1. 我想要 trace do_sys_open 被呼叫時的 filename 及 mode 參數</h5>
 <pre tabindex="0"><code>## long do_sys_open(int dfd, const char __user *filename, int flags, umode_t mode)
 
-# kprobe -F 'p:myopen do_sys_open filename=+0(%si):string mode=%cx:u16'
+# kprobe -F &#39;p:myopen do_sys_open filename=+0(%si):string mode=%cx:u16&#39;
 Tracing kprobe myopen. Ctrl-C to end.
-    &lt;...&gt;-29624 [001] d... 622771.361190: myopen: (do_sys_open+0x0/0x240) filename=&quot;/etc/ld.so.cache&quot; mode=0x0
-    &lt;...&gt;-29624 [001] d... 622771.361195: myopen: (do_sys_open+0x0/0x240) filename=&quot;/lib64/tls/haswell/x86_64/libc.so.6&quot;
+    &lt;...&gt;-29624 [001] d... 622771.361190: myopen: (do_sys_open+0x0/0x240) filename=&#34;/etc/ld.so.cache&#34; mode=0x0
+    &lt;...&gt;-29624 [001] d... 622771.361195: myopen: (do_sys_open+0x0/0x240) filename=&#34;/lib64/tls/haswell/x86_64/libc.so.6&#34;
 </code></pre><ul>
 <li>p: 代表使用的是 kprobe, do_sys_open 是想追蹤的函式名稱</li>
 <li>myopen, filename, mode 是可以自己隨便定義的名稱，輸出方便看得懂就好</li>
@@ -184,7 +183,7 @@ Tracing kprobe myopen. Ctrl-C to end.
 </li>
 </ul>
 <h5 id="2-我想要-trace-do_sys_open-的回傳值">2. 我想要 trace do_sys_open 的回傳值</h5>
-<pre tabindex="0"><code># kprobe -F 'r:myopen do_sys_open ret=$retval'
+<pre tabindex="0"><code># kprobe -F &#39;r:myopen do_sys_open ret=$retval&#39;
 Tracing kprobe myopen. Ctrl-C to end.
     kprobe-2829  [001] d... 673251.101610: myopen: (SyS_openat+0xf/0x20 &lt;- do_sys_open) ret=0x3
 </code></pre><ul>
@@ -249,7 +248,7 @@ Tracing kprobe myopen. Ctrl-C to end.
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -406,7 +405,7 @@ Tracing kprobe myopen. Ctrl-C to end.
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

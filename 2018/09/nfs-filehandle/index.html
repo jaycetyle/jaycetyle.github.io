@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-09-08T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-09-08T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Linux NFS filehandle 筆記"/>
 <meta name="twitter:description" content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。"/>
@@ -164,15 +163,15 @@
 <p>　　相較於直接使用檔案路徑來表示一個檔案，使用 filehandle 有兩個主要的優點及目的，首先，filehandle 通常是一個較小且較為固定的大小，對網路傳輸有其便利性，其次是他總是代表相同的檔案，就算對象檔案被重新命名或是被移動過，他還是能找回原本的那個檔案。</p>
 <h3 id="filehandle-結構">filehandle 結構</h3>
 <p>　　filehandle 主要包含了兩個主要成份，分別是代表匯出路徑(export point)檔案系統的 fsid，以及代表檔案系統內一個檔案的 fileid，我們可以看 Linux 核心內是如何定義他：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">struct</span> nfs_fhbase_new {
-	__u8		fb_version;	<span style="color:#0f0">/* 代表版本，目前固定為 1, even =&gt; nfs_fhbase_old */</span>
-	__u8		fb_auth_type;	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
-	__u8		fb_fsid_type;
-	__u8		fb_fileid_type;
-	__u32		fb_auth[<span style="color:#f60">1</span>];	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
-<span style="color:#0f0">/*	__u32		fb_fsid[0]; floating */</span>
-<span style="color:#0f0">/*	__u32		fb_fileid[0]; floating */</span>
-};</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> nfs_fhbase_new {
+</span></span><span style="display:flex;"><span>	__u8		fb_version;	<span style="color:#0f0">/* 代表版本，目前固定為 1, even =&gt; nfs_fhbase_old */</span>
+</span></span><span style="display:flex;"><span>	__u8		fb_auth_type;	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
+</span></span><span style="display:flex;"><span>	__u8		fb_fsid_type;
+</span></span><span style="display:flex;"><span>	__u8		fb_fileid_type;
+</span></span><span style="display:flex;"><span>	__u32		fb_auth[<span style="color:#f60">1</span>];	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">/*	__u32		fb_fsid[0]; floating */</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0">/*	__u32		fb_fileid[0]; floating */</span>
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></div>
 <p>　　fb_auth_type 及 fb_auth 已經是 deprecated 沒有被使用，因此主要的部份就只剩下 fsid 及 fileid。</p>
 <h3 id="fsid">fsid</h3>
 <p>　　fb_fsid_type 用來表示後面的 fb_fsid 如何表示一個匯出的檔案系統，這兩個值我沒完全搞懂他到底是如何在 user space 和 kernel space 之間傳遞，之後要找時間再深入看一下，但就我目前認知的是，他是由 nfs-utils 內的 <strong>mountd</strong> 來做初始設定。</p>
@@ -182,66 +181,66 @@
 <p>　　相關的程式碼位於 <a href="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/mountd/cache.c">nfs-utils/utils/mountd/cache.c</a> 內的 uuid_by_path 函式。</p>
 <h3 id="fileid">fileid</h3>
 <p>　　fileid 的編碼(encode) 則是由每個檔案系統自行實作，這也是一個檔案系統要支援 NFS 最基本需要實作的部份，相關的函式介面定義在以下結構，最核心的函數為 encode_fh、fh_to_dentry、fh_to_parent 及 get_parent：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">struct</span> export_operations {
-	<span style="color:#ee82ee">int</span> (*encode_fh)(<span style="color:#f00">struct</span> inode *inode, __u32 *fh, <span style="color:#ee82ee">int</span> *max_len,
-			<span style="color:#f00">struct</span> inode *parent);
-	<span style="color:#f00">struct</span> dentry * (*fh_to_dentry)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
-			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
-	<span style="color:#f00">struct</span> dentry * (*fh_to_parent)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
-			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
-	<span style="color:#ee82ee">int</span> (*get_name)(<span style="color:#f00">struct</span> dentry *parent, <span style="color:#ee82ee">char</span> *name,
-			<span style="color:#f00">struct</span> dentry *child);
-	<span style="color:#f00">struct</span> dentry * (*get_parent)(<span style="color:#f00">struct</span> dentry *child);
-
-	<span style="color:#0f0">/* 在這以下的函數只有 xfs 有實作 */</span>
-	<span style="color:#ee82ee">int</span> (*commit_metadata)(<span style="color:#f00">struct</span> inode *inode);
-
-	<span style="color:#0f0">/* 以下幾個函數和 pnfs 有關，但我還不確定用途 */</span>
-	<span style="color:#ee82ee">int</span> (*get_uuid)(<span style="color:#f00">struct</span> super_block *sb, u8 *buf, u32 *len, u64 *offset);
-	<span style="color:#ee82ee">int</span> (*map_blocks)(<span style="color:#f00">struct</span> inode *inode, loff_t offset,
-			  u64 len, <span style="color:#f00">struct</span> iomap *iomap,
-			  <span style="color:#ee82ee">bool</span> write, u32 *device_generation);
-	<span style="color:#ee82ee">int</span> (*commit_blocks)(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> iomap *iomaps,
-			     <span style="color:#ee82ee">int</span> nr_iomaps, <span style="color:#f00">struct</span> iattr *iattr);
-};</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> export_operations {
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*encode_fh)(<span style="color:#f00">struct</span> inode *inode, __u32 *fh, <span style="color:#ee82ee">int</span> *max_len,
+</span></span><span style="display:flex;"><span>			<span style="color:#f00">struct</span> inode *parent);
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*fh_to_dentry)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
+</span></span><span style="display:flex;"><span>			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*fh_to_parent)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
+</span></span><span style="display:flex;"><span>			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*get_name)(<span style="color:#f00">struct</span> dentry *parent, <span style="color:#ee82ee">char</span> *name,
+</span></span><span style="display:flex;"><span>			<span style="color:#f00">struct</span> dentry *child);
+</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*get_parent)(<span style="color:#f00">struct</span> dentry *child);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 在這以下的函數只有 xfs 有實作 */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*commit_metadata)(<span style="color:#f00">struct</span> inode *inode);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 以下幾個函數和 pnfs 有關，但我還不確定用途 */</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*get_uuid)(<span style="color:#f00">struct</span> super_block *sb, u8 *buf, u32 *len, u64 *offset);
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*map_blocks)(<span style="color:#f00">struct</span> inode *inode, <span style="color:#ee82ee">loff_t</span> offset,
+</span></span><span style="display:flex;"><span>			  u64 len, <span style="color:#f00">struct</span> iomap *iomap,
+</span></span><span style="display:flex;"><span>			  <span style="color:#ee82ee">bool</span> write, u32 *device_generation);
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*commit_blocks)(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> iomap *iomaps,
+</span></span><span style="display:flex;"><span>			     <span style="color:#ee82ee">int</span> nr_iomaps, <span style="color:#f00">struct</span> iattr *iattr);
+</span></span><span style="display:flex;"><span>};</span></span></code></pre></div>
 <p>　　encode_fh 將一個檔案的 inode 轉為 fileid，如果 parent 不為 NULL 的話，必須將該檔案的 parent 目錄 inode 也一並存入 fileid。這個函數有預設實作，會存 32bits inode number 及 inode generation，如以下結構：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">struct</span> {
-	u32 ino;
-	u32 gen;
-	u32 parent_ino;
-	u32 parent_gen;
-} i32;</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> {
+</span></span><span style="display:flex;"><span>	u32 ino;
+</span></span><span style="display:flex;"><span>	u32 gen;
+</span></span><span style="display:flex;"><span>	u32 parent_ino;
+</span></span><span style="display:flex;"><span>	u32 parent_gen;
+</span></span><span style="display:flex;"><span>} i32;</span></span></code></pre></div>
 <p>　　我們可以在核心的 fs/exportfs/expfs.c 找到這個預設的實作：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-c" data-lang="c"><span style="color:#f00">static</span> <span style="color:#ee82ee">int</span> <span style="color:#ff0">export_encode_fh</span>(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> fid *fid,
-		<span style="color:#ee82ee">int</span> *max_len, <span style="color:#f00">struct</span> inode *parent)
-{
-	<span style="color:#ee82ee">int</span> len = *max_len;
-	<span style="color:#ee82ee">int</span> type = FILEID_INO32_GEN;
-
-	<span style="color:#0f0">// 確認提供的空間夠大，不夠大的話則將所需要的大小透過 max_len 回傳給呼叫者
-</span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent &amp;&amp; (len &lt; <span style="color:#f60">4</span>)) {
-		*max_len = <span style="color:#f60">4</span>;
-		<span style="color:#f00">return</span> FILEID_INVALID; <span style="color:#0f0">// 0xFF 代表無效的 FILEID
-</span><span style="color:#0f0"></span>	} <span style="color:#f00">else</span> <span style="color:#f00">if</span> (len &lt; <span style="color:#f60">2</span>) {
-		*max_len = <span style="color:#f60">2</span>;
-		<span style="color:#f00">return</span> FILEID_INVALID;
-	}
-
-	<span style="color:#0f0">// 填入檔案的 inode number 及 generation
-</span><span style="color:#0f0"></span>	len = <span style="color:#f60">2</span>;
-	fid-&gt;i32.ino = inode-&gt;i_ino;
-	fid-&gt;i32.gen = inode-&gt;i_generation;
-
-	<span style="color:#0f0">// 如果呼叫者有提供 parent，則將 parent 一併編入 fileid
-</span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent) {
-		fid-&gt;i32.parent_ino = parent-&gt;i_ino;
-		fid-&gt;i32.parent_gen = parent-&gt;i_generation;
-		len = <span style="color:#f60">4</span>;
-		type = FILEID_INO32_GEN_PARENT;
-	}
-	*max_len = len;	<span style="color:#0f0">// 將實際使用的大小從 max_len 回傳給呼叫者
-</span><span style="color:#0f0"></span>	<span style="color:#f00">return</span> type;	<span style="color:#0f0">// 回傳編碼的方式
-</span><span style="color:#0f0"></span>}</code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">static</span> <span style="color:#ee82ee">int</span> <span style="color:#ff0">export_encode_fh</span>(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> fid *fid,
+</span></span><span style="display:flex;"><span>		<span style="color:#ee82ee">int</span> *max_len, <span style="color:#f00">struct</span> inode *parent)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> len = *max_len;
+</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> type = FILEID_INO32_GEN;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 確認提供的空間夠大，不夠大的話則將所需要的大小透過 max_len 回傳給呼叫者
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent &amp;&amp; (len &lt; <span style="color:#f60">4</span>)) {
+</span></span><span style="display:flex;"><span>		*max_len = <span style="color:#f60">4</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> FILEID_INVALID; <span style="color:#0f0">// 0xFF 代表無效的 FILEID
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	} <span style="color:#f00">else</span> <span style="color:#f00">if</span> (len &lt; <span style="color:#f60">2</span>) {
+</span></span><span style="display:flex;"><span>		*max_len = <span style="color:#f60">2</span>;
+</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> FILEID_INVALID;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 填入檔案的 inode number 及 generation
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	len = <span style="color:#f60">2</span>;
+</span></span><span style="display:flex;"><span>	fid-&gt;i32.ino = inode-&gt;i_ino;
+</span></span><span style="display:flex;"><span>	fid-&gt;i32.gen = inode-&gt;i_generation;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 如果呼叫者有提供 parent，則將 parent 一併編入 fileid
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent) {
+</span></span><span style="display:flex;"><span>		fid-&gt;i32.parent_ino = parent-&gt;i_ino;
+</span></span><span style="display:flex;"><span>		fid-&gt;i32.parent_gen = parent-&gt;i_generation;
+</span></span><span style="display:flex;"><span>		len = <span style="color:#f60">4</span>;
+</span></span><span style="display:flex;"><span>		type = FILEID_INO32_GEN_PARENT;
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	*max_len = len;	<span style="color:#0f0">// 將實際使用的大小從 max_len 回傳給呼叫者
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">return</span> type;	<span style="color:#0f0">// 回傳編碼的方式
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>}</span></span></code></pre></div>
 <p>　　每個檔案系統根據其需求可自行編碼不同的內容及大小，只要能確保找到唯一對應的檔案即可，例如 btrfs 至少得多存 root object ID，因為他的 inode number 在不同 subvolume 內是可能重複的。</p>
 <p>　　fh_to_dentry 實作 fileid 的解碼工作，給定一個 fileid，回傳檔案的 dentry，這個就沒有預設實作了，每個檔案系統要根據他的 layout 方式取回對應的 dentry，之後 nfs server 便可以透過該 dentry 進行檔案操作。</p>
 <p>　　fh_to_parent 實作 fileid 的另一部份解碼工作，如果 parent 資訊有存入 fileid，則回傳該 fileid 內所紀錄的 parent dentry。get_parent 則是給定一個 dentry，回傳該他的 parent dentry。</p>
@@ -295,7 +294,7 @@
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -452,7 +451,7 @@
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }

@@ -11,7 +11,6 @@
 <meta property="article:published_time" content="2018-01-25T00:00:00+00:00" />
 <meta property="article:modified_time" content="2018-03-27T00:00:00+00:00" />
 
-
         <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Python Format String 字串格式化整理"/>
 <meta name="twitter:description" content="Python 從 2.6 開始新增了 .format() 的字串格式化輸出函數，本篇筆記了數值格式化、對齊及時間表示輸出等等範例"/>
@@ -162,14 +161,14 @@
 <h2 id="基本操作">基本操作</h2>
 <p>　.format() 主要搭配 {} 作為替代符進行輸出，{} 的位置會被後方 format 所帶的參數所取代。預設會依照順序輸出，但也可以用數字指定位置、或者是直接給予名稱做指定</p>
 <p>　不指定位置，依序輸出
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb">&#34;</span>.format(<span style="color:#87ceeb">&#34;A&#34;</span>, <span style="color:#87ceeb">&#34;B&#34;</span>, <span style="color:#87ceeb">&#34;C&#34;</span>))
-<span style="color:#0f0"># A B C</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{}</span><span style="color:#87ceeb">&#34;</span>.format(<span style="color:#87ceeb">&#34;A&#34;</span>, <span style="color:#87ceeb">&#34;B&#34;</span>, <span style="color:#87ceeb">&#34;C&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># A B C</span></span></span></code></pre></div></p>
 <p>　用數字指定位置
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{2}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{0}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{1}</span><span style="color:#87ceeb">&#34;</span>.format(<span style="color:#87ceeb">&#34;A&#34;</span>, <span style="color:#87ceeb">&#34;B&#34;</span>, <span style="color:#87ceeb">&#34;C&#34;</span>))
-<span style="color:#0f0"># C A B</span></code></pre></div></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{2}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{0}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{1}</span><span style="color:#87ceeb">&#34;</span>.format(<span style="color:#87ceeb">&#34;A&#34;</span>, <span style="color:#87ceeb">&#34;B&#34;</span>, <span style="color:#87ceeb">&#34;C&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># C A B</span></span></span></code></pre></div></p>
 <p>　用名稱指定位置
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{a}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{c}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{b}</span><span style="color:#87ceeb">&#34;</span>.format((a=<span style="color:#87ceeb">&#34;A&#34;</span>, b=<span style="color:#87ceeb">&#34;B&#34;</span>, c=<span style="color:#87ceeb">&#34;C&#34;</span>)))
-<span style="color:#0f0"># A C B</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;</span><span style="color:#87ceeb">{a}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{c}</span><span style="color:#87ceeb"> </span><span style="color:#87ceeb">{b}</span><span style="color:#87ceeb">&#34;</span>.format((a=<span style="color:#87ceeb">&#34;A&#34;</span>, b=<span style="color:#87ceeb">&#34;B&#34;</span>, c=<span style="color:#87ceeb">&#34;C&#34;</span>)))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># A C B</span></span></span></code></pre></div>
 　　</p>
 <h2 id="數值格式化及對齊">數值格式化及對齊</h2>
 <p>　格式化的方式是在後方加上&quot;:&ldquo;及&quot;格式符&rdquo;，可用的格式符如下</p>
@@ -194,18 +193,18 @@
 {:+8.3f}    : 小數點後保留 3 位，帶正負號，總寬度為 8 (含小數點及正負號)
 </pre>
 </figure>
-<p>　<strong>':' 前方的數值如基本操作，代表後方參數的位置</strong>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print <span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8d}</span><span style="color:#87ceeb">||</span><span style="color:#87ceeb">{1:&lt;8d}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">123</span>, <span style="color:#f60">456</span>)
-<span style="color:#0f0"># |     123||456     |</span>
-print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:+8.2f}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">4.32</span>))
-<span style="color:#0f0"># |   +4.32|</span>
-print(<span style="color:#87ceeb">&#34;|{0:8.2&gt;}}|&#34;</span>.format(<span style="color:#f60">0.8</span>))
-<span style="color:#0f0"># |  80.00%|</span></code></pre></div></p>
+<p>　<strong>&rsquo;:&rsquo; 前方的數值如基本操作，代表後方參數的位置</strong>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print <span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8d}</span><span style="color:#87ceeb">||</span><span style="color:#87ceeb">{1:&lt;8d}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">123</span>, <span style="color:#f60">456</span>)
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># |     123||456     |</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:+8.2f}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">4.32</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># |   +4.32|</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;|{0:8.2&gt;}}|&#34;</span>.format(<span style="color:#f60">0.8</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># |  80.00%|</span></span></span></code></pre></div></p>
 <p>　<strong>字串與數值輸出預設對齊方式的比較</strong>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">123</span>))
-<span style="color:#0f0"># |     123|</span>
-print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#87ceeb">&#34;abc&#34;</span>))
-<span style="color:#0f0"># |abc     |</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#f60">123</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># |     123|</span>
+</span></span><span style="display:flex;"><span>print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}</span><span style="color:#87ceeb">|&#34;</span>.format(<span style="color:#87ceeb">&#34;abc&#34;</span>))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># |abc     |</span></span></span></code></pre></div>
 　　</p>
 <h2 id="時間表示">時間表示</h2>
 <p>　datetime 有實作 <strong>format</strong> 函數，因此也支援 format 輸出，要再加上 % 格式符，列舉如下</p>
@@ -232,18 +231,18 @@ print(<span style="color:#87ceeb">&#34;|</span><span style="color:#87ceeb">{0:8}
 </pre>
 </figure>
 <p>　其中有表示 * 根據地區會有不同的輸出，<a href="https://docs.python.org/2/library/datetime.html">詳細可參考這裡</a>，範例如下</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f00">from</span> datetime <span style="color:#f00">import</span> datetime
-<span style="color:#f00">import</span> locale
-
-time = datetime(<span style="color:#f60">2018</span>, <span style="color:#f60">1</span>, <span style="color:#f60">23</span>, <span style="color:#f60">14</span>, <span style="color:#f60">12</span>, <span style="color:#f60">34</span>, <span style="color:#f60">123456</span>)
-print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87ceeb">%d</span><span style="color:#87ceeb"> %H:%M:%S %A}&#34;</span>.format(time))
-<span style="color:#0f0"># 2018-01-23 14:12:34 Tuesday</span>
-
-<span style="color:#0f0"># 注意: locale 和環境相關，如果環境沒有該地區設定，會出現類似以下的錯誤</span>
-<span style="color:#0f0"># locale.Error: unsupported locale setting</span>
-locale.setlocale(locale.LC_ALL, <span style="color:#87ceeb">&#34;zh_TW.utf8&#34;</span>)
-print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87ceeb">%d</span><span style="color:#87ceeb"> %H:%M:%S %A}&#34;</span>.format(time))
-<span style="color:#0f0"># 2018-01-23 14:12:34 週二</span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#f00">from</span> datetime <span style="color:#f00">import</span> datetime
+</span></span><span style="display:flex;"><span><span style="color:#f00">import</span> locale
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>time = datetime(<span style="color:#f60">2018</span>, <span style="color:#f60">1</span>, <span style="color:#f60">23</span>, <span style="color:#f60">14</span>, <span style="color:#f60">12</span>, <span style="color:#f60">34</span>, <span style="color:#f60">123456</span>)
+</span></span><span style="display:flex;"><span>print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87ceeb">%d</span><span style="color:#87ceeb"> %H:%M:%S %A}&#34;</span>.format(time))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># 2018-01-23 14:12:34 Tuesday</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># 注意: locale 和環境相關，如果環境沒有該地區設定，會出現類似以下的錯誤</span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># locale.Error: unsupported locale setting</span>
+</span></span><span style="display:flex;"><span>locale.setlocale(locale.LC_ALL, <span style="color:#87ceeb">&#34;zh_TW.utf8&#34;</span>)
+</span></span><span style="display:flex;"><span>print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87ceeb">%d</span><span style="color:#87ceeb"> %H:%M:%S %A}&#34;</span>.format(time))
+</span></span><span style="display:flex;"><span><span style="color:#0f0"># 2018-01-23 14:12:34 週二</span></span></span></code></pre></div>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f01%2fpython-format-string%2f&text=Python%20Format%20String%20%e5%ad%97%e4%b8%b2%e6%a0%bc%e5%bc%8f%e5%8c%96%e6%95%b4%e7%90%86&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
@@ -292,7 +291,7 @@ print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87cee
 
     <div id="disqus_thread"></div>
 <script type="application/javascript">
-    var disqus_config = function () {
+    window.disqus_config = function () {
     
     
     
@@ -449,7 +448,7 @@ print (<span style="color:#87ceeb">&#34;{:%Y-%m-</span><span style="color:#87cee
 var doNotTrack = false;
 if (!doNotTrack) {
 	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-	ga('create', 'UA-112038536-1', 'auto');
+	ga('create', 'G-1ZFSFPEZG5', 'auto');
 	
 	ga('send', 'pageview');
 }
