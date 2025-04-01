@@ -4,64 +4,51 @@
     <title>Linux Kernel on Jayce 的共享記憶體</title>
     <link>https://blog.jaycetyle.com/tags/linux-kernel/</link>
     <description>Recent content in Linux Kernel on Jayce 的共享記憶體</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/linux-kernel/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 04 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.jaycetyle.com/tags/linux-kernel/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Kprobe Userspace Tool 使用筆記</title>
       <link>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</link>
       <pubDate>Mon, 04 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/</guid>
-      <description>&lt;p&gt;　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。&lt;/p&gt;
-&lt;p&gt;　　詳細的技術原理 &amp;hellip; 我也沒弄得那麼清楚 😜，有興趣的可以去看&lt;a href=&#34;https://www.kernel.org/doc/html/latest/trace/kprobes.html&#34;&gt;核心的技術說明手冊&lt;/a&gt;，會比我介紹清楚得多，這邊只簡單介紹好用工具。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　kprobe 是一個輕量的 linux kernel 的除錯工具，他可以在不重新編譯核心的情況下追蹤一個函式的呼叫以及回傳，相當方便。kernel 內目前提供了三種類型的 probe，分別是 kprobe、kretprobe 以及 jprobe，三者都是基於類似的原理所實現的。&lt;/p&gt;&#xA;&lt;p&gt;　　詳細的技術原理 &amp;hellip; 我也沒弄得那麼清楚 &amp;#x1f61c;，有興趣的可以去看&lt;a href=&#34;https://www.kernel.org/doc/html/latest/trace/kprobes.html&#34;&gt;核心的技術說明手冊&lt;/a&gt;，會比我介紹清楚得多，這邊只簡單介紹好用工具。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Linux Kernel BUG_ON 傾印訊息分析及案例分享</title>
       <link>https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/</link>
       <pubDate>Wed, 04 Dec 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/</guid>
-      <description>&lt;p&gt;　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。&lt;/p&gt;
-&lt;p&gt;　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　前一陣子有追蹤一個 ARM 平台發生 Kernel BUG_ON 的問題，在同事的協助下花了一點時間終於追出可能的原因。在我剛開始接觸 Linux Kernel 時，遇到這類 log 都很不知道該如何下手，累積了一些經驗以後才慢慢知道該如何切入、分析及找出原因。&lt;/p&gt;&#xA;&lt;p&gt;　　這篇會分享實際分析 Kernel Oops log 的過程，以及相關工具的使用方式做為案例分析給各位參考。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Linux 系統程式設計 - read()、write() 與 page cache</title>
       <link>https://blog.jaycetyle.com/2019/01/linux-read-write/</link>
       <pubDate>Tue, 01 Jan 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2019/01/linux-read-write/</guid>
       <description>&lt;p&gt;　　這篇延續 &lt;a href=&#34;https://blog.jaycetyle.com/2018/12/linux-fd-open-close/&#34;&gt;Linux 系統程式設計 - fd 及 open()、close() 系統呼叫&lt;/a&gt;，筆記 read()、write() 系統呼叫及 page cache 相關的部分。內容主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt; 一書。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Linux 系統程式設計 - fd 及 open()、close() 系統呼叫</title>
       <link>https://blog.jaycetyle.com/2018/12/linux-fd-open-close/</link>
       <pubDate>Sun, 30 Dec 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/12/linux-fd-open-close/</guid>
       <description>&lt;p&gt;　　開始接觸 Linux Kernel 也有差不多一年的時間，最近開始有明顯地感覺到有某種瓶頸存在，仔細思考了一下覺得是底子不夠，所以決定從基礎來好好學習一下，再搭配核心程式碼來確認是否是看到的那樣。這篇主要筆記 file descriptor、open() 及 close() 系統呼叫相關的部分，主要參考 &lt;a href=&#34;https://www.tenlong.com.tw/products/9789862769812&#34;&gt;Robert Love 的 Linux System Programming&lt;/a&gt;。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>VS Code &#43; GNU Global - 打造 Trace Linux Kernel 環境</title>
       <link>https://blog.jaycetyle.com/2018/10/vscode-gnu-global/</link>
       <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/10/vscode-gnu-global/</guid>
       <description>&lt;p&gt;　　Linux Kernel 是一個偉大的開源專案，同時也是相當龐大的專案，要 Trace 這麼大的專案總是要準備一點輔助工具才會有效率。這篇主要介紹使用 VS Code 編輯器，加上我改的 C/C++ GNU Global 套件來 Trace Linux Kernel，對一些大型的 C/C++ 專案也適用。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Linux NFS filehandle 筆記</title>
       <link>https://blog.jaycetyle.com/2018/09/nfs-filehandle/</link>
       <pubDate>Sat, 08 Sep 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/09/nfs-filehandle/</guid>
       <description>&lt;p&gt;　　最近在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle 的運作機制。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

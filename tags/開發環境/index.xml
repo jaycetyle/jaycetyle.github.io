@@ -4,55 +4,44 @@
     <title>開發環境 on Jayce 的共享記憶體</title>
     <link>https://blog.jaycetyle.com/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/</link>
     <description>Recent content in 開發環境 on Jayce 的共享記憶體</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 13 Jul 2019 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.jaycetyle.com/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Visual Studio Code Remote - WSL 安裝教學</title>
       <link>https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/</link>
       <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/</guid>
-      <description>&lt;p&gt;　　最近在思考如何讓&lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global&#34;&gt;我的插件&lt;/a&gt;能夠跑在 WSL 裡面，後來發現了 &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl&#34;&gt;Visual Studio Code Remote - WSL&lt;/a&gt; 這個好東西，它可以讓 VS Code Server 實際執行在 WSL 裡面，只留 UI 介面在 Windows。&lt;/p&gt;
-&lt;p&gt;　　這對某些插件非常有用，因為有些東西跑在 Linux 環境是比較容易的。另外 Visual Studio Code Remote 系列還包含 Remote - SSH 模式，這東西就更猛了，如果你的 Build Machine 是遠端的 Linux Server ，他可以直接透過 SSH 跑在 Linux Server 端，像是檔案搜尋等動作，直接執行在遠端 Linux 就會比透過 Samba 或 NFS 快上很多。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　最近在思考如何讓&lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global&#34;&gt;我的插件&lt;/a&gt;能夠跑在 WSL 裡面，後來發現了 &lt;a href=&#34;https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl&#34;&gt;Visual Studio Code Remote - WSL&lt;/a&gt; 這個好東西，它可以讓 VS Code Server 實際執行在 WSL 裡面，只留 UI 介面在 Windows。&lt;/p&gt;&#xA;&lt;p&gt;　　這對某些插件非常有用，因為有些東西跑在 Linux 環境是比較容易的。另外 Visual Studio Code Remote 系列還包含 Remote - SSH 模式，這東西就更猛了，如果你的 Build Machine 是遠端的 Linux Server ，他可以直接透過 SSH 跑在 Linux Server 端，像是檔案搜尋等動作，直接執行在遠端 Linux 就會比透過 Samba 或 NFS 快上很多。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>VS Code GNU Global 相依專案路徑設定</title>
       <link>https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/</link>
       <pubDate>Sat, 13 Jul 2019 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/</guid>
-      <description>&lt;p&gt;　　在 &lt;a href=&#34;https://blog.jaycetyle.com/2018/10/vscode-gnu-global/&#34;&gt;VS Code + GNU Global - 打造 Trace Linux Kernel 環境&lt;/a&gt; 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。&lt;/p&gt;
-&lt;p&gt;　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。&lt;/p&gt;</description>
+      <description>&lt;p&gt;　　在 &lt;a href=&#34;https://blog.jaycetyle.com/2018/10/vscode-gnu-global/&#34;&gt;VS Code + GNU Global - 打造 Trace Linux Kernel 環境&lt;/a&gt; 這篇我有介紹我改造的 VS Code GNU Global 套件。當初會選擇 GNU Global 作為主要的 tagging engine，除了他的速度很快以外，還有另一個的原因是 GNU Global 具備將 tag files 分散在不同 Project 的功能，再透過相依性設定搜尋路徑。&lt;/p&gt;&#xA;&lt;p&gt;　　分散 Tag File 在某些大型專案非常有用，他可以有效加速 Tag 搜尋和更新的速度。另外他也支援將 tag files 放在專案目錄以外的地方，以下會分別介紹這兩個功能在 VS Code 中要如何設定。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>VS Code &#43; GNU Global - 打造 Trace Linux Kernel 環境</title>
       <link>https://blog.jaycetyle.com/2018/10/vscode-gnu-global/</link>
       <pubDate>Mon, 29 Oct 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/10/vscode-gnu-global/</guid>
       <description>&lt;p&gt;　　Linux Kernel 是一個偉大的開源專案，同時也是相當龐大的專案，要 Trace 這麼大的專案總是要準備一點輔助工具才會有效率。這篇主要介紹使用 VS Code 編輯器，加上我改的 C/C++ GNU Global 套件來 Trace Linux Kernel，對一些大型的 C/C++ 專案也適用。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>VS Code &#43; ssh 樹莓派遠端除錯</title>
       <link>https://blog.jaycetyle.com/2018/04/vscode-ssh-debug/</link>
       <pubDate>Sat, 07 Apr 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/04/vscode-ssh-debug/</guid>
       <description>&lt;p&gt;　　在一個新的環境寫程式之前，我自己的習慣是一定要先摸一下除錯器 (debugger) 的使用，有好的除錯器輔助可以讓軟體開發省下非常多的時間。這篇主要筆記如何運用 VS Code 的 Native Debug 插件，直接遠端到樹莓派上面的 gdb 進行 C 語言的程式除錯，可以監控變數，設定中斷點，也可以按 F10 單步執行，對於其他 Linux 系統的 embedded system 只要能夠安裝 gdb 、 ssh 和掛載遠端目錄應該也都適用。&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Windows Subsystem for Linux 安裝 (Ubuntu bash)</title>
       <link>https://blog.jaycetyle.com/2018/01/win-subsys-linux/</link>
       <pubDate>Sun, 07 Jan 2018 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2018/01/win-subsys-linux/</guid>
       <description>&lt;p&gt;　　Windows 的視窗介面很好用，不過對於開發者而言，有些工作使用命令列工具 (Command Line) 還是方便些。Windows 內建的命令列工具有命令提示字元 (cmd) 和 Power Shell，如果喜歡 Linux bash，也可以選擇 Cygwin 或 MinGW，如果有安裝過 git 的話還有 git bash。以上這些工具我都有試過，現在 &lt;strong&gt;Windows 10&lt;/strong&gt; 還有一個更方便的選擇 : Windows Subsystem for Linux (WSL)，可以讓 Ubuntu 的一些實用工具直接在此系統上原生執行。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

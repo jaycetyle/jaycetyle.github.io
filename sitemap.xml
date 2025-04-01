@@ -29,6 +29,9 @@
     <loc>https://blog.jaycetyle.com/2019/11/passing-smart-pointer/</loc>
     <lastmod>2019-11-03T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.jaycetyle.com/tags/c/c&#43;&#43;/</loc>
+    <lastmod>2019-11-03T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/</loc>
     <lastmod>2019-10-23T00:00:00+00:00</lastmod>
   </url><url>
@@ -146,7 +149,7 @@
     <loc>https://blog.jaycetyle.com/2015/06/csharp-dll-plugin/</loc>
     <lastmod>2015-06-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://blog.jaycetyle.com/tags/c#/</loc>
+    <loc>https://blog.jaycetyle.com/tags/c%23/</loc>
     <lastmod>2015-06-11T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.jaycetyle.com/2015/01/linux-gcc-makefile-2/</loc>
@@ -165,8 +168,6 @@
     <lastmod>2014-09-27T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.jaycetyle.com/archive/</loc>
-  </url><url>
-    <loc>https://blog.jaycetyle.com/tags/c/c&#43;&#43;/</loc>
   </url><url>
     <loc>https://blog.jaycetyle.com/categories/</loc>
   </url>

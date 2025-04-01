@@ -4,17 +4,16 @@
     <title>工具軟體 on Jayce 的共享記憶體</title>
     <link>https://blog.jaycetyle.com/tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/</link>
     <description>Recent content in 工具軟體 on Jayce 的共享記憶體</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Sat, 27 Sep 2014 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 27 Sep 2014 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.jaycetyle.com/tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>用 Win32 Disk Imager 備份和燒錄 Raspberry Pi 的 SD 卡</title>
       <link>https://blog.jaycetyle.com/2014/09/win32-disk-imager-raspberry-pi-sd/</link>
       <pubDate>Sat, 27 Sep 2014 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2014/09/win32-disk-imager-raspberry-pi-sd/</guid>
       <description>&lt;p&gt;　　不少網站已經介紹過如何使用 Win32 Disk Imager 燒錄 Raspberry Pi 的 SD 卡。但實際上，這套軟體還有讀取 SD 卡的內容並轉成 img 檔的備份功能，玩 Pi 玩一玩怕把穩定的系統玩壞的時候，便可以利用此功能把現在的 SD 卡備份下來，真的出問題的話再重新燒進去就可以還原了，而且此軟體是 Windows 工具，對 Windows 使用者而言也相當方便親民。&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

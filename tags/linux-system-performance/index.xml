@@ -4,17 +4,16 @@
     <title>Linux System Performance on Jayce 的共享記憶體</title>
     <link>https://blog.jaycetyle.com/tags/linux-system-performance/</link>
     <description>Recent content in Linux System Performance on Jayce 的共享記憶體</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>zh-tw</language>
-    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/linux-system-performance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Oct 2021 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://blog.jaycetyle.com/tags/linux-system-performance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux fio 測試參數的眉眉角角</title>
       <link>https://blog.jaycetyle.com/2021/10/linux-fio-tips/</link>
       <pubDate>Wed, 06 Oct 2021 00:00:00 +0000</pubDate>
-      
       <guid>https://blog.jaycetyle.com/2021/10/linux-fio-tips/</guid>
       <description>&lt;p&gt;　　fio 是一個好用的合成 IO (Synthetic IO Workload) 產生器，我們經常用他來測試例如檔案系統或是 Disk 的 IO 效能等等，他有非常多可調參數，很多時候我們只是複製了某測試的參數就打，這在大多數情況可能是夠用的，但身為一個優秀的效能分析者，我們還是必須要知道 &amp;hellip;&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
