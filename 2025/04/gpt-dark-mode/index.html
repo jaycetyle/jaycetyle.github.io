@@ -210,30 +210,30 @@
 </div>
 
     <div class="mt-4 mb-4 main-content">
-      <p>　　現在這個部落格支援 Dark Mode 了！看看網站的右上角，應該會有個太陽或月亮的圖示，點擊就可以切換了。我自己本身對前端並不熟悉，這次的 Dark Mode 全靠 Chatgpt 幫我完成，前前後後也花了兩個多小時，這篇文章就來記錄一下過程以及一些心得。</p>
+      <p>　　現在這個部落格支援 Dark Mode 了！看看網站的右上角，應該會有個太陽或月亮的圖示，點擊就可以切換。我自己本身對前端並不熟悉，這次的 Dark Mode 全靠 Chatgpt 協助完成，前前後後也花了兩個多小時，過程中也有許多驚喜與反思，這篇文章就來記錄一下整個流程以及一些心得。</p>
 <p> </p>
 <h3 id="完全不會改直接問">完全不會改，直接問！</h3>
 <pre tabindex="0"><code>我想幫 silhouette-hugo 這個 project 加上暗色模式，請一步一步告訴我該怎麼做
-</code></pre><p>　　這是我在 Chatgpt 上問的第一個問題，直接把專案名稱給丟上去。Chatgpt 立刻給了我幾個步驟，大致上包含：</p>
+</code></pre><p>　　這是我在 Chatgpt 上問的第一個問題，直接把專案名稱給丟上去，看他會不會幫我搜尋 XD。Chatgpt 給了幾個步驟，大致上包含：</p>
 <ul>
 <li>第一步：確認主題支援自訂 CSS</li>
 <li>第二步：讓這個 CSS 被引入</li>
 <li>第三步：新增切換暗色模式的按鈕</li>
 </ul>
-<p>　　&hellip;以下省略，他給了幾個大概的步驟，但詳細要改什麼並不清楚，不符合我&quot;全部複製貼上&quot;的需求。於是我就繼續問：</p>
+<p>　　&hellip;以下省略，雖然有大致上的流程，但詳細要改什麼並不清楚，不符合我&quot;全部複製貼上&quot;的需求。於是我就繼續問：</p>
 <pre tabindex="0"><code>請一步一步幫我改
 https://github.com/mattbutton/silhouette-hugo
 repo 如上，幫我找
-</code></pre><p>　　沒錯，我就是這麼懶，直接把網址丟給他，讓他幫我找。Chatgpt 又給了我幾個步驟：</p>
+</code></pre><p>　　沒錯！我就是這麼廢，直接把網址丟給他，讓他幫我找，我收到了幾個回饋：</p>
 <ul>
 <li>第一步：新增自訂 CSS
 <ul>
-<li>他已經包含了一個簡單的 CSS 範例，我直接依照他指定的路徑，新增了一個 <code>dark.css</code>：</li>
+<li>他回了一個簡單的 CSS 範例，我直接依照他指定的路徑，新增了一個 <code>dark.css</code></li>
 </ul>
 </li>
 <li>第二步：讓這個 CSS 被引入
 <ul>
-<li>沒有精準告訴我要改哪裡，但大致上是給我一段 code，說要放在 <head> 的 <link rel="stylesheet"> 那段下面。</li>
+<li>沒有精準告訴我要改哪裡，但大致上是給我一段 code，說要放在 <head> 的 <link rel="stylesheet"> 那段下面</li>
 <li>搜尋了一下就照貼</li>
 </ul>
 </li>
@@ -253,15 +253,15 @@ layouts/partials/head.html（✅ 確實存在）
 </figure>
 <p> </p>
 <h3 id="完整的-dark-mode-css">完整的 Dark Mode CSS</h3>
-<p>　　由於目前的 CSS 只有一個簡單的範例，例如按鈕、內文等等的顏色都沒有改到，於是我再問他 &hellip;</p>
+<p>　　由於目前的 CSS 只有一個簡單的範例，例如按鈕、內文顏色等等的都沒有改到，繼續問 &hellip;</p>
 <pre tabindex="0"><code>這是 light mode 的 css，幫我改一個 dark mode
 
 body {
     background-color: #fafafa !important;
     padding-top: 42px;
     ...以下整包複製貼上
-</code></pre><p>　　這邊他傳了一個完整的 CSS 下載，包含了按鈕、內文、背景等顏色調整，連同 padding 等其他設定在內。但同時也有一些錯誤，普遍上是 { 配對的問題，來來回回請他修了幾次搞不定。雖然對我來說問題不大，但不太符合我的 &ldquo;懶人需求&rdquo;，也許現在的 Chatgpt-4o 可能只能這樣了。自己再修了一下可以運行。</p>
-<p>　　直到這邊其實我並不算滿意，因為我的程式碼實際上變成了兩個很相似的 CSS，分別是 <code>dark.css</code> 和原本的 <code>styles.css</code>，如果我要調 padding、margin、字型等等的話，兩邊都要改，是程式碼壞味道，於是我們開始進入下一階段的重構：</p>
+</code></pre><p>　　廢柴當然不自己改 code，直接整包給他叫他改。這裡傳了一個完整的 CSS 下載連結，包含了按鈕、內文、背景等顏色調整，連同 padding 等其他設定在內。但同時也有一些錯誤，普遍上是 { 配對的問題，來來回回請他修了幾次搞不定。雖然對我來說問題不大，但不太符合我的 &ldquo;懶人需求&rdquo;，也許現在的 Chatgpt-4o 只能這樣了。後續我自己再修了一下可以運行。</p>
+<p>　　直到這邊其實我並不算滿意，因為我的程式碼實際上變成了兩個很相似的 CSS，分別是 <code>dark.css</code> 和原本的 <code>styles.css</code>，如果我要調 padding、margin、字型等等的話，兩邊都要改，是程式碼壞味道，於是我們開始進入下一階段的重構。</p>
 <p> </p>
 <h3 id="重構讓-css-變乾淨">重構，讓 CSS 變乾淨</h3>
 <pre tabindex="0"><code>幫我調整程式碼，讓 light mode 跟 dark mode 都是獨立的 css，並且只有關於顏色的設定 (也許用變數儲存?)，然後另外一個 css 是關於字體大小等其他 css 設定
@@ -274,12 +274,12 @@ body {
 
 🎨 base.css（不含任何顏色設定）：
 以下程式碼省略...
-</code></pre><p>　　過程中其實我有查了一些其他 repo 也是類似這樣的結構，所以這裡的方案讓我感到蠻驚豔的。後面其實還有一些錯誤，主要來自於我的 css 放在 assets 資料夾裡面，然後他給的路徑是放在 static 資料夾裡面導致了一些問題，也是陸續來回了幾次，例如 <code>為什麼我測試時沒有反應?</code>、<code>提供console error</code>、<code>我放 assets/css 不行嗎</code>、<code>一樣不行 GG</code>、<code>移除 localStorage 部分</code>。來回了幾次以後終於完成。</p>
+</code></pre><p>　　過程中其實我有查了一些其他 repo 也是類似這樣的結構，所以這裡的方案讓我感到蠻驚豔的。後面其實還有一些錯誤，主要來自於我的 css 放在 assets 內，然後他給的路徑是放在 static 內，進而導致了一點問題，也是陸續來回了幾次，例如 <code>為什麼我測試時沒有反應?</code>、<code>貼 console error 給 chatgpt</code>、<code>我放 assets/css 不行嗎?</code>、<code>一樣不行 GG</code>、<code>移除 localStorage 部分</code> 等等，來回了幾次以後終於完成。</p>
 <p> </p>
 <h3 id="最後的結果與心得">最後的結果與心得</h3>
-<p>　　就是你現在所看到的樣子，除了內文顏色我稍微調亮一點以外，其他我完全沒有調整，而且我也很滿意這個配色。後續有再調整了一點東西，例如我把 Disqus 換成了 Giscus 等等，這些大多是由 Chatgpt 提供指令我照做，至於為何我要換掉 Disqus 則是我自己下的決定，這邊就不贅述了。</p>
-<p>　　其實過程中給了我蠻多驚喜，雖然仍有錯誤，但約略 8 成的工作可以完成，剩下的部分以我微薄的前端知識可以補足。</p>
-<p>　　軟體工程師的未來會是什麼？可能就像是被機械化大量取代的農夫，對我們來說，也許架構設計、制定決策、邏輯批判思考會是未來的工作重點。我相信最終還是人類在做決策，就如同機器不會幫農夫決定該種什麼、農田該如何規劃，而這些正是未來的我們需要學習的關鍵，當然也包括如何掌握 AI 的使用。</p>
+<p>　　就是你現在所看到的樣子，除了內文顏色我稍微調亮一點以外，其他我完全沒有調整，而且我也很滿意這個配色。後續有再調整一點東西，例如我把 Disqus 換成 Giscus 等等，這些大多是由 Chatgpt 提供指令我照做，至於為何我要換掉 Disqus 則是我自己下的決定，這邊就不贅述了。</p>
+<p>　　過程中給了我蠻多驚喜，雖然仍有錯誤，但約略 8 成的工作可以完成，剩下的部分以我微薄的前端知識可以補足。</p>
+<p>　　軟體工程師的未來會是什麼？可能就像是被機械化大量取代的農夫，對我們來說，也許架構設計、制定決策、邏輯批判思考會是未來的工作重點。我相信最終還是人類在做決策，就如同機器不會幫農夫決定該種什麼、農田該如何規劃，而這些正是未來的我們需要學習的關鍵，當然也包括如何掌握 AI 工具的使用。</p>
 
       <div class="share-icons d-flex justify-content-center d-print-none">
         <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2025%2f04%2fgpt-dark-mode%2f&text=%e5%85%a8%e9%83%a8%e8%a4%87%e8%a3%bd%e8%b2%bc%e4%b8%8a%ef%bc%81%e6%88%91%e7%94%a8%20Chatgpt%20%e5%b9%ab%e7%b6%b2%e7%ab%99%e5%8a%a0%e4%ba%86%e4%b8%80%e5%80%8b%e6%9a%97%e8%89%b2%e6%a8%a1%e5%bc%8f&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
