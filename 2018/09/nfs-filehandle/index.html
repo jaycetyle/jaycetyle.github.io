@@ -1,521 +1,91 @@
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <meta property="og:url" content="https://blog.jaycetyle.com/2018/09/nfs-filehandle/">
-  <meta property="og:site_name" content="Jayce 的共享記憶體">
-  <meta property="og:title" content="Linux NFS filehandle 筆記">
-  <meta property="og:description" content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。">
-  <meta property="og:locale" content="zh_tw">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="post">
-    <meta property="article:published_time" content="2018-09-08T00:00:00+00:00">
-    <meta property="article:modified_time" content="2025-04-02T00:00:00+00:00">
-    <meta property="article:tag" content="Linux Kernel">
-
-        
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Linux NFS filehandle 筆記">
-  <meta name="twitter:description" content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。">
-
-
-        <title>
-  Linux NFS filehandle 筆記 | Jayce 的共享記憶體
-</title>
-
-        
-
-<link rel="shortcut icon" href="/images/favicon.ico">
-
-<link rel="shortcut icon" href="/images/favicon.png">
-
-<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
-
-
-        <link href="https://fonts.googleapis.com/css?family=Oswald:400" rel="stylesheet">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">      
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-
-        
-        
-        
-        
-        
-        <link rel="stylesheet" href="https://blog.jaycetyle.com/css/styles.min.6a7e3e1c24ad4b4b16f344cfc54f4b5a4e92f35366ada3879f0176264c5f99b9.css" integrity="sha256-an4&#43;HCStS0sW80TPxU9LWk6S81NmraOHnwF2Jkxfmbk=">
-        
-        
-        <link id="theme-style" rel="stylesheet" href="">
-
-        
-        <script>
-            window.themeUrls = {
-            light: "\/css\/light.min.0d91bc92b83a6a8aac989d53ce618ea99f98702fd931a07d8219dd7c3ae030eb.css",
-            dark: "\/css\/dark.min.af88a93f842d8c67b00708066264a518670df2f2fc97f2246b1282d6c721961c.css"
-            };
-        </script>
-        
-  <link rel="me" type="text/html" href="https://www.linkedin.com/in/chieh-lin-569430a9/"/>
-
-
-<link rel="shortcut icon" href="/images/favicon.ico">
-
-<link rel="shortcut icon" href="/images/favicon.png">
-
-<link rel="apple-touch-icon-precomposed" href="/images/apple-touch-icon-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/images/apple-touch-icon-72x72-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/images/apple-touch-icon-114x114-precomposed.png">
-
-<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/images/apple-touch-icon-144x144-precomposed.png">
-
-
-<link rel="alternate" type="application/rss+xml" href='https://blog.jaycetyle.com/index.xml' />
-
-<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-<meta name="author" content="" />
-<meta name="copyright" content="" />
-
-
-<meta name="description" content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。">
-
-  <style type="text/css">
-  .feature-image {
-    background-image: linear-gradient(
-      rgba(0, 0, 0, 0.15),
-      rgba(0, 0, 0, 0.15)
-    ), url('https://blog.jaycetyle.com/images/banner.jpg');
-    height: 400px;
-    background-repeat:no-repeat;
-    background-size:cover;
-    background-position: center;
-  }
-  .feature-image-text {
-    margin-top: 20px;
-  }
-
-  @media (max-width: 1024px) {
-    .feature-image {
-      height: 300px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .feature-image {
-      height: 250px;
-    }
-  }
-
-  @media (max-width: 520px) {
-    .feature-image {
-      display: none;
-    }
-  }
-</style>
-
-
-
-
-    </head>
-    <body>
-        <nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav">
-            <div class="container">
-                    <a href="https://blog.jaycetyle.com/"><img alt="" class="logo" src="https://blog.jaycetyle.com//images/logo.png"></a>
-<a class="navbar-brand pr-4 d-none d-sm-block" href="https://blog.jaycetyle.com/">Jayce&#39;s Shared Memory</a>
-                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                    <i class="fas fa-bars" style="color:black"></i>
-                </button>
-                <div class="navbar-collapse collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-    <a class="nav-link active" href="https://blog.jaycetyle.com/">Home</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" href="https://blog.jaycetyle.com/archive/">Archive</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" href="https://github.com/jaycetyle">Github</a>
-</li>
-<li class="nav-item">
-    <a class="nav-link active" href="https://blog.jaycetyle.com/about/">About</a>
-</li>
-<li class="nav-item">
-    <button id="theme-toggle" class="nav-link" style="background: transparent; border: none; color: inherit; cursor: pointer;">
-        🌙
-    </button>
-</li>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const themeLink = document.getElementById("theme-style");
-        const toggleBtn = document.getElementById("theme-toggle");
-
-        function getPreferredTheme() {
-            return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-        }
-
-        function setTheme(theme) {
-            themeLink.href = window.themeUrls[theme];
-            toggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
-            const iframe = document.querySelector('iframe.giscus-frame');
-            if (iframe) {
-            iframe.contentWindow.postMessage({
-                giscus: {
-                setConfig: {
-                    theme: theme
-                }
-                }
-            }, 'https://giscus.app');
-            }
-        }
-
-        let currentTheme = getPreferredTheme();
-        setTheme(currentTheme);
-
-        toggleBtn.addEventListener("click", function () {
-            currentTheme = currentTheme === "dark" ? "light" : "dark";
-            setTheme(currentTheme);
-        });
-    });
-</script>
-                    </ul>
-                </div>
-            </div>
-        </nav>
-
-        
-  <header class="feature-image">
-  <div class="feature-image-text white-shadow-text">
-    <h1 class="font-weight:bold">Linux NFS filehandle 筆記</h1>
-  </div>
-</header>
-
-
-        <div class="container main my-4">
-            
-  <div class="post p-3 p-sm-5">
-    <h3 class="post-title">Linux NFS filehandle 筆記</h3>
-    <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Sep 8, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/linux-kernel/'>Linux Kernel</a>
-    </small>
-</div>
-
-    <div class="mt-4 mb-4 main-content">
-      <p>　　最近在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle 的運作機制。</p>
-<h3 id="基本概念">基本概念</h3>
-<p>　　filehandle 是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個對應的文件，從 C 語言的角度來看，他很類似 fopen 所得到的 file descriptor，對於使用者而言，filehandle/file descriptor 是一種不透明(opaque)的資料結構，使用者不需要知道他實際上存了些什麼，只要知道有他就可以操作到對應的檔案。</p>
-<p>　　相較於直接使用檔案路徑來表示一個檔案，使用 filehandle 有兩個主要的優點及目的，首先，filehandle 通常是一個較小且較為固定的大小，對網路傳輸有其便利性，其次是他總是代表相同的檔案，就算對象檔案被重新命名或是被移動過，他還是能找回原本的那個檔案。</p>
-<h3 id="filehandle-結構">filehandle 結構</h3>
-<p>　　filehandle 主要包含了兩個主要成份，分別是代表匯出路徑(export point)檔案系統的 fsid，以及代表檔案系統內一個檔案的 fileid，我們可以看 Linux 核心內是如何定義他：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> nfs_fhbase_new {
-</span></span><span style="display:flex;"><span>	__u8		fb_version;	<span style="color:#0f0">/* 代表版本，目前固定為 1, even =&gt; nfs_fhbase_old */</span>
-</span></span><span style="display:flex;"><span>	__u8		fb_auth_type;	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
-</span></span><span style="display:flex;"><span>	__u8		fb_fsid_type;
-</span></span><span style="display:flex;"><span>	__u8		fb_fileid_type;
-</span></span><span style="display:flex;"><span>	__u32		fb_auth[<span style="color:#f60">1</span>];	<span style="color:#0f0">/* deprecated 沒有被使用 */</span>
-</span></span><span style="display:flex;"><span><span style="color:#0f0">/*	__u32		fb_fsid[0]; floating */</span>
-</span></span><span style="display:flex;"><span><span style="color:#0f0">/*	__u32		fb_fileid[0]; floating */</span>
-</span></span><span style="display:flex;"><span>};</span></span></code></pre></div>
-<p>　　fb_auth_type 及 fb_auth 已經是 deprecated 沒有被使用，因此主要的部份就只剩下 fsid 及 fileid。</p>
-<h3 id="fsid">fsid</h3>
-<p>　　fb_fsid_type 用來表示後面的 fb_fsid 如何表示一個匯出的檔案系統，這兩個值我沒完全搞懂他到底是如何在 user space 和 kernel space 之間傳遞，之後要找時間再深入看一下，但就我目前認知的是，他是由 nfs-utils 內的 <strong>mountd</strong> 來做初始設定。</p>
-<p>　　剛開始我也很疑惑為何是 mountd，但仔細思考了一下，給掌管匯出路徑的 mountd 來指定 fsid 也是合理的。也許會問，平常更新 /etc/exports 時都是透過 exportfs 來重新載入，難道不是 exportfs 在管理匯出嗎？但實際上 exportfs 比較像是 mountd 的輔助程式，真正和核心溝通的還是 mountd。</p>
-<p>　　mountd 在決定 fsid 時大致上有二種方式，第一種是使用者在 /etc/exports 內直接指定 fsid=NUM，第二種是使用 UUID，而 UUID 又有兩種取得方式，第一種，也是優先選擇的是檔案系統掛載的 blkid，第二種是透過 statfs 取得 filesystem 的 UUID。</p>
-<p>　　不同的 filesystem 適用於不同的 UUID 取得方式，例如 FAT 透過 statfs 得到的 fsid 是 device number，但 device number 是可能會改變的，因此並不恰當。相反的例子是 btrfs 的 subvolume，每個 subvolume 有不同的 fsid，但共用同一個 blkid，btrfs 使用 fsid 會有他的意義。</p>
-<p>　　相關的程式碼位於 <a href="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/mountd/cache.c">nfs-utils/utils/mountd/cache.c</a> 內的 uuid_by_path 函式。</p>
-<h3 id="fileid">fileid</h3>
-<p>　　fileid 的編碼(encode) 則是由每個檔案系統自行實作，這也是一個檔案系統要支援 NFS 最基本需要實作的部份，相關的函式介面定義在以下結構，最核心的函數為 encode_fh、fh_to_dentry、fh_to_parent 及 get_parent：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> export_operations {
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*encode_fh)(<span style="color:#f00">struct</span> inode *inode, __u32 *fh, <span style="color:#ee82ee">int</span> *max_len,
-</span></span><span style="display:flex;"><span>			<span style="color:#f00">struct</span> inode *parent);
-</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*fh_to_dentry)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
-</span></span><span style="display:flex;"><span>			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
-</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*fh_to_parent)(<span style="color:#f00">struct</span> super_block *sb, <span style="color:#f00">struct</span> fid *fid,
-</span></span><span style="display:flex;"><span>			<span style="color:#ee82ee">int</span> fh_len, <span style="color:#ee82ee">int</span> fh_type);
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*get_name)(<span style="color:#f00">struct</span> dentry *parent, <span style="color:#ee82ee">char</span> *name,
-</span></span><span style="display:flex;"><span>			<span style="color:#f00">struct</span> dentry *child);
-</span></span><span style="display:flex;"><span>	<span style="color:#f00">struct</span> dentry * (*get_parent)(<span style="color:#f00">struct</span> dentry *child);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 在這以下的函數只有 xfs 有實作 */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*commit_metadata)(<span style="color:#f00">struct</span> inode *inode);
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#0f0">/* 以下幾個函數和 pnfs 有關，但我還不確定用途 */</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*get_uuid)(<span style="color:#f00">struct</span> super_block *sb, u8 *buf, u32 *len, u64 *offset);
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*map_blocks)(<span style="color:#f00">struct</span> inode *inode, <span style="color:#ee82ee">loff_t</span> offset,
-</span></span><span style="display:flex;"><span>			  u64 len, <span style="color:#f00">struct</span> iomap *iomap,
-</span></span><span style="display:flex;"><span>			  <span style="color:#ee82ee">bool</span> write, u32 *device_generation);
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> (*commit_blocks)(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> iomap *iomaps,
-</span></span><span style="display:flex;"><span>			     <span style="color:#ee82ee">int</span> nr_iomaps, <span style="color:#f00">struct</span> iattr *iattr);
-</span></span><span style="display:flex;"><span>};</span></span></code></pre></div>
-<p>　　encode_fh 將一個檔案的 inode 轉為 fileid，如果 parent 不為 NULL 的話，必須將該檔案的 parent 目錄 inode 也一並存入 fileid。這個函數有預設實作，會存 32bits inode number 及 inode generation，如以下結構：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">struct</span> {
-</span></span><span style="display:flex;"><span>	u32 ino;
-</span></span><span style="display:flex;"><span>	u32 gen;
-</span></span><span style="display:flex;"><span>	u32 parent_ino;
-</span></span><span style="display:flex;"><span>	u32 parent_gen;
-</span></span><span style="display:flex;"><span>} i32;</span></span></code></pre></div>
-<p>　　我們可以在核心的 fs/exportfs/expfs.c 找到這個預設的實作：</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#f00">static</span> <span style="color:#ee82ee">int</span> <span style="color:#ff0">export_encode_fh</span>(<span style="color:#f00">struct</span> inode *inode, <span style="color:#f00">struct</span> fid *fid,
-</span></span><span style="display:flex;"><span>		<span style="color:#ee82ee">int</span> *max_len, <span style="color:#f00">struct</span> inode *parent)
-</span></span><span style="display:flex;"><span>{
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> len = *max_len;
-</span></span><span style="display:flex;"><span>	<span style="color:#ee82ee">int</span> type = FILEID_INO32_GEN;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 確認提供的空間夠大，不夠大的話則將所需要的大小透過 max_len 回傳給呼叫者
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent &amp;&amp; (len &lt; <span style="color:#f60">4</span>)) {
-</span></span><span style="display:flex;"><span>		*max_len = <span style="color:#f60">4</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> FILEID_INVALID; <span style="color:#0f0">// 0xFF 代表無效的 FILEID
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	} <span style="color:#f00">else</span> <span style="color:#f00">if</span> (len &lt; <span style="color:#f60">2</span>) {
-</span></span><span style="display:flex;"><span>		*max_len = <span style="color:#f60">2</span>;
-</span></span><span style="display:flex;"><span>		<span style="color:#f00">return</span> FILEID_INVALID;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 填入檔案的 inode number 及 generation
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	len = <span style="color:#f60">2</span>;
-</span></span><span style="display:flex;"><span>	fid-&gt;i32.ino = inode-&gt;i_ino;
-</span></span><span style="display:flex;"><span>	fid-&gt;i32.gen = inode-&gt;i_generation;
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#0f0">// 如果呼叫者有提供 parent，則將 parent 一併編入 fileid
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">if</span> (parent) {
-</span></span><span style="display:flex;"><span>		fid-&gt;i32.parent_ino = parent-&gt;i_ino;
-</span></span><span style="display:flex;"><span>		fid-&gt;i32.parent_gen = parent-&gt;i_generation;
-</span></span><span style="display:flex;"><span>		len = <span style="color:#f60">4</span>;
-</span></span><span style="display:flex;"><span>		type = FILEID_INO32_GEN_PARENT;
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	*max_len = len;	<span style="color:#0f0">// 將實際使用的大小從 max_len 回傳給呼叫者
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>	<span style="color:#f00">return</span> type;	<span style="color:#0f0">// 回傳編碼的方式
-</span></span></span><span style="display:flex;"><span><span style="color:#0f0"></span>}</span></span></code></pre></div>
-<p>　　每個檔案系統根據其需求可自行編碼不同的內容及大小，只要能確保找到唯一對應的檔案即可，例如 btrfs 至少得多存 root object ID，因為他的 inode number 在不同 subvolume 內是可能重複的。</p>
-<p>　　fh_to_dentry 實作 fileid 的解碼工作，給定一個 fileid，回傳檔案的 dentry，這個就沒有預設實作了，每個檔案系統要根據他的 layout 方式取回對應的 dentry，之後 nfs server 便可以透過該 dentry 進行檔案操作。</p>
-<p>　　fh_to_parent 實作 fileid 的另一部份解碼工作，如果 parent 資訊有存入 fileid，則回傳該 fileid 內所紀錄的 parent dentry。get_parent 則是給定一個 dentry，回傳該他的 parent dentry。</p>
-<p>　　需要 parent 資訊的主要原因是 subtree_check，當 NFS 伺服端啟用 subtree_check 後，進行檔案操作前會先經過權限的檢查，要進行權限檢查，就勢必要能取回該檔案的完整路徑。NFS 取回完整路徑的方式是透過 fh_to_parent 及 get_parent 這兩個函數，先利用 fh_to_parent 取得檔案的 parent dentry，再透過 get_parent 一路找回根目錄。</p>
-<p>　　已經有 get_parent 函數了為何還要 fh_to_parent 呢？熟悉 ext4 檔案系統架構者就會知道，只有一個檔案的 inode number 是沒辦法直接取得他所在的目錄的，所以才需要在編碼時將他的 parent 一並編入。但如果已知一個目錄，檔案系統就可以透過 &lsquo;..&rsquo; 一路找回根目錄了。</p>
-
-      <div class="share-icons d-flex justify-content-center d-print-none">
-        <a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&text=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98&tw_p=tweetbutton" class="p-2" title="Share on Twitter" target="_blank" rel="nofollow">
-    <div>
-        <span class="fa-stack">
-            <i class="fas fa-circle fa-stack-2x"></i>
-            <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
-        </span>
-    </div>
-    <div class="fa-inverse text-center"><small>Tweet</small></div>
-</a>
-
-<a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&t=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98" class="p-2" title="Share on Facebook" target="_blank" rel="nofollow">
-    <div>
-        <span class="fa-stack">
-            <i class="fas fa-circle fa-stack-2x"></i>
-            <i class="fab fa-facebook fa-stack-1x fa-inverse"></i>
-        </span>
-    </div>
-    <div class="fa-inverse text-center"><small>Share</small></div>
-</a>
-
-<a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&title=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98&source=mattbutton.com" class="p-2" title="Share on LinkedIn" target="_blank" rel="nofollow">
-    <div>
-        <span class="fa-stack">
-            <i class="fas fa-circle fa-stack-2x"></i>
-            <i class="fab fa-linkedin fa-stack-1x fa-inverse"></i>
-        </span>
-    </div>
-    <div class="fa-inverse text-center"><small>Share</small></div>
-</a>
-
-<a href="javascript:window.print()" title="Print this article" class="p-2" target="_blank" rel="nofollow">
-    <div>
-        <span class="fa-stack">
-            <i class="fas fa-circle fa-stack-2x"></i>
-            <i class="fa fa-print fa-stack-1x fa-inverse"></i>
-        </span>
-    </div>
-    <div class="fa-inverse text-center"><small>Print</small></div>
-</a>
-      </div>
-    </div>
-
-    
-
-    
-    
-<div id="giscus-comments">
-  <script src="https://giscus.app/client.js"
-          data-repo="jaycetyle/jaycetyle.github.io"
-          data-repo-id="MDEwOlJlcG9zaXRvcnkxMTYyNTQ2Mjk"
-          data-category="Comments"
-          data-category-id="DIC_kwDOBu3npc4CouiB"
-          data-mapping="pathname"
-          data-theme="preferred_color_scheme"
-          data-lang="zh-TW"
-          crossorigin="anonymous"
-          async>
-  </script>
-</div>
-  </div>
-  <div class="sidebar d-print-none d-none d-xl-block">
-  <h5 class="mt-4 post-title">Recent Posts</h5>
-  <ul class="mt-2 pl-4">
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2025/04/gpt-dark-mode/">全部複製貼上！我用 Chatgpt 幫網站加了一個暗色模式</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
-    
-  </ul>
-  <h5 class="mt-4 text-capitalize post-title">Tags</h5>
-  <ul class="mt-2 pl-4">
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/c/c&#43;&#43;/'>
-      C/C&#43;&#43;
-      <span class="badge badge-pill badge-secondary">11</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>
-      Ubuntu 作業系統
-      <span class="badge badge-pill badge-secondary">7</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/linux-kernel/'>
-      Linux Kernel
-      <span class="badge badge-pill badge-secondary">6</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>
-      開發環境
-      <span class="badge badge-pill badge-secondary">5</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/'>
-      版本控制
-      <span class="badge badge-pill badge-secondary">4</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
-      網站架設
-      <span class="badge badge-pill badge-secondary">4</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E9%96%92%E8%81%8A/'>
-      閒聊
-      <span class="badge badge-pill badge-secondary">4</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/'>
-      樹莓派
-      <span class="badge badge-pill badge-secondary">3</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/ai/'>
-      AI
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/c%23/'>
-      C#
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/linux-system-performance/'>
-      Linux System Performance
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/'>
-      NAS 與資料備份
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/python/'>
-      Python
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-    <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/'>
-      工具軟體
-      <span class="badge badge-pill badge-secondary">1</span>
-      </a>
-    </li>
-    
-  </ul>
-</div>
-
-        </div>
-
-        <footer class="mt-auto footer d-print-none">
-            <div class="container-fluid">
-                <div class="d-flex col-xl-12 justify-content-center">
-                    <div>© 2019<a href="https://blog.jaycetyle.com/about/"> Lin Chieh ( Jayce )</a>. Powered by <a href="https://gohugo.io/">Hugo</a> using <a href='https://www.mattbutton.com'>Matt Button</a>'s <a href='https://github.com/mattbutton/silhouette-hugo'>Silhouette Hugo</a> theme.</div>
-                </div>
-                </hr>
-                <div class="d-flex justify-content-center icons">
-                    <a class="py-2 px-2" href="https://www.linkedin.com/in/chieh-lin-569430a9/"><i class="fab fa-linkedin"></i></a>
-<a class="py-2 px-2" href="https://github.com/jaycetyle/"><i class="fab fa-github"></i></a>
-<a class="py-2 px-2" href='https://blog.jaycetyle.com/index.xml'><i class="fas fa-rss"></i></a>
-
-                </div>
-            </div>
-        </footer>
-
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" defer integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" defer integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" defer integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-
-        
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZFSFPEZG5"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-1ZFSFPEZG5');
-        }
-      </script>
-    </body>
-</html>
+<!doctype html><html lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta property="og:url" content="https://blog.jaycetyle.com/2018/09/nfs-filehandle/"><meta property="og:site_name" content="Jayce 的共享記憶體"><meta property="og:title" content="Linux NFS filehandle 筆記"><meta property="og:description" content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。"><meta property="og:locale" content="zh_tw"><meta property="og:type" content="article"><meta property="article:section" content="post"><meta property="article:published_time" content="2018-09-08T00:00:00+00:00"><meta property="article:modified_time" content="2025-04-02T00:00:00+00:00"><meta property="article:tag" content="Linux Kernel"><meta name=twitter:card content="summary"><meta name=twitter:title content="Linux NFS filehandle 筆記"><meta name=twitter:description content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。"><title>Linux NFS filehandle 筆記 | Jayce 的共享記憶體
+</title><link rel="shortcut icon" href=/images/favicon.ico><link rel="shortcut icon" href=/images/favicon.png><link rel=apple-touch-icon-precomposed href=/images/apple-touch-icon-precomposed.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=/images/apple-touch-icon-72x72-precomposed.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=/images/apple-touch-icon-114x114-precomposed.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=/images/apple-touch-icon-144x144-precomposed.png><link href="https://fonts.googleapis.com/css?family=Oswald:400" rel=stylesheet><link rel=stylesheet href=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css integrity=sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO crossorigin=anonymous><link rel=stylesheet href=https://use.fontawesome.com/releases/v5.5.0/css/all.css integrity=sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU crossorigin=anonymous><link rel=stylesheet href=https://blog.jaycetyle.com/css/styles.min.6a7e3e1c24ad4b4b16f344cfc54f4b5a4e92f35366ada3879f0176264c5f99b9.css integrity="sha256-an4+HCStS0sW80TPxU9LWk6S81NmraOHnwF2Jkxfmbk="><link id=theme-style rel=stylesheet href><script>window.themeUrls={light:"/css/light.min.0d91bc92b83a6a8aac989d53ce618ea99f98702fd931a07d8219dd7c3ae030eb.css",dark:"/css/dark.min.af88a93f842d8c67b00708066264a518670df2f2fc97f2246b1282d6c721961c.css"}</script><link rel=me type=text/html href=https://www.linkedin.com/in/chieh-lin-569430a9/><link rel="shortcut icon" href=/images/favicon.ico><link rel="shortcut icon" href=/images/favicon.png><link rel=apple-touch-icon-precomposed href=/images/apple-touch-icon-precomposed.png><link rel=apple-touch-icon-precomposed sizes=72x72 href=/images/apple-touch-icon-72x72-precomposed.png><link rel=apple-touch-icon-precomposed sizes=114x114 href=/images/apple-touch-icon-114x114-precomposed.png><link rel=apple-touch-icon-precomposed sizes=144x144 href=/images/apple-touch-icon-144x144-precomposed.png><link rel=alternate type=application/rss+xml href=https://blog.jaycetyle.com/index.xml><meta charset=utf-8><meta name=author content><meta name=copyright content><meta name=description content="最近因為在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle，是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個文件。"><style type=text/css>.feature-image{background-image:linear-gradient( rgba(0,0,0,.15),rgba(0,0,0,.15) ),url(https://blog.jaycetyle.com/images/banner.jpg);height:400px;background-repeat:no-repeat;background-size:cover;background-position:50%}.feature-image-text{margin-top:20px}@media(max-width:1024px){.feature-image{height:300px}}@media(max-width:768px){.feature-image{height:250px}}@media(max-width:520px){.feature-image{display:none}}</style></head><body><nav class="navbar fixed-top navbar-expand-md navbar-primary bg-primary py-1 top-nav"><div class=container><a href=https://blog.jaycetyle.com/><img alt class=logo src=https://blog.jaycetyle.com//images/logo.png></a>
+<a class="navbar-brand pr-4 d-none d-sm-block" href=https://blog.jaycetyle.com/>Jayce's Shared Memory</a>
+<button class="navbar-toggler collapsed" type=button data-toggle=collapse data-target=#navbarCollapse aria-controls=navbarCollapse aria-expanded=false aria-label="Toggle navigation">
+<i class="fas fa-bars" style=color:#000></i></button><div class="navbar-collapse collapse" id=navbarCollapse><ul class="navbar-nav mr-auto"><li class=nav-item><a class="nav-link active" href=https://blog.jaycetyle.com/>Home</a></li><li class=nav-item><a class="nav-link active" href=https://blog.jaycetyle.com/archive/>Archive</a></li><li class=nav-item><a class="nav-link active" href=https://github.com/jaycetyle>Github</a></li><li class=nav-item><a class="nav-link active" href=https://blog.jaycetyle.com/about/>About</a></li><li class=nav-item><button id=theme-toggle class=nav-link style="background:0 0;border:none;color:inherit;cursor:pointer">
+🌙</button></li><script>document.addEventListener("DOMContentLoaded",function(){const s=document.getElementById("theme-style"),t=document.getElementById("theme-toggle");function o(){return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"}function n(e){s.href=window.themeUrls[e],t.textContent=e==="dark"?"☀️":"🌙";const n=document.querySelector("iframe.giscus-frame");n&&n.contentWindow.postMessage({giscus:{setConfig:{theme:e}}},"https://giscus.app")}let e=o();n(e),t.addEventListener("click",function(){e=e==="dark"?"light":"dark",n(e)})})</script></ul></div></div></nav><header class=feature-image><div class="feature-image-text white-shadow-text"><h1 class=font-weight:bold>Linux NFS filehandle 筆記</h1></div></header><div class="container main my-4"><div class="post p-3 p-sm-5"><h3 class=post-title>Linux NFS filehandle 筆記</h3><div class="mt-2 mb-3"><small><strong>By Lin Chieh (Jayce)</strong>
+| <i class="far fa-calendar-alt"></i>&nbsp;Sep 8, 2018&nbsp;
+| <i class="fa fa-tags" title=Tags aria-hidden=true></i> <a href=/tags/linux-kernel/>Linux Kernel</a></small></div><div class="mt-4 mb-4 main-content"><p>　　最近在看 Linux NFS 相關的程式碼，趁還有點記憶的時候來筆記一下，這篇主要筆記 NFS filehandle 的運作機制。</p><h3 id=基本概念>基本概念</h3><p>　　filehandle 是 NFS 操作遠端檔案系統的最基礎機制之一，用來表示一個對應的文件，從 C 語言的角度來看，他很類似 fopen 所得到的 file descriptor，對於使用者而言，filehandle/file descriptor 是一種不透明(opaque)的資料結構，使用者不需要知道他實際上存了些什麼，只要知道有他就可以操作到對應的檔案。</p><p>　　相較於直接使用檔案路徑來表示一個檔案，使用 filehandle 有兩個主要的優點及目的，首先，filehandle 通常是一個較小且較為固定的大小，對網路傳輸有其便利性，其次是他總是代表相同的檔案，就算對象檔案被重新命名或是被移動過，他還是能找回原本的那個檔案。</p><h3 id=filehandle-結構>filehandle 結構</h3><p>　　filehandle 主要包含了兩個主要成份，分別是代表匯出路徑(export point)檔案系統的 fsid，以及代表檔案系統內一個檔案的 fileid，我們可以看 Linux 核心內是如何定義他：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:red>struct</span> nfs_fhbase_new {
+</span></span><span style=display:flex><span>	__u8		fb_version;	<span style=color:#0f0>/* 代表版本，目前固定為 1, even =&gt; nfs_fhbase_old */</span>
+</span></span><span style=display:flex><span>	__u8		fb_auth_type;	<span style=color:#0f0>/* deprecated 沒有被使用 */</span>
+</span></span><span style=display:flex><span>	__u8		fb_fsid_type;
+</span></span><span style=display:flex><span>	__u8		fb_fileid_type;
+</span></span><span style=display:flex><span>	__u32		fb_auth[<span style=color:#f60>1</span>];	<span style=color:#0f0>/* deprecated 沒有被使用 */</span>
+</span></span><span style=display:flex><span><span style=color:#0f0>/*	__u32		fb_fsid[0]; floating */</span>
+</span></span><span style=display:flex><span><span style=color:#0f0>/*	__u32		fb_fileid[0]; floating */</span>
+</span></span><span style=display:flex><span>};</span></span></code></pre></div><p>　　fb_auth_type 及 fb_auth 已經是 deprecated 沒有被使用，因此主要的部份就只剩下 fsid 及 fileid。</p><h3 id=fsid>fsid</h3><p>　　fb_fsid_type 用來表示後面的 fb_fsid 如何表示一個匯出的檔案系統，這兩個值我沒完全搞懂他到底是如何在 user space 和 kernel space 之間傳遞，之後要找時間再深入看一下，但就我目前認知的是，他是由 nfs-utils 內的 <strong>mountd</strong> 來做初始設定。</p><p>　　剛開始我也很疑惑為何是 mountd，但仔細思考了一下，給掌管匯出路徑的 mountd 來指定 fsid 也是合理的。也許會問，平常更新 /etc/exports 時都是透過 exportfs 來重新載入，難道不是 exportfs 在管理匯出嗎？但實際上 exportfs 比較像是 mountd 的輔助程式，真正和核心溝通的還是 mountd。</p><p>　　mountd 在決定 fsid 時大致上有二種方式，第一種是使用者在 /etc/exports 內直接指定 fsid=NUM，第二種是使用 UUID，而 UUID 又有兩種取得方式，第一種，也是優先選擇的是檔案系統掛載的 blkid，第二種是透過 statfs 取得 filesystem 的 UUID。</p><p>　　不同的 filesystem 適用於不同的 UUID 取得方式，例如 FAT 透過 statfs 得到的 fsid 是 device number，但 device number 是可能會改變的，因此並不恰當。相反的例子是 btrfs 的 subvolume，每個 subvolume 有不同的 fsid，但共用同一個 blkid，btrfs 使用 fsid 會有他的意義。</p><p>　　相關的程式碼位於 <a href="http://git.linux-nfs.org/?p=steved/nfs-utils.git;a=blob;f=utils/mountd/cache.c">nfs-utils/utils/mountd/cache.c</a> 內的 uuid_by_path 函式。</p><h3 id=fileid>fileid</h3><p>　　fileid 的編碼(encode) 則是由每個檔案系統自行實作，這也是一個檔案系統要支援 NFS 最基本需要實作的部份，相關的函式介面定義在以下結構，最核心的函數為 encode_fh、fh_to_dentry、fh_to_parent 及 get_parent：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:red>struct</span> export_operations {
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*encode_fh)(<span style=color:red>struct</span> inode *inode, __u32 *fh, <span style=color:violet>int</span> *max_len,
+</span></span><span style=display:flex><span>			<span style=color:red>struct</span> inode *parent);
+</span></span><span style=display:flex><span>	<span style=color:red>struct</span> dentry * (*fh_to_dentry)(<span style=color:red>struct</span> super_block *sb, <span style=color:red>struct</span> fid *fid,
+</span></span><span style=display:flex><span>			<span style=color:violet>int</span> fh_len, <span style=color:violet>int</span> fh_type);
+</span></span><span style=display:flex><span>	<span style=color:red>struct</span> dentry * (*fh_to_parent)(<span style=color:red>struct</span> super_block *sb, <span style=color:red>struct</span> fid *fid,
+</span></span><span style=display:flex><span>			<span style=color:violet>int</span> fh_len, <span style=color:violet>int</span> fh_type);
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*get_name)(<span style=color:red>struct</span> dentry *parent, <span style=color:violet>char</span> *name,
+</span></span><span style=display:flex><span>			<span style=color:red>struct</span> dentry *child);
+</span></span><span style=display:flex><span>	<span style=color:red>struct</span> dentry * (*get_parent)(<span style=color:red>struct</span> dentry *child);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#0f0>/* 在這以下的函數只有 xfs 有實作 */</span>
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*commit_metadata)(<span style=color:red>struct</span> inode *inode);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#0f0>/* 以下幾個函數和 pnfs 有關，但我還不確定用途 */</span>
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*get_uuid)(<span style=color:red>struct</span> super_block *sb, u8 *buf, u32 *len, u64 *offset);
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*map_blocks)(<span style=color:red>struct</span> inode *inode, <span style=color:violet>loff_t</span> offset,
+</span></span><span style=display:flex><span>			  u64 len, <span style=color:red>struct</span> iomap *iomap,
+</span></span><span style=display:flex><span>			  <span style=color:violet>bool</span> write, u32 *device_generation);
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> (*commit_blocks)(<span style=color:red>struct</span> inode *inode, <span style=color:red>struct</span> iomap *iomaps,
+</span></span><span style=display:flex><span>			     <span style=color:violet>int</span> nr_iomaps, <span style=color:red>struct</span> iattr *iattr);
+</span></span><span style=display:flex><span>};</span></span></code></pre></div><p>　　encode_fh 將一個檔案的 inode 轉為 fileid，如果 parent 不為 NULL 的話，必須將該檔案的 parent 目錄 inode 也一並存入 fileid。這個函數有預設實作，會存 32bits inode number 及 inode generation，如以下結構：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:red>struct</span> {
+</span></span><span style=display:flex><span>	u32 ino;
+</span></span><span style=display:flex><span>	u32 gen;
+</span></span><span style=display:flex><span>	u32 parent_ino;
+</span></span><span style=display:flex><span>	u32 parent_gen;
+</span></span><span style=display:flex><span>} i32;</span></span></code></pre></div><p>　　我們可以在核心的 fs/exportfs/expfs.c 找到這個預設的實作：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-c data-lang=c><span style=display:flex><span><span style=color:red>static</span> <span style=color:violet>int</span> <span style=color:#ff0>export_encode_fh</span>(<span style=color:red>struct</span> inode *inode, <span style=color:red>struct</span> fid *fid,
+</span></span><span style=display:flex><span>		<span style=color:violet>int</span> *max_len, <span style=color:red>struct</span> inode *parent)
+</span></span><span style=display:flex><span>{
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> len = *max_len;
+</span></span><span style=display:flex><span>	<span style=color:violet>int</span> type = FILEID_INO32_GEN;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#0f0>// 確認提供的空間夠大，不夠大的話則將所需要的大小透過 max_len 回傳給呼叫者
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>	<span style=color:red>if</span> (parent &amp;&amp; (len &lt; <span style=color:#f60>4</span>)) {
+</span></span><span style=display:flex><span>		*max_len = <span style=color:#f60>4</span>;
+</span></span><span style=display:flex><span>		<span style=color:red>return</span> FILEID_INVALID; <span style=color:#0f0>// 0xFF 代表無效的 FILEID
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>	} <span style=color:red>else</span> <span style=color:red>if</span> (len &lt; <span style=color:#f60>2</span>) {
+</span></span><span style=display:flex><span>		*max_len = <span style=color:#f60>2</span>;
+</span></span><span style=display:flex><span>		<span style=color:red>return</span> FILEID_INVALID;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#0f0>// 填入檔案的 inode number 及 generation
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>	len = <span style=color:#f60>2</span>;
+</span></span><span style=display:flex><span>	fid-&gt;i32.ino = inode-&gt;i_ino;
+</span></span><span style=display:flex><span>	fid-&gt;i32.gen = inode-&gt;i_generation;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>	<span style=color:#0f0>// 如果呼叫者有提供 parent，則將 parent 一併編入 fileid
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>	<span style=color:red>if</span> (parent) {
+</span></span><span style=display:flex><span>		fid-&gt;i32.parent_ino = parent-&gt;i_ino;
+</span></span><span style=display:flex><span>		fid-&gt;i32.parent_gen = parent-&gt;i_generation;
+</span></span><span style=display:flex><span>		len = <span style=color:#f60>4</span>;
+</span></span><span style=display:flex><span>		type = FILEID_INO32_GEN_PARENT;
+</span></span><span style=display:flex><span>	}
+</span></span><span style=display:flex><span>	*max_len = len;	<span style=color:#0f0>// 將實際使用的大小從 max_len 回傳給呼叫者
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>	<span style=color:red>return</span> type;	<span style=color:#0f0>// 回傳編碼的方式
+</span></span></span><span style=display:flex><span><span style=color:#0f0></span>}</span></span></code></pre></div><p>　　每個檔案系統根據其需求可自行編碼不同的內容及大小，只要能確保找到唯一對應的檔案即可，例如 btrfs 至少得多存 root object ID，因為他的 inode number 在不同 subvolume 內是可能重複的。</p><p>　　fh_to_dentry 實作 fileid 的解碼工作，給定一個 fileid，回傳檔案的 dentry，這個就沒有預設實作了，每個檔案系統要根據他的 layout 方式取回對應的 dentry，之後 nfs server 便可以透過該 dentry 進行檔案操作。</p><p>　　fh_to_parent 實作 fileid 的另一部份解碼工作，如果 parent 資訊有存入 fileid，則回傳該 fileid 內所紀錄的 parent dentry。get_parent 則是給定一個 dentry，回傳該他的 parent dentry。</p><p>　　需要 parent 資訊的主要原因是 subtree_check，當 NFS 伺服端啟用 subtree_check 後，進行檔案操作前會先經過權限的檢查，要進行權限檢查，就勢必要能取回該檔案的完整路徑。NFS 取回完整路徑的方式是透過 fh_to_parent 及 get_parent 這兩個函數，先利用 fh_to_parent 取得檔案的 parent dentry，再透過 get_parent 一路找回根目錄。</p><p>　　已經有 get_parent 函數了為何還要 fh_to_parent 呢？熟悉 ext4 檔案系統架構者就會知道，只有一個檔案的 inode number 是沒辦法直接取得他所在的目錄的，所以才需要在編碼時將他的 parent 一並編入。但如果已知一個目錄，檔案系統就可以透過 &lsquo;..&rsquo; 一路找回根目錄了。</p><div class="share-icons d-flex justify-content-center d-print-none"><a href="https://twitter.com/intent/tweet?url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&text=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98&tw_p=tweetbutton" class=p-2 title="Share on Twitter" target=_blank rel=nofollow><div><span class=fa-stack><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-twitter fa-stack-1x fa-inverse"></i></span></div><div class="fa-inverse text-center"><small>Tweet</small></div></a><a href="https://www.facebook.com/sharer.php?u=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&t=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98" class=p-2 title="Share on Facebook" target=_blank rel=nofollow><div><span class=fa-stack><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-facebook fa-stack-1x fa-inverse"></i></span></div><div class="fa-inverse text-center"><small>Share</small></div></a><a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3a%2f%2fblog.jaycetyle.com%2f2018%2f09%2fnfs-filehandle%2f&title=Linux%20NFS%20filehandle%20%e7%ad%86%e8%a8%98&source=mattbutton.com" class=p-2 title="Share on LinkedIn" target=_blank rel=nofollow><div><span class=fa-stack><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fab fa-linkedin fa-stack-1x fa-inverse"></i></span></div><div class="fa-inverse text-center"><small>Share</small></div></a><a href=javascript:window.print() title="Print this article" class=p-2 target=_blank rel=nofollow><div><span class=fa-stack><i class="fas fa-circle fa-stack-2x"></i>
+<i class="fa fa-print fa-stack-1x fa-inverse"></i></span></div><div class="fa-inverse text-center"><small>Print</small></div></a></div></div><div id=giscus-comments><script src=https://giscus.app/client.js data-repo=jaycetyle/jaycetyle.github.io data-repo-id=MDEwOlJlcG9zaXRvcnkxMTYyNTQ2Mjk data-category=Comments data-category-id=DIC_kwDOBu3npc4CouiB data-mapping=pathname data-theme=preferred_color_scheme data-lang=zh-TW crossorigin=anonymous async></script></div></div><div class="sidebar d-print-none d-none d-xl-block"><h5 class="mt-4 post-title">Recent Posts</h5><ul class="mt-2 pl-4"><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com/2025/04/gpt-dark-mode/>全部複製貼上！我用 Chatgpt 幫網站加了一個暗色模式</a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com/2021/10/linux-fio-tips/>Linux fio 測試參數的眉眉角角</a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/>Kprobe Userspace Tool 使用筆記</a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/>Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com/2019/11/passing-smart-pointer/>[C++] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li></ul><h5 class="mt-4 text-capitalize post-title">Tags</h5><ul class="mt-2 pl-4"><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/c/c++/>C/C++
+<span class="badge badge-pill badge-secondary">11</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/>Ubuntu 作業系統
+<span class="badge badge-pill badge-secondary">7</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/linux-kernel/>Linux Kernel
+<span class="badge badge-pill badge-secondary">6</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/>開發環境
+<span class="badge badge-pill badge-secondary">5</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/>版本控制
+<span class="badge badge-pill badge-secondary">4</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/>網站架設
+<span class="badge badge-pill badge-secondary">4</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E9%96%92%E8%81%8A/>閒聊
+<span class="badge badge-pill badge-secondary">4</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E6%A8%B9%E8%8E%93%E6%B4%BE/>樹莓派
+<span class="badge badge-pill badge-secondary">3</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/ai/>AI
+<span class="badge badge-pill badge-secondary">1</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/c%23/>C#
+<span class="badge badge-pill badge-secondary">1</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/linux-system-performance/>Linux System Performance
+<span class="badge badge-pill badge-secondary">1</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/nas-%E8%88%87%E8%B3%87%E6%96%99%E5%82%99%E4%BB%BD/>NAS 與資料備份
+<span class="badge badge-pill badge-secondary">1</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/python/>Python
+<span class="badge badge-pill badge-secondary">1</span></a></li><li class="mt-2 mb-2"><a href=https://blog.jaycetyle.com//tags/%E5%B7%A5%E5%85%B7%E8%BB%9F%E9%AB%94/>工具軟體
+<span class="badge badge-pill badge-secondary">1</span></a></li></ul></div></div><footer class="mt-auto footer d-print-none"><div class=container-fluid><div class="d-flex col-xl-12 justify-content-center"><div>© 2019<a href=https://blog.jaycetyle.com/about/> Lin Chieh ( Jayce )</a>. Powered by <a href=https://gohugo.io/>Hugo</a> using <a href=https://www.mattbutton.com>Matt Button</a>'s <a href=https://github.com/mattbutton/silhouette-hugo>Silhouette Hugo</a> theme.</div></div></hr><div class="d-flex justify-content-center icons"><a class="py-2 px-2" href=https://www.linkedin.com/in/chieh-lin-569430a9/><i class="fab fa-linkedin"></i></a>
+<a class="py-2 px-2" href=https://github.com/jaycetyle/><i class="fab fa-github"></i></a>
+<a class="py-2 px-2" href=https://blog.jaycetyle.com/index.xml><i class="fas fa-rss"></i></a></div></div></footer><script src=https://code.jquery.com/jquery-3.3.1.slim.min.js defer integrity=sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo crossorigin=anonymous></script><script src=https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js defer integrity=sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49 crossorigin=anonymous></script><script src=https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js defer integrity=sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy crossorigin=anonymous></script><script async src="https://www.googletagmanager.com/gtag/js?id=G-1ZFSFPEZG5"></script><script>var dnt,doNotTrack=!1;if(!1&&(dnt=navigator.doNotTrack||window.doNotTrack||navigator.msDoNotTrack,doNotTrack=dnt=="1"||dnt=="yes"),!doNotTrack){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-1ZFSFPEZG5")}</script></body></html>

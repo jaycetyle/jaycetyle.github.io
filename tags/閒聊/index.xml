@@ -1,40 +1,11 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>閒聊 on Jayce 的共享記憶體</title>
-    <link>https://blog.jaycetyle.com/tags/%E9%96%92%E8%81%8A/</link>
-    <description>Recent content in 閒聊 on Jayce 的共享記憶體</description>
-    <generator>Hugo</generator>
-    <language>zh-tw</language>
-    <lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://blog.jaycetyle.com/tags/%E9%96%92%E8%81%8A/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>業餘自學 Machine Learning 經驗分享</title>
-      <link>https://blog.jaycetyle.com/2018/05/self-learn-ml/</link>
-      <pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.jaycetyle.com/2018/05/self-learn-ml/</guid>
-      <description>&lt;p&gt;　　這幾年人工智慧 (AI)、機器學習 (Machine Learning) 是非常紅的話題，這些對我來說一直就像是個黑盒子，在學校沒學過，新聞和網路上的資訊又很複雜，很容易被誤導，在今年年初的時候下定決心要來研究一下。但從學校畢業以後，要學這些新技術只能靠自己了，以下分享一些學習經驗給有興趣的&lt;strong&gt;業餘人士&lt;/strong&gt;參考，揭露 Machine Learning 的神秘面紗。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>機械跨軟體開發心得分享 - 入門篇</title>
-      <link>https://blog.jaycetyle.com/2018/04/me-to-cs/</link>
-      <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.jaycetyle.com/2018/04/me-to-cs/</guid>
-      <description>&lt;p&gt;　　從大學到碩士一路都是機械系讀上來，畢業後經歷了幾年輾轉到了現在的工作崗位: Linux 檔案系統相關開發維護，我覺得我已經幾乎脫離原本機械系的領域。雖然我不能稱上是很厲害的軟體工程師，心裡多少也還是有點機械魂，會走到這裡也是一種機運，但我想應該不少人也會有半路想跨領域的想法，而這裡分享一些我個人的經驗以及學習歷程給一些也想跨到軟體開發的人參考。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>新年 新文章 新氣象</title>
-      <link>https://blog.jaycetyle.com/2018/01/first-post/</link>
-      <pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.jaycetyle.com/2018/01/first-post/</guid>
-      <description>&lt;p&gt;　　花了三個下班後的晚上，總算安置好部落格了，重啟部落格算是今年 2018 的一個小目標。上一個部落格「大腦的外接記憶體」，自認算是經營得還不錯，不少文章都有不錯的點閱率，也有獲得一點回饋，但後來忙碌怠惰了以後就一直沒有去更新他，對那些給予指教的網友們也是心有慚愧。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>關於我</title>
-      <link>https://blog.jaycetyle.com/about/</link>
-      <pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>https://blog.jaycetyle.com/about/</guid>
-      <description>&lt;h2 id=&#34;lin-chieh-jayce&#34;&gt;Lin Chieh (Jayce)&lt;/h2&gt;&#xA;&lt;p&gt;　　一個熱愛程式與科技的軟體工程師，機械研究所的背景造就了一個有一點歪歪的技能樹，專長領域有設備自動化控制及 Windows 軟體開發，不過目前工作主要接觸 Linux 核心 (疑?)。&lt;/p&gt;&#xA;&lt;p&gt;　　數年的軟體開發與職涯探索了不少領域，體認到了工程師保持靈活、持續學習的重要性，只要基礎札實，各種任務都一樣能夠手到擒來。如果您有任何想討論的問題或疑問，或是想認識不帥的宅宅作者 (宅也是一種專業表現！)，都歡迎透過&lt;a href=&#34;mailto:jaycetyle@gmail.com&#34;&gt;郵件 jaycetyle@gmail.com&lt;/a&gt; 與我聯絡。&lt;/p&gt;&#xA;&lt;p&gt;　　&lt;/p&gt;&#xA;&lt;figure class=&#34;half center&#34;&gt;&#xA;&#x9;&lt;img src=&#34;https://blog.jaycetyle.com/images/avatar.jpg&#34; style=&#34;border-radius:100%&#34;&gt;&#xA;&lt;/figure&gt;&#xA;&lt;p&gt;　&lt;/p&gt;&#xA;&lt;h2 id=&#34;其他網站連結&#34;&gt;其他網站連結&lt;/h2&gt;&#xA;&lt;p&gt;　　&lt;a href=&#34;https://travelpig.jaycetyle.com/&#34;&gt;&lt;strong&gt;大豬小豬趴趴走&lt;/strong&gt;&lt;/a&gt;  ：  小豬豬與 Jayce 的遊記部落格&lt;/p&gt;&#xA;&lt;p&gt;　&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>閒聊 on Jayce 的共享記憶體</title><link>https://blog.jaycetyle.com/tags/%E9%96%92%E8%81%8A/</link><description>Recent content in 閒聊 on Jayce 的共享記憶體</description><generator>Hugo</generator><language>zh-tw</language><lastBuildDate>Wed, 02 Apr 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.jaycetyle.com/tags/%E9%96%92%E8%81%8A/index.xml" rel="self" type="application/rss+xml"/><item><title>業餘自學 Machine Learning 經驗分享</title><link>https://blog.jaycetyle.com/2018/05/self-learn-ml/</link><pubDate>Sat, 19 May 2018 00:00:00 +0000</pubDate><guid>https://blog.jaycetyle.com/2018/05/self-learn-ml/</guid><description>&lt;p>　　這幾年人工智慧 (AI)、機器學習 (Machine Learning) 是非常紅的話題，這些對我來說一直就像是個黑盒子，在學校沒學過，新聞和網路上的資訊又很複雜，很容易被誤導，在今年年初的時候下定決心要來研究一下。但從學校畢業以後，要學這些新技術只能靠自己了，以下分享一些學習經驗給有興趣的&lt;strong>業餘人士&lt;/strong>參考，揭露 Machine Learning 的神秘面紗。&lt;/p></description></item><item><title>機械跨軟體開發心得分享 - 入門篇</title><link>https://blog.jaycetyle.com/2018/04/me-to-cs/</link><pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate><guid>https://blog.jaycetyle.com/2018/04/me-to-cs/</guid><description>&lt;p>　　從大學到碩士一路都是機械系讀上來，畢業後經歷了幾年輾轉到了現在的工作崗位: Linux 檔案系統相關開發維護，我覺得我已經幾乎脫離原本機械系的領域。雖然我不能稱上是很厲害的軟體工程師，心裡多少也還是有點機械魂，會走到這裡也是一種機運，但我想應該不少人也會有半路想跨領域的想法，而這裡分享一些我個人的經驗以及學習歷程給一些也想跨到軟體開發的人參考。&lt;/p></description></item><item><title>新年 新文章 新氣象</title><link>https://blog.jaycetyle.com/2018/01/first-post/</link><pubDate>Fri, 05 Jan 2018 00:00:00 +0000</pubDate><guid>https://blog.jaycetyle.com/2018/01/first-post/</guid><description>&lt;p>　　花了三個下班後的晚上，總算安置好部落格了，重啟部落格算是今年 2018 的一個小目標。上一個部落格「大腦的外接記憶體」，自認算是經營得還不錯，不少文章都有不錯的點閱率，也有獲得一點回饋，但後來忙碌怠惰了以後就一直沒有去更新他，對那些給予指教的網友們也是心有慚愧。&lt;/p></description></item><item><title>關於我</title><link>https://blog.jaycetyle.com/about/</link><pubDate>Thu, 04 Jan 2018 00:00:00 +0000</pubDate><guid>https://blog.jaycetyle.com/about/</guid><description>&lt;h2 id="lin-chieh-jayce">Lin Chieh (Jayce)&lt;/h2>
+&lt;p>　　一個熱愛程式與科技的軟體工程師，機械研究所的背景造就了一個有一點歪歪的技能樹，專長領域有設備自動化控制及 Windows 軟體開發，不過目前工作主要接觸 Linux 核心 (疑?)。&lt;/p>
+&lt;p>　　數年的軟體開發與職涯探索了不少領域，體認到了工程師保持靈活、持續學習的重要性，只要基礎札實，各種任務都一樣能夠手到擒來。如果您有任何想討論的問題或疑問，或是想認識不帥的宅宅作者 (宅也是一種專業表現！)，都歡迎透過&lt;a href="mailto:jaycetyle@gmail.com">郵件 jaycetyle@gmail.com&lt;/a> 與我聯絡。&lt;/p>
+&lt;p>　　&lt;/p>
+&lt;figure class="half center">
+	&lt;img src="https://blog.jaycetyle.com/images/avatar.jpg" style="border-radius:100%">
+&lt;/figure>
+&lt;p>　&lt;/p>
+&lt;h2 id="其他網站連結">其他網站連結&lt;/h2>
+&lt;p>　　&lt;a href="https://travelpig.jaycetyle.com/">&lt;strong>大豬小豬趴趴走&lt;/strong>&lt;/a> ： 小豬豬與 Jayce 的遊記部落格&lt;/p>
+&lt;p>　&lt;/p></description></item></channel></rss>
