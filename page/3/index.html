@@ -130,6 +130,16 @@
         function setTheme(theme) {
             themeLink.href = window.themeUrls[theme];
             toggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (iframe) {
+            iframe.contentWindow.postMessage({
+                giscus: {
+                setConfig: {
+                    theme: theme
+                }
+                }
+            }, 'https://giscus.app');
+            }
         }
 
         let currentTheme = getPreferredTheme();

@@ -169,6 +169,16 @@
         function setTheme(theme) {
             themeLink.href = window.themeUrls[theme];
             toggleBtn.textContent = theme === "dark" ? "☀️" : "🌙";
+            const iframe = document.querySelector('iframe.giscus-frame');
+            if (iframe) {
+            iframe.contentWindow.postMessage({
+                giscus: {
+                setConfig: {
+                    theme: theme
+                }
+                }
+            }, 'https://giscus.app');
+            }
         }
 
         let currentTheme = getPreferredTheme();
@@ -264,26 +274,21 @@
 
     
 
-    <div id="disqus_thread"></div>
-<script>
-    window.disqus_config = function () {
     
     
-    
-    };
-    (function() {
-        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
-            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
-            return;
-        }
-        var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "jaycetyle" + '.disqus.com/embed.js';
-        s.setAttribute('data-timestamp', +new Date());
-        (d.head || d.body).appendChild(s);
-    })();
-</script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+<div id="giscus-comments">
+  <script src="https://giscus.app/client.js"
+          data-repo="jaycetyle/jaycetyle.github.io"
+          data-repo-id="MDEwOlJlcG9zaXRvcnkxMTYyNTQ2Mjk"
+          data-category="Comments"
+          data-category-id="DIC_kwDOBu3npc4CouiB"
+          data-mapping="pathname"
+          data-theme="preferred_color_scheme"
+          data-lang="zh-TW"
+          crossorigin="anonymous"
+          async>
+  </script>
+</div>
   </div>
   <div class="sidebar d-print-none d-none d-xl-block">
   <h5 class="mt-4 post-title">Recent Posts</h5>
