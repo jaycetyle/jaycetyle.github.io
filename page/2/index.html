@@ -51,7 +51,7 @@
         <script>
             window.themeUrls = {
             light: "\/css\/light.min.0d91bc92b83a6a8aac989d53ce618ea99f98702fd931a07d8219dd7c3ae030eb.css",
-            dark: "\/css\/dark.min.b2aa340dd145dc915676610bb68b02055a3a8bc8361406c8c9e50006ec5bc7be.css"
+            dark: "\/css\/dark.min.af88a93f842d8c67b00708066264a518670df2f2fc97f2246b1282d6c721961c.css"
             };
         </script>
         
@@ -174,6 +174,24 @@
     
     
       <article class="post p-3 p-sm-5 mb-1">
+        <a class="title" href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/"><h3 class="post-title">Visual Studio Code Remote - WSL 安裝教學</h3></a>
+        <div class="mt-2 mb-3">
+    <small>
+        <strong>By Lin Chieh (Jayce)</strong>
+        | <i class="far fa-calendar-alt"></i>&nbsp;Jul 13, 2019&nbsp;
+        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/%E9%96%8B%E7%99%BC%E7%92%B0%E5%A2%83/'>開發環境</a>
+    </small>
+</div>
+        <div>
+            <p>　　最近在思考如何讓<a href="https://marketplace.visualstudio.com/items?itemName=jaycetyle.vscode-gnu-global">我的插件</a>能夠跑在 WSL 裡面，後來發現了 <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-wsl">Visual Studio Code Remote - WSL</a> 這個好東西，它可以讓 VS Code Server 實際執行在 WSL 裡面，只留 UI 介面在 Windows。</p>
+<p>　　這對某些插件非常有用，因為有些東西跑在 Linux 環境是比較容易的。另外 Visual Studio Code Remote 系列還包含 Remote - SSH 模式，這東西就更猛了，如果你的 Build Machine 是遠端的 Linux Server ，他可以直接透過 SSH 跑在 Linux Server 端，像是檔案搜尋等動作，直接執行在遠端 Linux 就會比透過 Samba 或 NFS 快上很多。</p>
+        </div>
+        <div>
+            <a href="https://blog.jaycetyle.com/2019/07/vscode-remote-wsl/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
+        </div>
+      </article>
+    
+      <article class="post p-3 p-sm-5 mb-1">
         <a class="title" href="https://blog.jaycetyle.com/2019/07/more-about-vscode-gnu-global/"><h3 class="post-title">VS Code GNU Global 相依專案路徑設定</h3></a>
         <div class="mt-2 mb-3">
     <small>
@@ -259,23 +277,6 @@
         </div>
       </article>
     
-      <article class="post p-3 p-sm-5 mb-1">
-        <a class="title" href="https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/"><h3 class="post-title">更新 WSL 內的 Ubuntu 到 18.04</h3></a>
-        <div class="mt-2 mb-3">
-    <small>
-        <strong>By Lin Chieh (Jayce)</strong>
-        | <i class="far fa-calendar-alt"></i>&nbsp;Sep 24, 2018&nbsp;
-        | <i class="fa fa-tags" title="Tags" aria-hidden="true"></i> <a href='/tags/ubuntu-%E4%BD%9C%E6%A5%AD%E7%B3%BB%E7%B5%B1/'>Ubuntu 作業系統</a>
-    </small>
-</div>
-        <div>
-            <p>　　Stable Ubuntu 18.04 LTS 正式 release 以後，大家應該陸陸續續開始從 16.04 升上去了，不過 WSL (Windows Subsystem for Linux) 內的 Ubuntu 並不會自動升級，應該也有人發現 Microsoft Store 內多出了 Ubuntu 16.04 LTS 和 Ubuntu 18.04 LTS 兩個 Image，那到底該如何更新呢？</p>
-        </div>
-        <div>
-            <a href="https://blog.jaycetyle.com/2018/09/upgrade-wsl-ubuntu/" class="btn btn-outline-secondary btn-sm" role="button">繼續閱讀</a>
-        </div>
-      </article>
-    
     <div class="d-flex align-items-center justify-content-center">
       
     <ul class="pagination pagination-default">
@@ -313,6 +314,8 @@
   <h5 class="mt-4 post-title">Recent Posts</h5>
   <ul class="mt-2 pl-4">
     
+    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2025/04/gpt-dark-mode/">全部複製貼上！我用 Chatgpt 幫網站加了一個暗色模式</a></li>
+    
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/linux-fio-tips/">Linux fio 測試參數的眉眉角角</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2021/10/kprobe-userspace-tool/">Kprobe Userspace Tool 使用筆記</a></li>
@@ -320,8 +323,6 @@
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/12/linux-bug-on-case-study/">Linux Kernel BUG_ON 傾印訊息分析及案例分享</a></li>
     
     <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/11/passing-smart-pointer/">[C&#43;&#43;] 幾種在函數傳遞 Smart Pointer 的方式整理</a></li>
-    
-    <li class="mt-2 mb-2"><a href="https://blog.jaycetyle.com/2019/10/jekyll-to-hugo/">從 Jekyll 遷移到 Hugo 步驟心得分享</a></li>
     
   </ul>
   <h5 class="mt-4 text-capitalize post-title">Tags</h5>
@@ -363,6 +364,13 @@
     </li>
     
     <li class="mt-2 mb-2">
+      <a href='https://blog.jaycetyle.com//tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
+      網站架設
+      <span class="badge badge-pill badge-secondary">4</span>
+      </a>
+    </li>
+    
+    <li class="mt-2 mb-2">
       <a href='https://blog.jaycetyle.com//tags/%E9%96%92%E8%81%8A/'>
       閒聊
       <span class="badge badge-pill badge-secondary">4</span>
@@ -377,9 +385,9 @@
     </li>
     
     <li class="mt-2 mb-2">
-      <a href='https://blog.jaycetyle.com//tags/%E7%B6%B2%E7%AB%99%E6%9E%B6%E8%A8%AD/'>
-      網站架設
-      <span class="badge badge-pill badge-secondary">3</span>
+      <a href='https://blog.jaycetyle.com//tags/ai/'>
+      AI
+      <span class="badge badge-pill badge-secondary">1</span>
       </a>
     </li>
     
