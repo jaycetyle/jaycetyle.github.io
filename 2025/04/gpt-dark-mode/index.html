@@ -212,21 +212,21 @@
 </div>
 
     <div class="mt-4 mb-4 main-content">
-      <p>　　現在這個部落格支援 Dark Mode 了！看看網站的右上角，應該會有個太陽或月亮的圖示，點擊就可以切換。我自己本身對前端並不熟悉，這次的 Dark Mode 全靠 Chatgpt 協助完成，前前後後也花了兩個多小時，過程中也有許多驚喜與反思，這篇文章就來記錄一下整個流程以及一些心得。</p>
+      <p>　　現在這個部落格支援 Dark Mode 了！看看網站的右上角，應該會有個太陽或月亮的圖示，點擊就可以切換。我本身對前端並不熟悉，這次的 Dark Mode 全靠 Chatgpt 協助完成，前前後後也花了兩個多小時，過程中也有許多驚喜與反思，這篇文章就來記錄一下整個流程及一些心得。</p>
 <p> </p>
 <h3 id="完全不會改直接問">完全不會改，直接問！</h3>
 <pre tabindex="0"><code>我想幫 silhouette-hugo 這個 project 加上暗色模式，請一步一步告訴我該怎麼做
-</code></pre><p>　　這是我在 Chatgpt 上問的第一個問題，直接把專案名稱給丟上去，看他會不會幫我搜尋 XD。Chatgpt 給了幾個步驟，大致上包含：</p>
+</code></pre><p>　　這是我在 Chatgpt 上問的第一個問題，直接把專案名稱給丟上去，看他會不會幫我搜 XD。Chatgpt 給了幾個步驟，大致上包含：</p>
 <ul>
 <li>第一步：確認主題支援自訂 CSS</li>
 <li>第二步：讓這個 CSS 被引入</li>
 <li>第三步：新增切換暗色模式的按鈕</li>
 </ul>
-<p>　　&hellip;以下省略，雖然有大致上的流程，但詳細要改什麼並不清楚，不符合我&quot;全部複製貼上&quot;的需求。於是我就繼續問：</p>
+<p>　　&hellip;以下省略，雖然有大致上的流程，但詳細要改什麼並不清楚，不符合我&quot;全部複製貼上&quot;的需求。於是繼續問：</p>
 <pre tabindex="0"><code>請一步一步幫我改
 https://github.com/mattbutton/silhouette-hugo
 repo 如上，幫我找
-</code></pre><p>　　沒錯！我就是這麼廢，直接把網址丟給他，讓他幫我找，我收到了幾個回饋：</p>
+</code></pre><p>　　沒錯！我就是這麼廢，直接把網址丟給他，讓他幫我找，收到了幾個回饋：</p>
 <ul>
 <li>第一步：新增自訂 CSS
 <ul>
@@ -235,7 +235,7 @@ repo 如上，幫我找
 </li>
 <li>第二步：讓這個 CSS 被引入
 <ul>
-<li>沒有精準告訴我要改哪裡，但大致上是給我一段 code，說要放在 <head> 的 <link rel="stylesheet"> 那段下面</li>
+<li>沒有精準告訴我要改哪裡，但大致上是給我一段 code，說要放在 <code>&lt;head&gt; 的 &lt;link rel=&quot;stylesheet&quot;&gt;</code> 那段下面</li>
 <li>搜尋了一下就照貼</li>
 </ul>
 </li>
@@ -245,11 +245,11 @@ repo 如上，幫我找
 </ul>
 </li>
 </ul>
-<p>　　菜雞如我怎麼可能知道要放哪裡？又跟他來來回回搞了一陣子，例如&quot;有些檔案找不到，repo 如上，幫我找&quot;，&ldquo;沒有 footer.html 這個檔案&rdquo;，&ldquo;請幫我找出要放按鈕的檔案&rdquo;，等等的問題，然後他的回答大概是這樣：</p>
+<p>　　菜雞如我怎麼可能知道要放哪裡？又跟他來來回回搞了一陣子，例如<code>有些檔案找不到，repo 如上，幫我找</code>，<code>沒有 footer.html 這個檔案</code>，<code>請幫我找出要放按鈕的檔案</code>，等等的問題，然後他的回答大概是這樣：</p>
 <pre tabindex="0"><code>檔案位置：
 layouts/partials/head.html（✅ 確實存在）
 ...
-</code></pre><p>　　<strong>聽你在放屁！</strong> 這檔案根本不存在！到這邊我知道限制了，所以我自己大概找了一下適當的位置 (就是你現在看到的右上角)，然後把他給的 code 貼上去。此時第一個可以運行的版本出現了</p>
+</code></pre><p>　　<strong>聽你在放屁！</strong> 這檔案根本不存在！到這邊我知道限制了，所以我自己大概找了個適當的位置 (就是你現在看到的右上角)，然後把他給的 code 貼上去。此時第一個可以運行的版本出現了</p>
 <figure class="large center">
 	<img src="/images/2025/04/dark-working-ver1.jpg" alt="">
 </figure>
