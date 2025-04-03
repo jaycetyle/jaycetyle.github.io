@@ -266,7 +266,9 @@ body {
 <p>　　直到這邊其實我並不算滿意，因為我的程式碼實際上變成了兩個很相似的 CSS，分別是 <code>dark.css</code> 和原本的 <code>styles.css</code>，如果我要調 padding、margin、字型等等的話，兩邊都要改，是程式碼壞味道，於是我們開始進入下一階段的重構。</p>
 <p> </p>
 <h3 id="重構讓-css-變乾淨">重構，讓 CSS 變乾淨</h3>
-<pre tabindex="0"><code>幫我調整程式碼，讓 light mode 跟 dark mode 都是獨立的 css，並且只有關於顏色的設定 (也許用變數儲存?)，然後另外一個 css 是關於字體大小等其他 css 設定
+<pre tabindex="0"><code>幫我調整程式碼，讓 light mode 跟 dark mode 都是獨立的 css，
+並且只有關於顏色的設定 (也許用變數儲存?)，
+然後另外一個 css 是關於字體大小等其他 css 設定
 </code></pre><p>　　這裡 Chatgpt 給了我一個我很滿意的答案，大致上如下</p>
 <pre tabindex="0"><code>✅ 目標結構：
 /css/
